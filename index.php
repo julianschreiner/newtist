@@ -63,6 +63,7 @@
     </div>
   </div>
   <div class="row">
+    <h4 class='text-center grey-text lighten-3'>Newest Releases</h4>
     <div class="col s12 m6 l3 cards-container center" ng-show="!userSearched">
        <div class="card blue-grey darken-1" ng-repeat="x in new_releases">
         <div class="card-image">
