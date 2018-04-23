@@ -2,16 +2,23 @@ console.log(access_token);
 
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
-   /*API VARIABLES*/
+   /* API VARIABLES */
    $scope.artist_data = {};
    $scope.artist_id = '';
    $scope.artist_name = '';
    $scope.artist_pop = '';
    $scope.artist_followers = '';
    $scope.artist_image = '';
+   $scope.artist_link = '';
 
    /* USER VARIABLES */
    $scope.userLocation = '';
+
+   /* NEW RELEASES */
+   $scope.new_releases = [];
+
+   /* STATE VARIABLES */
+   $scope.userSearched = false;
 
    //GET USER LOCATION
       $.get("https://ipinfo.io", function(response) {
@@ -19,10 +26,32 @@ app.controller('myCtrl', function($scope) {
         $scope.userLocation = response.country;
     }, "jsonp");
 
+  //GET NEW RELEASES
+  $.ajax({
+          url: 'https://api.spotify.com/v1/browse/new-releases',
+          type: 'GET',
+          headers: {
+              'Authorization' : 'Bearer ' + access_token
+          },
+          success: function(data){
+              console.log(data);
+              
+              $scope.new_releases = data['albums']['items'];
+              $scope.$apply();
+              
+          },
+          error: function(err){
+            alert("cannot get artist data");
+            console.log(err);
+          }
+      }); //AJAX
+
 
    $("button[name = 'artist-submit']").click(function(e){
    var inp_search = $("input[name = 'artist-search']").val();
    var filtered_search =  inp_search.replace(' ', '%20');
+   $scope.userSearched = true;
+
 
    /*SEARCH PROTOTYPE */
   $.ajax({
@@ -47,6 +76,8 @@ app.controller('myCtrl', function($scope) {
                   $scope.artist_pop = data['artists']['items'][i]['popularity'];
                   $scope.artist_followers = data['artists']['items'][i]['followers']['total'];
                   $scope.artist_image = data['artists']['items'][i]['images'][0]['url'];
+                  $scope.artist_link = data['artists']['items'][i]['external_urls']['spotify'];
+
                   $scope.$apply();
                   break;
               }
@@ -87,4 +118,4 @@ app.controller('myCtrl', function($scope) {
 
 
 //TODO LOOK FOR NEWEST TRACKS WHERE NAME = ARTIST IN https://api.spotify.com/v1/browse/new-releases
-
+//TODO FILTER GENRE

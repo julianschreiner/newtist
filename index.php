@@ -43,43 +43,72 @@
 	<title>Newtist</title>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
-	<h2>Newtist</h2>
-    <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-	       <p class="flow-text">Artist:</p>
-	       <input type="text" name="artist-search">
-	       <button type="button" name="artist-submit" class="waves-effect waves-light btn">GET</button>
-        </div>
-        </div>  
+   
+<div class="container center">
+  <div class="row">
+    <div class="col s12 center">
+      <h2 class='text-center'>Newtist</h2>
+      <h4 class='text-center grey-text lighten-3'>
+        By <a href="https://twitter.com/rlated1337">@Julian</a>
+      </h4>
+      <form class="col s12">
+      <div class="row input-field">
+           <p class="flow-text">Artist:</p>
+           <input type="text" name="artist-search" 
+           placeholder="Search Artist e.g Gucci Mane">
+           <button type="button" name="artist-submit" class="waves-effect waves-light btn">Search</button>
+        
+      </div>  
     </form>
-</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m6 l3 cards-container center" ng-show="!userSearched">
+       <div class="card blue-grey darken-1" ng-repeat="x in new_releases">
+        <div class="card-image">
+            <img src="{{ x.images[0].url }}">
+            <span class="card-title">{{ x.name }} by {{ x.artists[0].name}} </span>
+        </div>
+         <div class="card-content white-text">
+           <p>{{ x.artists[0].name }} released {{ x.name }} on {{ x.release_date }}</p>
+         </div>
+         <div class="card-action">
+           <a href="{{ x.artists[0].external_urls.spotify }}" target="_blank">Visit Artist</a><br>
+           <a href="{{ x.external_urls.spotify }}" target="_blank">Visit {{ x.album_type }}</a>
+         </div>
+        </div>
+        <button type="button" name="artist-submit" 
+        class="waves-effect waves-light btn">Load more</button>
+    </div>
 
-    <div class="row" ng-show="artist_name.length > 0">
-    <div class="col s12 m6">
+    <!-- CARD -->
+    <div class="col s12 m4 l8 cards-container" ng-show="userSearched">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
             <div class="card-image">
             <img src="{{ artist_image }}">
-          <span class="card-title">{{artist_name}}</span>
+          <span class="card-title"><strong>{{ artist_name }}</strong></span>
             </div>
           <ul>
             <li>ID: {{ artist_id }}</li>
             <li>Popularity: {{ artist_pop }}</li>
-            <li>Followers:{{ artist_followers }}</li>
+            <li>Followers: {{ artist_followers }}</li>
           </ul>
         </div>
         <div class="card-action">
-          <a href="#">SPOTIFY URI</a>
+          <a href="{{ artist_link }}" target="_blank">SPOTIFY URI</a>
         </div>
       </div>
-    </div>
   </div>
+  <!-- CARD END -->
+  </div>
+</div>
+
 
 </body>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" href="main.css">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
