@@ -10,6 +10,7 @@ app.controller('myCtrl', function($scope) {
    $scope.artist_followers = '';
    $scope.artist_image = '';
    $scope.artist_link = '';
+   $scope.artist_genre = [];
 
    /* USER VARIABLES */
    $scope.userLocation = '';
@@ -19,6 +20,8 @@ app.controller('myCtrl', function($scope) {
 
    /* STATE VARIABLES */
    $scope.userSearched = false;
+   $scope.isLoading = true;
+
 
    //GET USER LOCATION
       $.get("https://ipinfo.io", function(response) {
@@ -37,6 +40,13 @@ app.controller('myCtrl', function($scope) {
               console.log(data);
               
               $scope.new_releases = data['albums']['items'];
+              
+             
+              window.setTimeout(function(){
+                  $scope.isLoading = false;
+                  $scope.$apply();
+              }, 500);
+
               $scope.$apply();
               
           },
@@ -51,11 +61,12 @@ app.controller('myCtrl', function($scope) {
    var inp_search = $("input[name = 'artist-search']").val();
    var filtered_search =  inp_search.replace(' ', '%20');
    $scope.userSearched = true;
+   $scope.$apply();
 
 
    /*SEARCH PROTOTYPE */
   $.ajax({
-      url: 'https://api.spotify.com/v1/search?q='+filtered_search+'&type=artist',
+      url: 'https://api.spotify.com/v1/search?q='+filtered_search+'&type=artist&market=' + $scope.userLocation,
       type: 'GET',
       headers: {
           'Authorization' : 'Bearer ' + access_token
@@ -64,10 +75,8 @@ app.controller('myCtrl', function($scope) {
           //console.log(JSON.stringify(data));
           $scope.artist_data = JSON.stringify(data);
           
-          
           console.log(data);
           console.log(data['artists']['items'].length);
-          
 
           for(var i = 0; i < data['artists']['items'].length; i++){
               if(data['artists']['items'][i]['name'] == inp_search){
@@ -77,6 +86,7 @@ app.controller('myCtrl', function($scope) {
                   $scope.artist_followers = data['artists']['items'][i]['followers']['total'];
                   $scope.artist_image = data['artists']['items'][i]['images'][0]['url'];
                   $scope.artist_link = data['artists']['items'][i]['external_urls']['spotify'];
+                  $scope.artist_genre = data['artists']['items'][i]['genres'];
 
                   $scope.$apply();
                   break;
@@ -115,6 +125,11 @@ app.controller('myCtrl', function($scope) {
 
 });    //ANG APP
 
+app.filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
+});
 
 
 //TODO LOOK FOR NEWEST TRACKS WHERE NAME = ARTIST IN https://api.spotify.com/v1/browse/new-releases
