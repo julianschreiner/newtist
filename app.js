@@ -21,6 +21,8 @@ app.controller('myCtrl', function($scope) {
    /* STATE VARIABLES */
    $scope.userSearched = false;
    $scope.isLoading = true;
+   $scope.searchReqLimit = 20;
+   $scope.searchReqOffset = 0;
 
 
    //GET USER LOCATION
@@ -31,7 +33,7 @@ app.controller('myCtrl', function($scope) {
 
   //GET NEW RELEASES
   $.ajax({
-          url: 'https://api.spotify.com/v1/browse/new-releases',
+          url: 'https://api.spotify.com/v1/browse/new-releases?limit=' + $scope.searchReqLimit + '&offset=' + $scope.searchReqOffset,
           type: 'GET',
           headers: {
               'Authorization' : 'Bearer ' + access_token
@@ -40,8 +42,7 @@ app.controller('myCtrl', function($scope) {
               console.log(data);
               
               $scope.new_releases = data['albums']['items'];
-              
-             
+
               window.setTimeout(function(){
                   $scope.isLoading = false;
                   $scope.$apply();
@@ -51,7 +52,7 @@ app.controller('myCtrl', function($scope) {
               
           },
           error: function(err){
-            alert("cannot get artist data");
+            alert("cannot get newest releases");
             console.log(err);
           }
       }); //AJAX
@@ -122,6 +123,40 @@ app.controller('myCtrl', function($scope) {
       }); //AJAX
       }
    }; //FUNC
+
+   //LOAD-MORE 
+   $("button[name = 'load-more']").click(function(e){
+      $scope.searchReqOffset += 20;
+      $scope.isLoading = true;
+
+      //GET NEW RELEASES
+  $.ajax({
+          url: 'https://api.spotify.com/v1/browse/new-releases?limit=' + $scope.searchReqLimit + '&offset=' + $scope.searchReqOffset,
+          type: 'GET',
+          headers: {
+              'Authorization' : 'Bearer ' + access_token
+          },
+          success: function(data){
+              console.log(data);
+              
+              $scope.new_releases = data['albums']['items'];
+
+              window.setTimeout(function(){
+                  $scope.isLoading = false;
+                  $scope.$apply();
+              }, 500);
+
+              $scope.$apply();
+              
+          },
+          error: function(err){
+            alert("cannot get newest releases");
+            console.log(err);
+          }
+      }); //AJAX
+
+
+   });
 
 });    //ANG APP
 
