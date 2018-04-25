@@ -36,7 +36,6 @@
 </script>
 
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
@@ -62,8 +61,12 @@
     </form>
     </div>
   </div>
+<<<<<<< HEAD
   <div class="row">
     <h4 class='text-center grey-text lighten-3'>Newest Releases</h4>
+=======
+  <div class="row" ng-show="!isLoading">
+>>>>>>> e873a2165f6a22e5e3ae51aa8a6fd67900675202
     <div class="col s12 m6 l3 cards-container center" ng-show="!userSearched">
        <div class="card blue-grey darken-1" ng-repeat="x in new_releases">
         <div class="card-image">
@@ -72,15 +75,21 @@
         </div>
          <div class="card-content white-text">
            <p>{{ x.artists[0].name }} released {{ x.name }} on {{ x.release_date }}</p>
+           <br>
+           <p>Artists:</p>
+           <ul>
+              <li ng-repeat="fa in x.artists">{{ fa.name }} </li>
+           </ul>
          </div>
          <div class="card-action">
            <a href="{{ x.artists[0].external_urls.spotify }}" target="_blank">Visit Artist</a><br>
            <a href="{{ x.external_urls.spotify }}" target="_blank">Visit {{ x.album_type }}</a>
          </div>
         </div>
-        <button type="button" name="artist-submit" 
+        <button type="button" name="load-more" 
         class="waves-effect waves-light btn">Load more</button>
     </div>
+
 
     <!-- CARD -->
     <div class="col s12 m4 l8 cards-container" ng-show="userSearched">
@@ -91,9 +100,9 @@
           <span class="card-title"><strong>{{ artist_name }}</strong></span>
             </div>
           <ul>
-            <li>ID: {{ artist_id }}</li>
             <li>Popularity: {{ artist_pop }}</li>
             <li>Followers: {{ artist_followers }}</li>
+            <li ng-repeat="x in artist_genre">{{ x | capitalize  }} </li>
           </ul>
         </div>
         <div class="card-action">
