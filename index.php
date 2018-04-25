@@ -48,11 +48,11 @@
     <div class="col s12 center">
       <h2 class='text-center'>Newtist</h2>
       <h4 class='text-center grey-text lighten-3'>
-        By <a href="https://twitter.com/rlated1337">@Julian</a>
+        By <a href="https://twitter.com/rlated1337" target="_blank">@Rlated</a>
       </h4>
       <form class="col s12">
       <div class="row input-field">
-           <p class="flow-text">Artist:</p>
+           <p class="flow-text">Search for an artist:</p>
            <input type="text" name="artist-search" 
            placeholder="Search Artist e.g Gucci Mane">
            <button type="button" name="artist-submit" class="waves-effect waves-light btn">Search</button>
@@ -61,14 +61,13 @@
     </form>
     </div>
   </div>
-<<<<<<< HEAD
   <div class="row">
-    <h4 class='text-center grey-text lighten-3'>Newest Releases</h4>
-=======
+    <h4 class='text-center grey-text lighten-3' ng-show="!userSearched">Newest Releases</h4>
+    <h4 class='text-center grey-text lighten-3' ng-show="userSearched">Artist</h4>
+
   <div class="row" ng-show="!isLoading">
->>>>>>> e873a2165f6a22e5e3ae51aa8a6fd67900675202
-    <div class="col s12 m6 l3 cards-container center" ng-show="!userSearched">
-       <div class="card blue-grey darken-1" ng-repeat="x in new_releases">
+    <div class="col s12 m4 l3" ng-show="!userSearched" ng-repeat="x in new_releases">
+       <div class="card blue-grey darken-1" style="min-height: 39em;">
         <div class="card-image">
             <img src="{{ x.images[0].url }}">
             <span class="card-title">{{ x.name }} by {{ x.artists[0].name}} </span>
@@ -91,7 +90,7 @@
     </div>
 
 
-    <!-- CARD -->
+    <!-- ARTIST CARD -->
     <div class="col s12 m4 l8 cards-container" ng-show="userSearched">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
@@ -109,9 +108,37 @@
           <a href="{{ artist_link }}" target="_blank">SPOTIFY URI</a>
         </div>
       </div>
-  </div>
+    </div>
   <!-- CARD END -->
+</div>
+  <div class="row">
+      <h4 class='text-center grey-text lighten-3' ng-show="userSearched">
+        Recent Releases
+    </h4>
   </div>
+       
+    <!-- CARD -->
+    <div class="col s12 m4 13 cards-container" ng-show="userSearched" 
+     ng-repeat="x in new_rel_artist">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+            <div class="card-image">
+            <img src="{{ x.images[0].url }}">
+          <span class="card-title"><strong>{{ x.name }}</strong></span>
+            </div>
+          <ul>
+            <li>Release Date: {{ x.release_date }}</li>
+            <li>Type: {{ x.type | capitalize }}</li>
+            <li ng-repeat="artists in x.artists">{{ artists.name | capitalize  }} </li>
+          </ul>
+        </div>
+        <div class="card-action">
+          <a href="{{ x.external_urls.spotify }}" target="_blank">SPOTIFY URL</a>
+        </div>
+      </div>
+    </div>
+  <!-- CARD END -->
+
 </div>
 
 

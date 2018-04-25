@@ -15,8 +15,17 @@ app.controller('myCtrl', function($scope) {
    /* USER VARIABLES */
    $scope.userLocation = '';
 
+   /* USER INPUT VARIABLES */
+   $scope.inp_search = '';
+   $scope.filtered_search = '';
+
+
    /* NEW RELEASES */
    $scope.new_releases = [];
+
+   /* NEW RELEASES ARTIST */
+   $scope.new_rel_artist = [];
+
 
    /* STATE VARIABLES */
    $scope.userSearched = false;
@@ -27,7 +36,7 @@ app.controller('myCtrl', function($scope) {
 
    //GET USER LOCATION
       $.get("https://ipinfo.io", function(response) {
-        console.log(response.city, response.country);
+        //console.log(response.city, response.country);
         $scope.userLocation = response.country;
     }, "jsonp");
 
@@ -39,7 +48,7 @@ app.controller('myCtrl', function($scope) {
               'Authorization' : 'Bearer ' + access_token
           },
           success: function(data){
-              console.log(data);
+              //console.log(data);
               
               $scope.new_releases = data['albums']['items'];
 
@@ -59,15 +68,15 @@ app.controller('myCtrl', function($scope) {
 
 
    $("button[name = 'artist-submit']").click(function(e){
-   var inp_search = $("input[name = 'artist-search']").val();
-   var filtered_search =  inp_search.replace(' ', '%20');
+   $scope.inp_search = $("input[name = 'artist-search']").val();
+   $scope.filtered_search =  $scope.inp_search.replace(' ', '%20');
    $scope.userSearched = true;
    $scope.$apply();
 
 
    /*SEARCH PROTOTYPE */
   $.ajax({
-      url: 'https://api.spotify.com/v1/search?q='+filtered_search+'&type=artist&market=' + $scope.userLocation,
+      url: 'https://api.spotify.com/v1/search?q='+$scope.filtered_search+'&type=artist&market=' + $scope.userLocation,
       type: 'GET',
       headers: {
           'Authorization' : 'Bearer ' + access_token
@@ -76,11 +85,11 @@ app.controller('myCtrl', function($scope) {
           //console.log(JSON.stringify(data));
           $scope.artist_data = JSON.stringify(data);
           
-          console.log(data);
-          console.log(data['artists']['items'].length);
+         // console.log(data);
+        //  console.log(data['artists']['items'].length);
 
           for(var i = 0; i < data['artists']['items'].length; i++){
-              if(data['artists']['items'][i]['name'] == inp_search){
+              if(data['artists']['items'][i]['name'] == $scope.inp_search){
                   $scope.artist_id = data['artists']['items'][i]['id'];
                   $scope.artist_name = data['artists']['items'][i]['name'];
                   $scope.artist_pop = data['artists']['items'][i]['popularity'];
@@ -94,7 +103,7 @@ app.controller('myCtrl', function($scope) {
               }
           }
 
-          $scope.getSongData($scope.artist_id, access_token);
+          $scope.getTopSongsData($scope.artist_id, access_token);
 
       },
       error: function(err){
@@ -102,9 +111,21 @@ app.controller('myCtrl', function($scope) {
         alert("cannot get artist id");
       }
   });  //AJAX 
+
+  /*LOOK FOR NEWEST RELEASES OF THAT ARTIST*/
+  console.log($scope.inp_search);
+  console.debug($scope.new_releases);
+
+  angular.forEach($scope.new_releases, function(value, key){
+    angular.forEach(value['artists'], function(value_2, key_2){
+      if(value_2['name'] == $scope.inp_search){
+          $scope.new_rel_artist.push($scope.new_releases[key]);
+      } //IF
+    }); //INNER FOREACH
+  }); //OUTTER FOREACH
 });    //BTN
 
-   $scope.getSongData = function(artist_id, token){
+   $scope.getTopSongsData = function(artist_id, token){
      if($scope.userLocation.length > 0){
       //RETRIEVE DATA
       $.ajax({
@@ -114,14 +135,15 @@ app.controller('myCtrl', function($scope) {
               'Authorization' : 'Bearer ' + token
           },
           success: function(data){
-              console.log(data);
+            // TODO SHOW TOP TRACKS
+              //console.log(data);
           },
           error: function(err){
             alert("cannot get artist data");
             console.log(err);
           }
       }); //AJAX
-      }
+      } //IF
    }; //FUNC
 
    //LOAD-MORE 
@@ -137,7 +159,7 @@ app.controller('myCtrl', function($scope) {
               'Authorization' : 'Bearer ' + access_token
           },
           success: function(data){
-              console.log(data);
+              //console.log(data);
               
               $scope.new_releases = data['albums']['items'];
 
