@@ -55,7 +55,8 @@
            <p class="flow-text">Search for an artist:</p>
            <input type="text" name="artist-search" 
            placeholder="Search Artist e.g Gucci Mane">
-           <button type="button" name="artist-submit" class="waves-effect waves-light btn">Search</button>
+           <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
+            <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
         
       </div>  
     </form>
@@ -112,7 +113,7 @@
   <!-- CARD END -->
 </div>
   <div class="row">
-      <h4 class='text-center grey-text lighten-3' ng-show="userSearched">
+      <h4 class='text-center grey-text lighten-3' ng-show="userSearched && new_rel_artist.length > 0">
         Recent Releases
     </h4>
   </div>
