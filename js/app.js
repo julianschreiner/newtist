@@ -11,6 +11,7 @@ app.controller('myCtrl', function($scope) {
    $scope.artist_image = '';
    $scope.artist_link = '';
    $scope.artist_genre = [];
+   $scope.artist_top_tracks = [];
 
    /* USER VARIABLES */
    $scope.userLocation = '';
@@ -113,9 +114,6 @@ app.controller('myCtrl', function($scope) {
   });  //AJAX 
 
   /*LOOK FOR NEWEST RELEASES OF THAT ARTIST*/
-  console.log($scope.inp_search);
-  console.debug($scope.new_releases);
-
   angular.forEach($scope.new_releases, function(value, key){
     angular.forEach(value['artists'], function(value_2, key_2){
       if(value_2['name'] == $scope.inp_search){
@@ -136,7 +134,10 @@ app.controller('myCtrl', function($scope) {
           },
           success: function(data){
             // TODO SHOW TOP TRACKS
-              //console.log(data);
+              $scope.artist_top_tracks = data['tracks'];
+              console.log($scope.artist_top_tracks);
+              $scope.$apply();
+              
           },
           error: function(err){
             alert("cannot get artist data");
@@ -186,6 +187,36 @@ app.filter('capitalize', function() {
     return function(input) {
       return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
     }
+});
+
+app.filter('millSecondsToTimeString', function() {
+  return function(millseconds) {
+    var oneSecond = 1000;
+    var oneMinute = oneSecond * 60;
+    var oneHour = oneMinute * 60;
+    var oneDay = oneHour * 24;
+
+    var seconds = Math.floor((millseconds % oneMinute) / oneSecond);
+    var minutes = Math.floor((millseconds % oneHour) / oneMinute);
+    var hours = Math.floor((millseconds % oneDay) / oneHour);
+    var days = Math.floor(millseconds / oneDay);
+
+    var timeString = '';
+    if (days !== 0) {
+        timeString += (days !== 1) ? (days + ' days ') : (days + ' day ');
+    }
+    if (hours !== 0) {
+        timeString += (hours !== 1) ? (hours + ' hours ') : (hours + ' hour ');
+    }
+    if (minutes !== 0) {
+        timeString += (minutes !== 1) ? (minutes + ' minutes ') : (minutes + ' minute ');
+    }
+    if (seconds !== 0 || millseconds < 1000) {
+        timeString += (seconds !== 1) ? (seconds + ' seconds ') : (seconds + ' second ');
+    }
+
+    return timeString;
+};
 });
 
 

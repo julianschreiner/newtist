@@ -67,7 +67,7 @@
 
   <div class="row" ng-show="!isLoading">
     <div class="col s12 m4 l3" ng-show="!userSearched" ng-repeat="x in new_releases">
-       <div class="card blue-grey darken-1" style="min-height: 39em;">
+       <div class="card blue-grey darken-1" style="min-height: 39em; max-height: 39em;">
         <div class="card-image">
             <img src="{{ x.images[0].url }}">
             <span class="card-title">{{ x.name }} by {{ x.artists[0].name}} </span>
@@ -85,9 +85,9 @@
            <a href="{{ x.external_urls.spotify }}" target="_blank">Visit {{ x.album_type }}</a>
          </div>
         </div>
-        <button type="button" name="load-more" 
-        class="waves-effect waves-light btn">Load more</button>
     </div>
+    <button type="button" name="load-more" 
+        class="waves-effect waves-light btn" ng-show="!userSearched">Load more</button>
 
 
     <!-- ARTIST CARD -->
@@ -117,7 +117,7 @@
     </h4>
   </div>
        
-    <!-- CARD -->
+    <!-- RECENT RELEASES CARD -->
     <div class="col s12 m4 13 cards-container" ng-show="userSearched" 
      ng-repeat="x in new_rel_artist">
       <div class="card blue-grey darken-1">
@@ -134,6 +134,35 @@
         </div>
         <div class="card-action">
           <a href="{{ x.external_urls.spotify }}" target="_blank">SPOTIFY URL</a>
+        </div>
+      </div>
+    </div>
+  <!-- CARD END -->
+  </div>
+  <div class="row">
+      <h4 class='text-center grey-text lighten-3' ng-show="userSearched">
+       Top Tracks
+    </h4>
+ </div> 
+ <div class="row">
+  <!-- RECENT RELEASES CARD -->
+    <div class="col s12 m4 13 cards-container" ng-show="userSearched" 
+     ng-repeat="track in artist_top_tracks">
+      <div class="card blue-grey darken-1" style="min-height: 42em; max-height:42em;">
+        <div class="card-content white-text">
+            <div class="card-image">
+            <img src="{{ track.album.images[0].url }}">
+          <span class="card-title"><strong>{{ track.name }}</strong></span>
+            </div>
+          <ul>
+            <li>Release Date: {{ track.album.release_date }}</li>
+            <li>Duration: {{ track.duration_ms | millSecondsToTimeString }}</li>
+            <li>Popularity: <b>{{ track.popularity }}</strong></li>
+            <li ng-repeat="artist in track.artists">{{ artist.name | capitalize  }} </li>
+          </ul>
+        </div>
+        <div class="card-action">
+          <a href="{{ track.external_urls.spotify }}" target="_blank">SPOTIFY URL</a>
         </div>
       </div>
     </div>
