@@ -1,4 +1,5 @@
 console.log(access_token);
+      
 
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
@@ -34,10 +35,32 @@ app.controller('myCtrl', function($scope) {
  $scope.searchReqLimit = 20;
  $scope.searchReqOffset = 0;
 
+ /* FILTER */
+ $scope.filter = [];
+
+ $scope.getFilter = function(){
+   $.ajax({
+      url: 'https://api.spotify.com/v1/recommendations/available-genre-seeds',
+      type: 'GET',
+      headers: {
+          'Authorization' : 'Bearer ' + access_token
+      },
+      success: function(data){
+        angular.forEach(data.genres, function(key, value){
+            //console.log(key);
+            $scope.filter.push(key);
+        });
+      }
+   });  //AJAX
+ };  // FUNC
+
+$scope.getFilter();
+console.log($scope.filter);
+$scope.$apply();
 
    //GET USER LOCATION
    $.get("https://ipinfo.io", function(response) {
-        //console.log(response.city, response.country);
+        console.log(response.city, response.country);
         $scope.userLocation = response.country;
       }, "jsonp");
 
@@ -77,6 +100,10 @@ $("button[name = 'artist-back']").click(function(e){
   $scope.userSearched = false;
 });
 
+/*SELECT*/
+$(document).ready(function(){
+    $('select').formSelect();
+});
 
 $("button[name = 'artist-submit']").click(function(e){
  $scope.inp_search = $("input[name = 'artist-search']").val();

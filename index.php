@@ -57,6 +57,13 @@
            placeholder="Search Artist e.g Gucci Mane">
            <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
             <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
+            <div class="input-field col s12">
+              <select class="ng-cloak">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="{{x}}" ng-repeat="x in filter">{{ x }}</option>
+              </select>
+              <label>Materialize Select</label>
+            </div>
         
       </div>  
     </form>
@@ -175,12 +182,13 @@
 </body>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="js/app.js"></script>
     <link rel="stylesheet" href="css/main.css">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
    
 
 </html>
