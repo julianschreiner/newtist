@@ -58,11 +58,12 @@
            <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
             <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
             <div class="input-field col s12">
-              <select class="ng-cloak">
+              <select class="ng-cloak" ng-if="init">
                 <option value="" disabled selected>Choose your option</option>
-                <option value="{{x}}" ng-repeat="x in filter">{{ x }}</option>
+                <option 
+                ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
               </select>
-              <label>Materialize Select</label>
+              <label>Filter Genres</label>
             </div>
         
       </div>  

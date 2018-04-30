@@ -2,7 +2,7 @@ console.log(access_token);
       
 
 var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope) {
+app.controller('myCtrl', function($scope, $timeout) {
  /* API VARIABLES */
  $scope.artist_data = {};
  $scope.artist_id = '';
@@ -34,6 +34,7 @@ app.controller('myCtrl', function($scope) {
  $scope.isLoading = true;
  $scope.searchReqLimit = 20;
  $scope.searchReqOffset = 0;
+ $scope.init = false;
 
  /* FILTER */
  $scope.filter = [];
@@ -52,11 +53,17 @@ app.controller('myCtrl', function($scope) {
         });
       }
    });  //AJAX
+    $scope.init = true;
+    /*SELECT*/
+     setTimeout(function(){
+        $('select').formSelect();
+    },1000);
  };  // FUNC
 
 $scope.getFilter();
 console.log($scope.filter);
-$scope.$apply();
+
+
 
    //GET USER LOCATION
    $.get("https://ipinfo.io", function(response) {
@@ -100,10 +107,6 @@ $("button[name = 'artist-back']").click(function(e){
   $scope.userSearched = false;
 });
 
-/*SELECT*/
-$(document).ready(function(){
-    $('select').formSelect();
-});
 
 $("button[name = 'artist-submit']").click(function(e){
  $scope.inp_search = $("input[name = 'artist-search']").val();
