@@ -1,5 +1,5 @@
 console.log(access_token);
-      
+
 
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $timeout) {
@@ -20,7 +20,6 @@ app.controller('myCtrl', function($scope, $timeout) {
  /* USER INPUT VARIABLES */
  $scope.inp_search = '';
  $scope.filtered_search = '';
-
 
  /* NEW RELEASES */
  $scope.new_releases = [];
@@ -81,8 +80,8 @@ console.log($scope.filter);
     'Authorization' : 'Bearer ' + access_token
   },
   success: function(data){
-              //console.log(data);
-              
+              console.log(data);
+
               $scope.new_releases = data['albums']['items'];
 
               window.setTimeout(function(){
@@ -91,7 +90,7 @@ console.log($scope.filter);
               }, 500);
 
               $scope.$apply();
-              
+
             },
             error: function(err){
               alert("cannot get newest releases");
@@ -109,6 +108,8 @@ $("button[name = 'artist-back']").click(function(e){
 
 
 $("button[name = 'artist-submit']").click(function(e){
+ $scope.new_rel_artist = [];
+
  $scope.inp_search = $("input[name = 'artist-search']").val();
  $scope.filtered_search =  $scope.inp_search.replace(' ', '%20');
  $scope.userSearched = true;
@@ -125,7 +126,7 @@ $("button[name = 'artist-submit']").click(function(e){
   success: function(data) {
           //console.log(JSON.stringify(data));
           $scope.artist_data = JSON.stringify(data);
-          
+
          // console.log(data);
         //  console.log(data['artists']['items'].length);
 
@@ -151,7 +152,7 @@ $("button[name = 'artist-submit']").click(function(e){
         console.log(err);
         alert("cannot get artist id");
       }
-  });  //AJAX 
+  });  //AJAX
 
  /*LOOK FOR NEWEST RELEASES OF THAT ARTIST*/
  angular.forEach($scope.new_releases, function(value, key){
@@ -187,7 +188,7 @@ $scope.getTopSongsData = function(artist_id, token){
       } //IF
    }; //FUNC
 
-   //LOAD-MORE 
+   //LOAD-MORE
    $("button[name = 'load-more']").click(function(e){
     $scope.searchReqOffset += 20;
     $scope.isLoading = true;
@@ -201,7 +202,7 @@ $scope.getTopSongsData = function(artist_id, token){
         },
         success: function(data){
               //console.log(data);
-              
+
               $scope.new_releases = data['albums']['items'];
 
               window.setTimeout(function(){
@@ -210,7 +211,7 @@ $scope.getTopSongsData = function(artist_id, token){
               }, 500);
 
               $scope.$apply();
-              
+
             },
             error: function(err){
               alert("cannot get newest releases");

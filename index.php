@@ -17,7 +17,7 @@
 
     $data = 'grant_type=client_credentials';
 
-   
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -42,7 +42,7 @@
 	<title>Newtist</title>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
-   
+
 <div class="container center">
   <div class="row">
     <div class="col s12 center">
@@ -53,20 +53,19 @@
       <form class="col s12">
       <div class="row input-field">
            <p class="flow-text">Search for an artist:</p>
-           <input type="text" name="artist-search" 
+           <input type="text" name="artist-search"
            placeholder="Search Artist e.g Gucci Mane">
            <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
             <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
-            <div class="input-field col s12">
-              <select class="ng-cloak" ng-if="init">
+            <div class="input-field col s12" ng-show="!userSearched">
+              <select class="ng-cloak" ng-if="init" ng-model="data.genre">
                 <option value="" disabled selected>Choose your option</option>
-                <option 
+                <option
                 ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
               </select>
               <label>Filter Genres</label>
             </div>
-        
-      </div>  
+      </div>
     </form>
     </div>
   </div>
@@ -95,7 +94,7 @@
          </div>
         </div>
     </div>
-    <button type="button" name="load-more" 
+    <button type="button" name="load-more"
         class="waves-effect waves-light btn" ng-show="!userSearched">Load more</button>
 
 
@@ -125,9 +124,9 @@
         Recent Releases
     </h4>
   </div>
-       
+
     <!-- RECENT RELEASES CARD -->
-    <div class="col s12 m4 13 cards-container" ng-show="userSearched" 
+    <div class="col s12 m4 13 cards-container" ng-show="userSearched"
      ng-repeat="x in new_rel_artist">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
@@ -152,10 +151,10 @@
       <h4 class='text-center grey-text lighten-3' ng-show="userSearched">
        Top Tracks
     </h4>
- </div> 
+ </div>
  <div class="row">
   <!-- RECENT RELEASES CARD -->
-    <div class="col s12 m4 13 cards-container" ng-show="userSearched" 
+    <div class="col s12 m4 13 cards-container" ng-show="userSearched"
      ng-repeat="track in artist_top_tracks">
       <div class="card blue-grey darken-1" style="min-height: 42em; max-height:42em;">
         <div class="card-content white-text">
@@ -190,6 +189,6 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
-   
+
 
 </html>
