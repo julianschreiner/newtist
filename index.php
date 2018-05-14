@@ -1,6 +1,6 @@
 <?php
 
-	$url = 'https://accounts.spotify.com/api/token';
+		$url = 'https://accounts.spotify.com/api/token';
     $method = 'POST';
     $spot_api_redirect = 'https://julianschreiner.de';
 
@@ -55,15 +55,17 @@
            <p class="flow-text">Search for an artist:</p>
            <input type="text" name="artist-search"
            placeholder="Search Artist e.g Gucci Mane">
-           <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
+            <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
             <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
             <div class="input-field col s12" ng-show="!userSearched">
-              <select class="ng-cloak" ng-if="init" ng-model="data.genre">
-                <option value="" disabled selected>Choose your option</option>
+              <select id="filter" class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
+                <option value="" disabled selected>Choose a filter</option>
                 <option
                 ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
               </select>
               <label>Filter Genres</label>
+						 <!-- <label>{{filter.selected}}</label> -->
+						 <button type="button" name="filter-applied" class="waves-effect waves-light btn" width="5" ng-show="filter.selected != null" ng-click="getNewReleases();resFilter();">Reset Filter</button>
             </div>
       </div>
     </form>
@@ -78,7 +80,7 @@
        <div class="card blue-grey darken-1" style="min-height: 39em; max-height: 39em;">
         <div class="card-image">
             <img src="{{ x.images[0].url }}">
-            <span class="card-title">{{ x.name }} by {{ x.artists[0].name}} </span>
+            <span class="card-title">{{ x.name }} by <strong>{{ x.artists[0].name}}</strong> </span>
         </div>
          <div class="card-content white-text">
            <p>{{ x.artists[0].name }} released {{ x.name }} on {{ x.release_date }}</p>
@@ -94,8 +96,6 @@
          </div>
         </div>
     </div>
-    <button type="button" name="load-more"
-        class="waves-effect waves-light btn" ng-show="!userSearched">Load more</button>
 
 
     <!-- ARTIST CARD -->
@@ -176,6 +176,15 @@
     </div>
   <!-- CARD END -->
 
+<!-- FOOTER -->
+	<footer class="page-footer" id="footer">
+						<button type="button" name="load-more" class="waves-effect waves-light btn" ng-show="!userSearched">
+								Load more
+						</button>
+
+				</footer>
+
+
 </div>
 
 
@@ -184,7 +193,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="js/app.js"></script>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.scss">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>

@@ -47,3 +47,8 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 .text-center {
   text-align: center;
 }
+
+#footer {
+  color: white !important;
+  background-color: white !important;
+}
