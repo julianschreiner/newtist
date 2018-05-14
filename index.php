@@ -61,8 +61,6 @@
 
               <select id="filter" class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
 
-              <select class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
-
                 <option value="" disabled selected>Choose a filter</option>
                 <option
                 ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
