@@ -40,11 +40,6 @@
 
    /* FILTER */
    $scope.filter = [];
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> c880d5a43cf41ffa3210ffe0e3651e75febf2247
 
    $scope.getFilter = function(){
      $.ajax({
@@ -185,12 +180,6 @@
   $("button[name = 'artist-submit']").click(function(e){
    $scope.new_rel_artist = [];
 
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> c880d5a43cf41ffa3210ffe0e3651e75febf2247
-
    $scope.getFilter = function(){
      $.ajax({
         url: 'https://api.spotify.com/v1/recommendations/available-genre-seeds',
@@ -330,10 +319,7 @@
   $("button[name = 'artist-submit']").click(function(e){
    $scope.new_rel_artist = [];
 
-<<<<<<< HEAD
-=======
->>>>>>> 170a6e55eb43e465f63527ea9ac5464cd7c2aa59
->>>>>>> c880d5a43cf41ffa3210ffe0e3651e75febf2247
+
    $scope.inp_search = $("input[name = 'artist-search']").val();
    $scope.filtered_search =  $scope.inp_search.replace(' ', '%20');
    $scope.userSearched = true;
@@ -445,22 +431,12 @@
 
       }); //BUTTON
 
-<<<<<<< HEAD
-=======
-      });
 
-<<<<<<< HEAD
->>>>>>> c880d5a43cf41ffa3210ffe0e3651e75febf2247
       $scope.resFilter = function(){
         $('#filter :nth-child(0 )').prop('selected', true); // To select via index
       };
 
-<<<<<<< HEAD
 
-=======
-=======
->>>>>>> 170a6e55eb43e465f63527ea9ac5464cd7c2aa59
->>>>>>> c880d5a43cf41ffa3210ffe0e3651e75febf2247
   });    //ANG APP
 
   app.filter('capitalize', function() {

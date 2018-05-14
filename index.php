@@ -58,21 +58,20 @@
             <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
             <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
             <div class="input-field col s12" ng-show="!userSearched">
-<<<<<<< HEAD
+
               <select id="filter" class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
-=======
+
               <select class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
->>>>>>> 170a6e55eb43e465f63527ea9ac5464cd7c2aa59
+
                 <option value="" disabled selected>Choose a filter</option>
                 <option
                 ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
               </select>
               <label>Filter Genres</label>
 						 <!-- <label>{{filter.selected}}</label> -->
-<<<<<<< HEAD
+
 						 <button type="button" name="filter-applied" class="waves-effect waves-light btn" width="5" ng-show="filter.selected != null" ng-click="getNewReleases();resFilter();">Reset Filter</button>
-=======
->>>>>>> 170a6e55eb43e465f63527ea9ac5464cd7c2aa59
+
             </div>
       </div>
     </form>
