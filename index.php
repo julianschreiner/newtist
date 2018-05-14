@@ -1,6 +1,6 @@
 <?php
 
-	$url = 'https://accounts.spotify.com/api/token';
+		$url = 'https://accounts.spotify.com/api/token';
     $method = 'POST';
     $spot_api_redirect = 'https://julianschreiner.de';
 
@@ -58,12 +58,13 @@
            <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
             <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
             <div class="input-field col s12" ng-show="!userSearched">
-              <select class="ng-cloak" ng-if="init" ng-model="data.genre">
-                <option value="" disabled selected>Choose your option</option>
+              <select class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
+                <option value="" disabled selected>Choose a filter</option>
                 <option
                 ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
               </select>
               <label>Filter Genres</label>
+						 <!-- <label>{{filter.selected}}</label> -->
             </div>
       </div>
     </form>
