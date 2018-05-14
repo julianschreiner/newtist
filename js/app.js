@@ -41,6 +41,148 @@
    /* FILTER */
    $scope.filter = [];
 
+
+   $scope.getFilter = function(){
+     $.ajax({
+        url: 'https://api.spotify.com/v1/recommendations/available-genre-seeds',
+        type: 'GET',
+        headers: {
+            'Authorization' : 'Bearer ' + access_token
+        },
+        success: function(data){
+          angular.forEach(data.genres, function(key, value){
+              //console.log(key);
+              $scope.filter.push(key);
+
+          });
+        }
+     });  //AJAX
+      $scope.init = true;
+      /*SELECT*/
+       setTimeout(function(){
+          $('select').formSelect();
+      },1000);
+   };  // FUNC
+
+   $scope.filterApplied = function(selectedFilter){
+   $scope.filterArtistName = [];
+     if(selectedFilter != null){
+         selectedFilter = selectedFilter.replace('-', ' ');
+     }
+
+      console.log("Selected Filter: ", selectedFilter);
+
+      angular.forEach($scope.new_releases, function(key, value){
+          angular.forEach(key.artists, function(key, value){
+              //console.log(key.name);
+              $scope.filtered_search = key.name.replace(' ', '%20');
+              /*SEARCH PROTOTYPE */
+              $.ajax({
+               url: 'https://api.spotify.com/v1/search?q='+$scope.filtered_search+'&type=artist&market=' + $scope.userLocation,
+               type: 'GET',
+               headers: {
+                 'Authorization' : 'Bearer ' + access_token
+               },
+               success: function(data) {
+                       //console.log(JSON.stringify(data));
+                       $scope.artist_data = JSON.stringify(data);
+                    //   console.log(data);
+                     //  console.log(data['artists']['items'].length);
+
+                     for(var i = 0; i < data['artists']['items'].length; i++){
+                       angular.forEach(data['artists']['items'][i]['genres'], function(key, value){
+                         if(key == selectedFilter){
+                           $scope.filterArtistName.push(data['artists']['items'][i]['name'] );
+                           $scope.$apply();
+                         }  // IF
+                       });  //FOREACH
+                     }  //FOR
+                   },
+                   error: function(err){
+                     console.log(err);
+                     alert("cannot get artist id");
+                   }
+               });  //AJAX
+
+          }); // forEach
+      }); // FOREACH
+      console.log($scope.filterArtistName);
+      $scope.getNewReleases($scope.filterArtistName);
+   }; // FUNC
+
+
+  $scope.getFilter();
+  console.log($scope.filter);
+
+
+
+     //GET USER LOCATION
+     $.get("https://ipinfo.io", function(response) {
+          console.log(response.city, response.country);
+          $scope.userLocation = response.country;
+        }, "jsonp");
+
+
+     $scope.getNewReleases = function(artistName = null){
+   //GET NEW RELEASES
+   $scope.isLoading = true;
+   $scope.new_releases = [];
+
+  // TODO: WHEN FILTERING FOR USERS MAKE IT SHOW ALL ENTRIES AND NOT ONLY 20 (SERACHREQLIMIT)
+
+   $.ajax({
+    url: 'https://api.spotify.com/v1/browse/new-releases?limit=' + $scope.searchReqLimit + '&offset=' + $scope.searchReqOffset,
+    type: 'GET',
+    headers: {
+      'Authorization' : 'Bearer ' + access_token
+    },
+    success: function(data){
+              //  console.log(data);
+
+                if(artistName == null){
+                    $scope.new_releases = data['albums']['items'];
+                }
+                else{
+                  //ONLY SAVE ALBUMS WHERE GIVEN ARTIST NAME IS IN THERE
+                  angular.forEach(data['albums']['items'], function(key, value){
+                    angular.forEach(key.artists, function(key2, value){
+                        if(artistName.indexOf(key2.name) > -1){
+                          $scope.new_releases.push(key);
+                        }
+                    });  //FOREACH
+                  });  //FOREACH
+                } // IF / ELSE
+
+                window.setTimeout(function(){
+                  $scope.isLoading = false;
+                  //console.log($scope.new_releases);
+                  $scope.$apply();
+                }, 500);
+
+                $scope.$apply();
+
+              },
+              error: function(err){
+                alert("cannot get newest releases");
+                console.log(err);
+              }
+        }); //AJAX
+  };  //FUNC
+
+  $scope.getNewReleases();
+
+
+  $("button[name = 'artist-back']").click(function(e){
+    $scope.getNewReleases();
+    $scope.userSearched = false;
+  });
+
+
+  $("button[name = 'artist-submit']").click(function(e){
+   $scope.new_rel_artist = [];
+
+
+
    $scope.getFilter = function(){
      $.ajax({
         url: 'https://api.spotify.com/v1/recommendations/available-genre-seeds',
@@ -289,12 +431,12 @@
               }
         }); //AJAX
 
-
-      });
+      }); //BUTTON
 
       $scope.resFilter = function(){
         $('#filter :nth-child(0 )').prop('selected', true); // To select via index
       };
+
 
   });    //ANG APP
 
