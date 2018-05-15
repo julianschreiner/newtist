@@ -128,6 +128,7 @@
    //GET NEW RELEASES
    $scope.isLoading = true;
    $scope.new_releases = [];
+   var foundsmth = false;
 
   // TODO: WHEN FILTERING FOR USERS MAKE IT SHOW ALL ENTRIES AND NOT ONLY 20 (SERACHREQLIMIT)
 
@@ -140,7 +141,7 @@
     success: function(data){
               //  console.log(data);
 
-                if(artistName == null){
+                if(artistName == null || artistName.length == 0){
                     $scope.new_releases = data['albums']['items'];
                 }
                 else{
@@ -149,9 +150,18 @@
                     angular.forEach(key.artists, function(key2, value){
                         if(artistName.indexOf(key2.name) > -1){
                           $scope.new_releases.push(key);
+                          foundsmth = true;
                         }
                     });  //FOREACH
                   });  //FOREACH
+                 
+                 if(foundsmth){
+                  // TODO: SHOW EVERYTHING
+                 // $scope.searchReqOffset += 50;  
+                  console.log($scope.new_releases);
+                  //$scope.getNewReleases(artistName);
+                 }  //IF
+               
                 } // IF / ELSE
 
                 window.setTimeout(function(){
