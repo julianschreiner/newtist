@@ -67,7 +67,6 @@
               </select>
               <label>Filter Genres</label>
 						 <!-- <label>{{filter.selected}}</label> -->
-
 						 <button type="button" name="filter-applied" class="waves-effect waves-light btn" width="5" ng-show="filter.selected != null" ng-click="getNewReleases();resFilter();">Reset Filter</button>
             </div>
       </div>
@@ -81,13 +80,11 @@
       <p class="white-text">this is my first panel</p>
       <div class="carousel-fixed-item center" >
         <a class="btn waves-effect white grey-text darken-text-2">VISIT</a>
-      </div> 
-  </div> <!-- carousel item -->
-</div>
-{{ carouselItems }}
-  </div><!-- carousel -->
+      </div>
+  	</div> <!-- carousel item -->
+	</div><!-- carousel -->
+</div> <!-- row -->
 
-</div> <!-- row --> 
   <div class="row">
     <h4 class='text-center grey-text lighten-3' ng-show="!userSearched">Newest Releases</h4>
     <h4 class='text-center grey-text lighten-3' ng-show="userSearched">Artist</h4>
