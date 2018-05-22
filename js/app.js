@@ -30,7 +30,6 @@
    /*FILTER ARTIST */
    $scope.filterArtistName = [];
 
-
    /* STATE VARIABLES */
    $scope.userSearched = false;
    $scope.isLoading = true;
@@ -40,6 +39,16 @@
 
    /* FILTER */
    $scope.filter = [];
+
+   /* CAROUSEL */
+   $scope.carouselItems = [];
+   $scope.carouselLoaded = false;
+
+   /* CAROUSEL */
+   $('.carousel.carousel-slider').carousel({
+    fullWidth: true,
+    indicators: true
+  });
 
    $scope.getFilter = function(){
      $.ajax({
@@ -116,6 +125,14 @@
   console.log($scope.filter);
 
 
+  /* CAROUSEL ITEMS */
+  $scope.getCarouselItems = function(releases, limit = 4){
+      $scope.carouselItems = releases.splice(0, limit);
+      console.log($scope.carouselItems);
+      $scope.carouselLoaded = true;
+      $scope.$apply();
+  };
+
 
      //GET USER LOCATION
      $.get("https://ipinfo.io", function(response) {
@@ -143,6 +160,7 @@
 
                 if(artistName == null || artistName.length == 0){
                     $scope.new_releases = data['albums']['items'];
+                    $scope.getCarouselItems($scope.new_releases);
                 }
                 else{
                   //ONLY SAVE ALBUMS WHERE GIVEN ARTIST NAME IS IN THERE
@@ -154,6 +172,8 @@
                         }
                     });  //FOREACH
                   });  //FOREACH
+
+
                  
                  if(foundsmth){
                   // TODO: SHOW EVERYTHING
@@ -161,9 +181,9 @@
                   console.log($scope.new_releases);
                   //$scope.getNewReleases(artistName);
                  }  //IF
-               
                 } // IF / ELSE
-
+                
+              
                 window.setTimeout(function(){
                   $scope.isLoading = false;
                   //console.log($scope.new_releases);

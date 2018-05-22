@@ -69,12 +69,25 @@
 						 <!-- <label>{{filter.selected}}</label> -->
 
 						 <button type="button" name="filter-applied" class="waves-effect waves-light btn" width="5" ng-show="filter.selected != null" ng-click="getNewReleases();resFilter();">Reset Filter</button>
-
             </div>
       </div>
     </form>
     </div>
   </div>
+  <div class="row">
+    <div class="carousel carousel-slider center" ng-show="carouselLoaded">
+    <div class="carousel-item green white-text" href="#one!">
+      <h2>First Panel</h2>
+      <p class="white-text">this is my first panel</p>
+      <div class="carousel-fixed-item center" >
+        <a class="btn waves-effect white grey-text darken-text-2">VISIT</a>
+      </div> 
+  </div> <!-- carousel item -->
+</div>
+{{ carouselItems }}
+  </div><!-- carousel -->
+
+</div> <!-- row --> 
   <div class="row">
     <h4 class='text-center grey-text lighten-3' ng-show="!userSearched">Newest Releases</h4>
     <h4 class='text-center grey-text lighten-3' ng-show="userSearched">Artist</h4>
