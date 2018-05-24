@@ -52,3 +52,25 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   color: white !important;
   background-color: white !important;
 }
+
+.carouselImage {
+  width: 19% !important;
+  max-height: 50% !important;
+  margin-top: 1% !important;
+}
+
+.carousel {
+  height: 400px !important;
+}
+
+#carouselContainer{
+  margin-top: -2% !important;
+}
+
+#featuredTextCar {
+  margin-top: 155px !important;
+}
+
+#loadingBar{
+  margin-top: 5%;
+}

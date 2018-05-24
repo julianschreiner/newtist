@@ -39,16 +39,11 @@
 
    /* FILTER */
    $scope.filter = [];
+   $scope.filterLoaded = false;
 
    /* CAROUSEL */
    $scope.carouselItems = [];
    $scope.carouselLoaded = false;
-
-   /* CAROUSEL */
-   $('.carousel.carousel-slider').carousel({
-    fullWidth: true,
-    indicators: true
-  });
 
    $scope.getFilter = function(){
      $.ajax({
@@ -66,9 +61,12 @@
         }
      });  //AJAX
       $scope.init = true;
+
       /*SELECT*/
        setTimeout(function(){
           $('select').formSelect();
+          $scope.filterLoaded = true;
+          $scope.$apply();
       },1000);
    };  // FUNC
 
@@ -116,7 +114,7 @@
 
           }); // forEach
       }); // FOREACH
-      console.log($scope.filterArtistName);
+      //console.log($scope.filterArtistName);
       $scope.getNewReleases($scope.filterArtistName);
    }; // FUNC
 
@@ -174,16 +172,16 @@
                   });  //FOREACH
 
 
-                 
+
                  if(foundsmth){
                   // TODO: SHOW EVERYTHING
-                 // $scope.searchReqOffset += 50;  
+                 // $scope.searchReqOffset += 50;
                   console.log($scope.new_releases);
                   //$scope.getNewReleases(artistName);
                  }  //IF
                 } // IF / ELSE
-                
-              
+
+
                 window.setTimeout(function(){
                   $scope.isLoading = false;
                   //console.log($scope.new_releases);
@@ -330,6 +328,23 @@
       $scope.resFilter = function(){
         $('#filter :nth-child(0 )').prop('selected', true); // To select via index
       };
+
+      /* CAROUSEL */
+      $('.carousel.carousel-slider').carousel({
+       fullWidth: true,
+       indicators: true,
+       duration: 250,
+       interval: 6000,
+       dist: 0
+     });
+
+     /*CAROUSEL AUTOPLAY */
+    setTimeout(function(){autoplay();}, 2500);
+    function autoplay() {
+      $('.carousel.carousel-slider').carousel('next');
+        setTimeout(autoplay, 4500);
+    }
+
 
 
   });    //ANG APP

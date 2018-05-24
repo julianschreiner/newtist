@@ -57,10 +57,8 @@
            placeholder="Search Artist e.g Gucci Mane">
             <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
             <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
-            <div class="input-field col s12" ng-show="!userSearched">
-
+            <div class="input-field col s12" ng-show="!userSearched && filterLoaded">
               <select id="filter" class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
-
                 <option value="" disabled selected>Choose a filter</option>
                 <option
                 ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
@@ -69,20 +67,58 @@
 						 <!-- <label>{{filter.selected}}</label> -->
 						 <button type="button" name="filter-applied" class="waves-effect waves-light btn" width="5" ng-show="filter.selected != null" ng-click="getNewReleases();resFilter();">Reset Filter</button>
             </div>
+						<div class="progress" ng-show="filterLoaded == false" id="loadingBar">
+      				<div class="indeterminate"></div>
+  					</div><!-- progress -->
       </div>
     </form>
     </div>
   </div>
   <div class="row">
-    <div class="carousel carousel-slider center" ng-show="carouselLoaded">
-    <div class="carousel-item green white-text" href="#one!">
-      <h2>First Panel</h2>
-      <p class="white-text">this is my first panel</p>
-      <div class="carousel-fixed-item center" >
-        <a class="btn waves-effect white grey-text darken-text-2">VISIT</a>
+		<section class="black">
+  <div class="carousel carousel-slider" data-indicators="true">
+      <!-- <div class="carousel-fixed-item ">
+       <div class="container">
+        <h1 class="white-text">Highlights</h1>
+        <a class="btn waves-effect white grey-text darken-text-2" href="https://codepen.io/collection/nbBqgY/" target="_blank">button</a>
       </div>
-  	</div> <!-- carousel item -->
-	</div><!-- carousel -->
+    </div> -->
+		<div class="carousel-item teal lighten-2 white-text" href="#one!">
+		 <div class="container" id="carouselContainer">
+				<h1 class="white-text center" id="featuredTextCar">Featured</h1>
+			</div>
+		</div>
+    <div class="carousel-item red lighten-2 white-text" href="#one!">
+				<img src="{{ carouselItems[0].images[0].url }}" class="carouselImage">
+		 <div class="container" id="carouselContainer">
+        <h2>{{ carouselItems[0].name }} by <strong>{{ carouselItems[0].artists[0].name}}</strong> </h2>
+				<a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[0].external_urls.spotify }}" target="_blank">LISTEN</a>
+      </div>
+    </div>
+		<div class="carousel-item amber darken-2 white-text" href="#two!">
+				<img src="{{ carouselItems[1].images[0].url }}" class="carouselImage">
+      <div class="container" id="carouselContainer">
+				<h2>{{ carouselItems[1].name }} by <strong>{{ carouselItems[1].artists[0].name}}</strong> </h2>
+				<a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[1].external_urls.spotify }}" target="_blank">LISTEN</a>
+      </div>
+    </div>
+		<div class="carousel-item green white-text" href="#three!">
+			<img src="{{ carouselItems[2].images[0].url }}" class="carouselImage">
+      <div class="container" id="carouselContainer">
+				<h2>{{ carouselItems[2].name }} by <strong>{{ carouselItems[2].artists[0].name}}</strong> </h2>
+				<a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[2].external_urls.spotify }}" target="_blank">LISTEN</a>
+      </div>
+    </div>
+		<div class="carousel-item blue white-text" href="#four!">
+			<img src="{{ carouselItems[3].images[0].url }}" class="carouselImage">
+      <div class="container" id="carouselContainer">
+				<h2>{{ carouselItems[3].name }} by <strong>{{ carouselItems[3].artists[0].name}}</strong> </h2>
+				<a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[3].external_urls.spotify }}" target="_blank">LISTEN</a>
+      </div>
+    </div>
+
+  </div>
+</section>
 </div> <!-- row -->
 
   <div class="row">
