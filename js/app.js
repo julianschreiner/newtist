@@ -230,7 +230,7 @@
             //console.log(JSON.stringify(data));
             $scope.artist_data = JSON.stringify(data);
 
-             console.log(data);
+          //   console.log(data);
           //  console.log(data['artists']['items'].length);
 
           for(var i = 0; i < data['artists']['items'].length; i++){
@@ -258,10 +258,13 @@
     });  //AJAX
 
    /*LOOK FOR NEWEST RELEASES OF THAT ARTIST*/
-   angular.forEach($scope.new_releases, function(value, key){
+   //BUG FOUND HERE
+   $scope.allItemsComb = $scope.carouselItems.concat($scope.new_releases);
+  
+   angular.forEach($scope.allItemsComb, function(value, key){
     angular.forEach(value['artists'], function(value_2, key_2){
       if(value_2['name'] == $scope.inp_search){
-        $scope.new_rel_artist.push($scope.new_releases[key]);
+        $scope.new_rel_artist.push($scope.allItemsComb[key]);
         } //IF
       }); //INNER FOREACH
     }); //OUTTER FOREACH
