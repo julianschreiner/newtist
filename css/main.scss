@@ -26,6 +26,10 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   }
 }
 
+.card-title {
+  font-size: 159% !important;
+}
+
 @media #{$small-and-down} {
   .cards-container {
     @include column-count(1);

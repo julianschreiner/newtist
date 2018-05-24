@@ -1,3 +1,8 @@
 /********* TODO **********/ 
 TODO carousel show top 4 or something
 TODO show more when filtering or show more when searching for artist (searchOffset)
+
+/******* BUGS *******/
+TODO RECENT RELEASES ARTIST BUG DOESNT SHOW FROM CAROUSELITEMS
+
+TODO FIX Name of cards bug (CSS) -> WORD BREAK ## FIXED
