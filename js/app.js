@@ -80,7 +80,11 @@
 
       console.log("Selected Filter: ", selectedFilter);
 
-      angular.forEach($scope.new_releases, function(key, value){
+
+      // TODO CHANGE IT HERE NEW RELEASES
+     $scope.allItemsComb = $scope.carouselItems.concat($scope.new_releases);
+
+      angular.forEach($scope.allItemsComb, function(key, value){
           angular.forEach(key.artists, function(key, value){
               //console.log(key.name);
               $scope.filtered_search = key.name.replace(' ', '%20');
@@ -260,7 +264,7 @@
    /*LOOK FOR NEWEST RELEASES OF THAT ARTIST*/
    //BUG FOUND HERE
    $scope.allItemsComb = $scope.carouselItems.concat($scope.new_releases);
-  
+
    angular.forEach($scope.allItemsComb, function(value, key){
     angular.forEach(value['artists'], function(value_2, key_2){
       if(value_2['name'] == $scope.inp_search){
