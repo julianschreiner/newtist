@@ -45,6 +45,46 @@
    $scope.carouselItems = [];
    $scope.carouselLoaded = false;
 
+   $scope.fetchedData = [];
+
+   $scope.getReleasesInc = function(artistName = null, quLimit = 50, quOffset = 0){
+ //GET NEW RELEASES helper function for filtering
+ $.ajax({
+  url: 'https://api.spotify.com/v1/browse/new-releases?limit=' + quLimit + '&offset=' + quOffset,
+  type: 'GET',
+  headers: {
+    'Authorization' : 'Bearer ' + access_token
+  },
+  success: function(data){
+            //  console.log(data);
+              if(artistName == null || artistName.length == 0){
+                $scope.fetchedData.push(data['albums']['items']);
+              //    angular.forEach(data['albums']['items'], function(key, value){
+              //          $scope.fetchedData.push(key);
+            //      });
+                 // $scope.getCarouselItems($scope.new_releases);
+              }
+            },
+            error: function(err){
+              alert("cannot get newest releases in inc func");
+              console.log(err);
+            }
+      }); //AJAX
+ };  //FUNC
+
+ var i;
+ var j = 50;
+
+ for(i = 0; i < 3; i++){
+   $scope.getReleasesInc(null, 50, j);
+   j+=50;
+ }
+
+ setTimeout(function(){
+    console.log($scope.fetchedData);
+ }, 3000);
+
+
    $scope.getFilter = function(){
      $.ajax({
         url: 'https://api.spotify.com/v1/recommendations/available-genre-seeds',
@@ -76,13 +116,24 @@
 
      if(selectedFilter != null){
          selectedFilter = selectedFilter.replace('-', ' ');
-     }
+
 
       console.log("Selected Filter: ", selectedFilter);
+
+      //Get data for 3-4 requests with offsets
+
 
 
       // TODO CHANGE IT HERE NEW RELEASES
      $scope.allItemsComb = $scope.carouselItems.concat($scope.new_releases);
+
+
+     $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[0]);
+     $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[1]);
+     $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[2]);
+
+
+
 
       angular.forEach($scope.allItemsComb, function(key, value){
           angular.forEach(key.artists, function(key, value){
@@ -98,12 +149,13 @@
                success: function(data) {
                        //console.log(JSON.stringify(data));
                        $scope.artist_data = JSON.stringify(data);
-                    //   console.log(data);
+                      
                      //  console.log(data['artists']['items'].length);
 
                      for(var i = 0; i < data['artists']['items'].length; i++){
                        angular.forEach(data['artists']['items'][i]['genres'], function(key, value){
                          if(key == selectedFilter){
+                           console.log(key, selectedFilter);
                            $scope.filterArtistName.push(data['artists']['items'][i]['name'] );
                            $scope.$apply();
                          }  // IF
@@ -120,6 +172,8 @@
       }); // FOREACH
       //console.log($scope.filterArtistName);
       $scope.getNewReleases($scope.filterArtistName);
+
+    } //FILTER != NULL
    }; // FUNC
 
 
@@ -130,7 +184,7 @@
   /* CAROUSEL ITEMS */
   $scope.getCarouselItems = function(releases, limit = 4){
       $scope.carouselItems = releases.splice(0, limit);
-      console.log($scope.carouselItems);
+      //console.log($scope.carouselItems);
       $scope.carouselLoaded = true;
       $scope.$apply();
   };
@@ -203,6 +257,9 @@
   };  //FUNC
 
   $scope.getNewReleases();
+
+
+
 
 
 
@@ -300,7 +357,7 @@
 
      //LOAD-MORE
      $("button[name = 'load-more']").click(function(e){
-      $scope.searchReqOffset += 20;
+      $scope.searchReqOffset += 50;
       $scope.isLoading = true;
 
         //GET NEW RELEASES

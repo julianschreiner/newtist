@@ -58,6 +58,8 @@
            placeholder="Search Artist e.g Gucci Mane">
             <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
             <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
+						<div class="row">
+						</div>
             <div class="input-field col s12" ng-show="!userSearched && filterLoaded">
               <select id="filter" class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
                 <option value="" disabled selected>Choose a filter</option>
