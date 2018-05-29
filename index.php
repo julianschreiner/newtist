@@ -75,7 +75,7 @@
 						</div>
             <div class="input-field col s12" ng-show="!userSearched && filterLoaded">
               <select id="filter" class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
-                <option value="" disabled selected style="color:yellow">Choose a filter</option>
+                <option value="" disabled selected>Choose a filter</option>
                 <option
                 ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
               </select>

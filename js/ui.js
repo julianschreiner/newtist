@@ -12,6 +12,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
         $('#txtSearchArtist').css("color", "white");
         $('#txtNewReleases').removeClass('grey-text');
         $('#txtNewReleases').css("color", "white");
+        $('.select-dropdown').css("color", "white");
 
       } 
       else{
@@ -22,6 +23,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
         $('#headlineNewtist').css("color", "black");
         $('#txtSearchArtist').css("color", "black");
         $('#txtNewReleases').addClass('grey-text');
+        $('.select-dropdown').css("color", "black");
         
 
       }
