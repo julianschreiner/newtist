@@ -1,6 +1,5 @@
   console.log(access_token);
 
-
   var app = angular.module('myApp', []);
   app.controller('myCtrl', function($scope, $timeout) {
    /* API VARIABLES */
@@ -77,7 +76,7 @@
 
  for(i = 0; i < 3; i++){
    $scope.getReleasesInc(null, 50, j);
-   j+=50;
+      j+=50;
  }
 
  setTimeout(function(){
@@ -127,18 +126,15 @@
       // TODO CHANGE IT HERE NEW RELEASES
      $scope.allItemsComb = $scope.carouselItems.concat($scope.new_releases);
 
-
      $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[0]);
      $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[1]);
      $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[2]);
 
-
-
-
       angular.forEach($scope.allItemsComb, function(key, value){
           angular.forEach(key.artists, function(key, value){
               //console.log(key.name);
-              $scope.filtered_search = key.name.replace(' ', '%20');
+              $scope.filtered_search = escape(key.name);
+              console.log($scope.filtered_search);
               /*SEARCH PROTOTYPE */
               $.ajax({
                url: 'https://api.spotify.com/v1/search?q='+$scope.filtered_search+'&type=artist&market=' + $scope.userLocation,
@@ -178,7 +174,7 @@
 
 
   $scope.getFilter();
-  console.log($scope.filter);
+  
 
 
   /* CAROUSEL ITEMS */

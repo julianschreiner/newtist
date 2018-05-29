@@ -46,14 +46,27 @@
 
 <div class="container center">
   <div class="row">
+
     <div class="col s12 center">
-      <h2 class='text-center'>Newtist</h2>
-      <h4 class='text-center grey-text lighten-3'>
+      <h2 class='text-center' id="headlineNewtist">Newtist</h2>
+
+      <!-- Switch -->
+  <div class="switch">
+    <label>
+      Whitemode
+      <input type="checkbox">
+      <span class="lever"></span>
+      Darkmode
+    </label>
+  </div>
+
+
+<!--      <h4 class='text-center grey-text lighten-3'>
         By <a href="https://twitter.com/rlated1337" target="_blank">@Rlated</a>
-      </h4>
+      </h4> -->
       <form class="col s12">
       <div class="row input-field">
-           <p class="flow-text">Search for an artist:</p>
+           <p class="flow-text" id="txtSearchArtist">Search for an artist</p>
            <input type="text" name="artist-search"
            placeholder="Search Artist e.g Gucci Mane">
             <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
@@ -62,7 +75,7 @@
 						</div>
             <div class="input-field col s12" ng-show="!userSearched && filterLoaded">
               <select id="filter" class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
-                <option value="" disabled selected>Choose a filter</option>
+                <option value="" disabled selected style="color:yellow">Choose a filter</option>
                 <option
                 ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
               </select>
@@ -125,7 +138,7 @@
 </div> <!-- row -->
 
   <div class="row">
-    <h4 class='text-center grey-text lighten-3' ng-show="!userSearched">Newest Releases</h4>
+    <h4 class='text-center grey-text lighten-3' ng-show="!userSearched" id="txtNewReleases">Newest Releases</h4>
     <h4 class='text-center grey-text lighten-3' ng-show="userSearched">Artist</h4>
 
   <div class="row" ng-show="!isLoading">
@@ -246,6 +259,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="js/app.js"></script>
+    <script src="js/ui.js"></script>
     <link rel="stylesheet" href="css/main.scss">
 
     <!-- Compiled and minified JavaScript -->
