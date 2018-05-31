@@ -33,7 +33,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
   document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.fixed-action-btn');
     var instances = M.FloatingActionButton.init(elems, {
-
+      hoverEnabled: false
     });
   });
 
@@ -42,3 +42,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
   $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
   });
+
+  function scrollToTop(){
+      $('html, body').animate({ scrollTop: ($('#txtSearchArtist').offset().top)}, 'slow');
+  };

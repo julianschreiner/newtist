@@ -2,4 +2,5 @@
 TODO show more when filtering or show more when searching for artist (searchOffset)
 
 /******* BUGS *******/
-UI MOBILE CARDS 
+UI MOBILE CARDS
+STORE WHITEMODE / DARKMODE IN LOCALSTORAGE
