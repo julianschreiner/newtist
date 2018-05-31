@@ -142,7 +142,7 @@
     <h4 class='text-center grey-text lighten-3' ng-show="userSearched">Artist</h4>
 
   <div class="row" ng-show="!isLoading">
-    <div class="col s12 m4 l3" ng-show="!userSearched" ng-repeat="x in new_releases">
+    <div class="col s12 m4 l3" ng-show="!userSearched" ng-repeat="x in new_releases" id="cards">
        <div class="card blue-grey darken-1" style="min-height: 39em; max-height: 39em;">
         <div class="card-image">
             <img src="{{ x.images[0].url }}">
@@ -162,6 +162,7 @@
          </div>
         </div>
     </div>
+		
 
 
     <!-- ARTIST CARD -->

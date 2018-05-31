@@ -46,6 +46,13 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   }
 }
 
+@media only screen and (max-width: 600px) {
+    #cards {
+      max-height: 100%;
+        margin-bottom: 8vh;
+    }
+}
+
 
 /// Styles for demo
 .text-center {
