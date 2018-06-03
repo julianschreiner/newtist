@@ -33,6 +33,9 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
   function switchColor(color){
     if(color === "dark"){
       //darkmode
+      $('.switch').find('input[type=checkbox]').trigger('click');
+      $('.switch').find('input[type=checkbox]').click(); 
+
       $('body').css("background-color", "#263238");
       $('#footer').css("background-color", "#263238");
 
