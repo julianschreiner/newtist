@@ -4,10 +4,40 @@
     $method = 'POST';
     $spot_api_redirect = 'https://julianschreiner.de';
 
-    $client_id = 'bd6615f1fa0e40b3aa324b5ee6a25a20';
-    $client_secret = 'f33aaaf8ad794d09a850ae37cb6098c0';
+		$credFile = fopen("creds.ini", "r") or die("Unable to open file!");
+		$creds = fread($credFile,filesize("creds.ini"));
+
+		$username = strtok($creds, ':');
+
+		$password = strtok('');
+		$password = preg_replace('/\v(?:[\v\h]+)/', '', $password);
+
+		fclose($credFile);
+
+
+		$link = new \PDO(   'mysql:host=rlated12.lima-db.de;dbname=db_363124_3;charset=utf8mb4',
+                        (string)$username,
+                        (string)$password,
+                        array(
+                            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                            \PDO::ATTR_PERSISTENT => false
+                        )
+                    );
+
+
+    $handle = $link->prepare('select * from spotify_cred where id = ?');
+
+    $handle->bindValue(1, 1, PDO::PARAM_INT);
+
+    $handle->execute();
+
+    $result = $handle->fetchAll(\PDO::FETCH_OBJ);
+
+		$client_id = $result[0]->cl_id;
+		$client_secret = $result[0]->cl_sec;
 
     $credentials = "{$client_id}:{$client_secret}";
+
 
     $headers = array(
             "Accept: */*",
