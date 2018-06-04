@@ -14,7 +14,6 @@
 
 		fclose($credFile);
 
-
 		$link = new \PDO(   'mysql:host=rlated12.lima-db.de;dbname=db_363124_3;charset=utf8mb4',
                         (string)$username,
                         (string)$password,
@@ -284,7 +283,7 @@
 
 				<div class="fixed-action-btn">
 <a class="btn-floating btn-large red" onclick="scrollToTop();">
-	<i class="large material-icons">navigation</i>
+	<i class="large material-icons" style="background-color: #26a69a;">navigation</i>
 </a>
 </div>
 
