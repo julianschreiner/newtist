@@ -122,16 +122,28 @@
       //Get data for 3-4 requests with offsets
 
 
-
-      // TODO CHANGE IT HERE NEW RELEASES
+      //BUG: TOO MANY REQUESTS
      $scope.allItemsComb = $scope.carouselItems.concat($scope.new_releases);
 
-     $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[0]);
-     $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[1]);
-     $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[2]);
 
+     $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[0]);
+
+
+     $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[1]);
+
+    // $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[2]);
+
+      console.log($scope.allItemsComb);
+
+      let promise = $timeout();
       angular.forEach($scope.allItemsComb, function(key, value){
           angular.forEach(key.artists, function(key, value){
+/*
+            promise = promise.then(function() {
+                alert("h");
+                return $timeout(2000);
+            });
+*/
               //console.log(key.name);
               $scope.filtered_search = escape(key.name);
               console.log($scope.filtered_search);
@@ -145,7 +157,7 @@
                success: function(data) {
                        //console.log(JSON.stringify(data));
                        $scope.artist_data = JSON.stringify(data);
-                      
+
                      //  console.log(data['artists']['items'].length);
 
                      for(var i = 0; i < data['artists']['items'].length; i++){
@@ -174,7 +186,7 @@
 
 
   $scope.getFilter();
-  
+
 
 
   /* CAROUSEL ITEMS */
