@@ -85,3 +85,8 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 #loadingBar{
   margin-top: 5%;
 }
+
+
+.card-content{
+  min-height: 25vh !important;
+}
