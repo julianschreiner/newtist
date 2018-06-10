@@ -161,7 +161,6 @@
 				<a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[3].external_urls.spotify }}" target="_blank">LISTEN</a>
       </div>
     </div>
-
   </div>
 </section>
 </div> <!-- row -->

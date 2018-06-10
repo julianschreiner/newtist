@@ -146,7 +146,7 @@
 */
               //console.log(key.name);
               $scope.filtered_search = escape(key.name);
-              console.log($scope.filtered_search);
+              //console.log($scope.filtered_search);
               /*SEARCH PROTOTYPE */
               $.ajax({
                url: 'https://api.spotify.com/v1/search?q='+$scope.filtered_search+'&type=artist&market=' + $scope.userLocation,
@@ -163,7 +163,7 @@
                      for(var i = 0; i < data['artists']['items'].length; i++){
                        angular.forEach(data['artists']['items'][i]['genres'], function(key, value){
                          if(key == selectedFilter){
-                           console.log(key, selectedFilter);
+                           //console.log(key, selectedFilter);
                            $scope.filterArtistName.push(data['artists']['items'][i]['name'] );
                            $scope.$apply();
                          }  // IF
