@@ -6,6 +6,11 @@ function status_rep($status){
 status_rep("running.....");
 
 $offsetnmbr = 0;
+
+if(isset($_GET['offset'])){
+  if($_GET['offset'] > 0 && $_GET['offset'] < 500) $offsetnmbr = $_GET['offset'];
+}
+
 if(isset($argv[1]) && !empty($argv[1])){
   if($argv[1] > 0 && $argv[1] < 500) $offsetnmbr = $argv[1];
 }
@@ -154,9 +159,6 @@ $headers = array(
     $handle->execute();
 
     $result = $handle->fetchAll(\PDO::FETCH_ASSOC);
-
-
-    var_dump(empty($result[0]['genre']));
 
     $skip = (empty($result[0]['genre']) ? false : true);
 
