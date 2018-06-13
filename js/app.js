@@ -1,7 +1,6 @@
-  console.log(access_token);
 
   var app = angular.module('myApp', []);
-  app.controller('myCtrl', function($scope, $timeout) {
+  app.controller('myCtrl', function($scope, $timeout, $http) {
    /* API VARIABLES */
    $scope.artist_data = {};
    $scope.artist_id = '';
@@ -45,6 +44,32 @@
    $scope.carouselLoaded = false;
 
    $scope.fetchedData = [];
+
+
+  /* FILTER REWORK TESTING */
+  $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+
+  var json = '{"frouter": {"apikey": "1234", "method": "genre"	} }';
+  obj = JSON.parse(json);
+
+  $http({
+        url: './webservice/frouter.php?f=route',
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+        method: "POST",
+        data: { obj }
+    })
+    .then(function(response) {
+            // success
+            console.log(response.data);
+    },
+    function(response) { // optional
+            // failed
+            console.log(response);
+    });
+
+
+
+
 
    $scope.getReleasesInc = function(artistName = null, quLimit = 50, quOffset = 0){
  //GET NEW RELEASES helper function for filtering
