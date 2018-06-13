@@ -63,7 +63,7 @@
     .then(function(response) {
             // success
             $scope.categories = response.data;
-            console.log($scope.categories);
+            //console.log($scope.categories);
     },
     function(response) { // optional
             // failed
@@ -106,7 +106,7 @@
  }
 
  setTimeout(function(){
-    console.log($scope.fetchedData);
+    //console.log($scope.fetchedData);
  }, 3000);
 
 
@@ -152,7 +152,7 @@
             $scope.filterArtistName.push(key.name);
           }
       }); // FOREACH
-      if(!empty($scope.filterArtistName)){
+      if($scope.filterArtistName.length != 0){
         $scope.getNewReleases($scope.filterArtistName);
       }
       else{
