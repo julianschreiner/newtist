@@ -47,6 +47,8 @@
 
 
   /* FILTER REWORK TESTING */
+  $scope.categories = [];
+
   $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
   var json = '{"frouter": {"apikey": "1234", "method": "genre"	} }';
@@ -60,14 +62,13 @@
     })
     .then(function(response) {
             // success
-            console.log(response.data);
+            $scope.categories = response.data;
+            console.log($scope.categories);
     },
     function(response) { // optional
             // failed
             console.log(response);
     });
-
-
 
 
 
@@ -141,71 +142,16 @@
      if(selectedFilter != null){
          selectedFilter = selectedFilter.replace('-', ' ');
 
+    //console.log("Selected Filter: ", selectedFilter);
 
-      console.log("Selected Filter: ", selectedFilter);
+    //push name where name == filter to $scope.filterArtistName
 
-      //Get data for 3-4 requests with offsets
-
-
-      //BUG: TOO MANY REQUESTS
-     $scope.allItemsComb = $scope.carouselItems.concat($scope.new_releases);
-
-
-     $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[0]);
-
-
-     $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[1]);
-
-    // $scope.allItemsComb = $scope.allItemsComb.concat($scope.fetchedData[2]);
-
-      console.log($scope.allItemsComb);
-
-      let promise = $timeout();
-      angular.forEach($scope.allItemsComb, function(key, value){
-          angular.forEach(key.artists, function(key, value){
-/*
-            promise = promise.then(function() {
-                alert("h");
-                return $timeout(2000);
-            });
-*/
-              //console.log(key.name);
-              $scope.filtered_search = escape(key.name);
-              //console.log($scope.filtered_search);
-              /*SEARCH PROTOTYPE */
-              $.ajax({
-               url: 'https://api.spotify.com/v1/search?q='+$scope.filtered_search+'&type=artist&market=' + $scope.userLocation,
-               type: 'GET',
-               headers: {
-                 'Authorization' : 'Bearer ' + access_token
-               },
-               success: function(data) {
-                       //console.log(JSON.stringify(data));
-                       $scope.artist_data = JSON.stringify(data);
-
-                     //  console.log(data['artists']['items'].length);
-
-                     for(var i = 0; i < data['artists']['items'].length; i++){
-                       angular.forEach(data['artists']['items'][i]['genres'], function(key, value){
-                         if(key == selectedFilter){
-                           //console.log(key, selectedFilter);
-                           $scope.filterArtistName.push(data['artists']['items'][i]['name'] );
-                           $scope.$apply();
-                         }  // IF
-                       });  //FOREACH
-                     }  //FOR
-                   },
-                   error: function(err){
-                     console.log(err);
-                     alert("cannot get artist id");
-                   }
-               });  //AJAX
-
-          }); // forEach
+      angular.forEach($scope.categories, function(key, value){
+          if(key.genre.includes(selectedFilter)){
+            $scope.filterArtistName.push(key.name);
+          }
       }); // FOREACH
-      //console.log($scope.filterArtistName);
       $scope.getNewReleases($scope.filterArtistName);
-
     } //FILTER != NULL
    }; // FUNC
 

@@ -65,13 +65,16 @@ class Frouter {
   * Helper Function for getting Data from DB
   *
   * @param    nothing
-  * @return      json
+  * @return   json with artist name + genre
   *
   */
   private function getGenreData(){
     $handle = $this->link->prepare("SELECT name, genre FROM artist_gd");
+
     $handle->execute();
+
     $result = $handle->fetchAll(\PDO::FETCH_ASSOC);
+
     echo json_encode($result);
   }
 
