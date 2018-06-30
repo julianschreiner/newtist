@@ -170,7 +170,7 @@
     <h4 class='text-center grey-text lighten-3' ng-show="userSearched">Artist</h4>
 
   <div class="row" ng-show="!isLoading">
-    <div class="col s12 m4 l3 myCards" ng-show="!userSearched" ng-repeat="x in new_releases">
+    <div class="col s12 m4 l3 myCards" ng-show="!userSearched" ng-repeat="x in new_releases track by $index">
        <div class="card blue-grey darken-1" style="min-height: 39em; max-height: 39em;">
         <div class="card-image">
             <img src="{{ x.images[0].url }}">
@@ -292,11 +292,13 @@
 
 
 </body>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script src="js/ui.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
     <script src="js/app.js"></script>
-    <script src="js/ui.js"></script>
+
     <link rel="stylesheet" href="css/main.scss">
 
     <!-- Compiled and minified JavaScript -->

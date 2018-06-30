@@ -1,3 +1,12 @@
+/* STORAGE COLORMODE */
+let colorMode = window.localStorage.getItem('colorMode');
+let mode = '';
+
+if(colorMode === 'dark') mode = 'dark';
+else mode = 'white';
+
+switchColor(mode);
+
 $(".switch").find("input[type=checkbox]").on("change",function() {
       var status = $(this).prop('checked');
 
@@ -33,8 +42,11 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
   function switchColor(color){
     if(color === "dark"){
       //darkmode
-      $('.switch').find('input[type=checkbox]').trigger('click');
-      $('.switch').find('input[type=checkbox]').click();
+      setTimeout(function(){
+        $('.switch').find('input[type=checkbox]').trigger('click');
+        $('.switch').find('input[type=checkbox]').click();
+      }, 1);
+
 
       $('body').css("background-color", "#263238");
       $('#footer').css("background-color", "#263238");
@@ -63,23 +75,12 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
     }
   };
 
-
   // FLOATING button
-
   document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.fixed-action-btn');
     var instances = M.FloatingActionButton.init(elems, {
       hoverEnabled: false
     });
-
-    /* STORAGE COLORMODE */
-    let colorMode = window.localStorage.getItem('colorMode');
-    let mode = '';
-
-    if(colorMode === 'dark') mode = 'dark';
-    else mode = 'white';
-
-    switchColor(mode);
   });
 
   // Or with jQuery

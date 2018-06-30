@@ -42,13 +42,23 @@ array(
 )
 );
 
+if(isset($argv[1]) && $argv[1] == 'count'){
+  $handle = $link->prepare('SELECT count(*) FROM artist_gd');
+
+  $handle->execute();
+
+  $num_of_rows = $handle->fetchColumn();
+
+  status_rep("Total Entries: " . $num_of_rows);
+  exit;
+}
 
 //$handle = $link->prepare('SELECT * FROM artist_gd WHERE name = :sample');
 //$handle->bindValue(":sample", $argv[1], PDO::PARAM_STR);
 //$handle->execute();
 //$result = $handle->fetchAll(\PDO::FETCH_OBJ);
 
-$handle = $link->prepare('select * from spotify_cred where id = ?');
+$handle = $link->prepare('SELECT * FROM spotify_cred WHERE id = ?');
 
 $handle->bindValue(1, 1, PDO::PARAM_INT);
 
