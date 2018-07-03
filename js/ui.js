@@ -2,12 +2,12 @@
 let colorMode = window.localStorage.getItem('colorMode');
 let mode = '';
 
-if(colorMode === 'dark') mode = 'dark';
-else mode = 'white';
+(colorMode == 'dark' ? mode = 'dark' : mode = 'white');
 
 switchColor(mode);
 
 $(".switch").find("input[type=checkbox]").on("change",function() {
+
       var status = $(this).prop('checked');
 
       if(status === true){
@@ -43,21 +43,19 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
     if(color === "dark"){
       //darkmode
       setTimeout(function(){
-        $('.switch').find('input[type=checkbox]').trigger('click');
-        $('.switch').find('input[type=checkbox]').click();
-      }, 1);
-
+        $(".switch").find("input[type=checkbox]").prop('checked', true);
+      }, 1000);
 
       $('body').css("background-color", "#263238");
       $('#footer').css("background-color", "#263238");
-
+      
       /* TEXT */
       $('#headlineNewtist').css("color", "white");
       $('#txtSearchArtist').css("color", "white");
       $('#txtNewReleases').removeClass('grey-text');
       $('#txtNewReleases').css("color", "white");
       $('.select-dropdown').css("color", "white");
-
+    
       window.localStorage.setItem('colorMode', 'dark');
 
     }
