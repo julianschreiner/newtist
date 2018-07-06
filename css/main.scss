@@ -90,3 +90,14 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 .card-content{
   min-height: 25vh !important;
 }
+
+#loginRegister{
+  text-align: right;
+}
+
+@media only screen and (min-width: 768px) {
+{
+  .myCards{
+    height: 63% !important;
+  }
+}
