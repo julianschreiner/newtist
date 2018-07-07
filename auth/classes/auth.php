@@ -17,7 +17,7 @@ class Auth{
    */
 
 	public function __construct(){
-		//include db
+		//make db connection
 		$database = new db;
 		$this->link = $database->getLink();
 	}
