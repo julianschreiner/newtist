@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
 		$url = 'https://accounts.spotify.com/api/token';
     $method = 'POST';
     $spot_api_redirect = 'https://julianschreiner.de';
@@ -75,9 +75,28 @@
 
 <div class="container center">
   <div class="row">
-
+    
     <div class="col s12 center">
+      <?php if (isset($_SESSION['id'])) : ?>
+        <h6 id="userLogged">User logged in: <?php echo $_SESSION['id']; ?></h6>
+
+      <?php elseif(isset($_GET['reg']) && !isset($_SESSION['id']) && $_GET['reg'] == 'logdout'): ?>
+        <h6 id="userLogged">Successfully logged out!</h6>
+
+      <?php endif; ?>
+
       <h2 class='text-center' id="headlineNewtist">Newtist</h2>
+      <?php if (isset($_SESSION['id']) && $_GET['reg'] == 'success') : ?>
+        <a href="auth/logout.php">
+           <p class="text-right grey-text lighten-3" id="loginRegister">Logout</p>
+        </a>
+      <?php else : ?>
+        <a href="auth/login.php">
+            <p class="text-right grey-text lighten-3" id="loginRegister">Login</p>
+        </a>
+        <?php endif; ?>
+      
+      <!-- <p class="text-right grey-text lighten-3" id="loginRegister">Register</p> -->
 
       <!-- Switch -->
   <div class="switch">

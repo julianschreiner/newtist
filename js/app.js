@@ -63,6 +63,7 @@
     .then(function(response) {
             // success
             $scope.categories = response.data;
+            console.log($scope.categories);
             //console.log($scope.categories);
     },
     function(response) { // optional
