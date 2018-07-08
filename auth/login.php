@@ -33,14 +33,14 @@ if(isset($_POST['action']) && !empty($_POST)){
          			<div class="row">
          				<div class="input-field col s6">
          					<i class="material-icons prefix">account_circle</i>
-         					<input id="icon_prefix" type="text" class="validate" required data-length="15" name="username">
+         					<input id="icon_prefix" type="text" class="validate" required data-length="15" name="username" style="width: 100%;">
          					<label for="icon_prefix">Username</label>
          				</div>
          			</div>
          			<div class="row">
          				<div class="input-field col s6">
          					<i class="material-icons prefix">security</i>
-         					<input id="icon_password" type="password" class="validate" required name="password">
+         					<input id="icon_password" type="password" class="validate" required name="password" style="width: 100%;">
          					<label for="icon_password">Password</label>
          				</div>
          			</div>
