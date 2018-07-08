@@ -53,10 +53,19 @@ if(isset($_POST['action']) && !empty($_POST)){
          				</div>
          			</div>
          			<div class="row center-align">
-         				<button class="btn waves-effect waves-light" type="submit" name="action">Register
-         					<i class="material-icons right">arrow_right</i>
-         				</button>
-         			</div>   
+                            <a href="../">
+                                <button class="btn waves-effect waves-light" type="button" name="">Back
+                                    <i class="material-icons right">arrow_left</i>
+                                </button>
+                            </a>
+                            
+                        
+                       
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Register
+                                <i class="material-icons right">arrow_right</i>
+                            </button>
+                        
+                    </div>   
          </form>       
       </div>
 </body>

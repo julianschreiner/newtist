@@ -28,6 +28,7 @@ if(isset($_POST['action']) && !empty($_POST)){
                     <h6 style="color:red;">Couldn't find user.</h6>
                 <?php endif;?>
                 </div>
+               
 
          			<div class="row">
          				<div class="input-field col s6">
@@ -47,11 +48,21 @@ if(isset($_POST['action']) && !empty($_POST)){
                         <h6>No Account yet?<a href="register.php"> Register here.</a></h6>
                     </div>
          			
-         			<div class="row center-align">
-         				<button class="btn waves-effect waves-light" type="submit" name="action">Login
-         					<i class="material-icons right">arrow_right</i>
-         				</button>
-         			</div>   
+                    <div class="row center-align">
+                            <a href="../">
+                                <button class="btn waves-effect waves-light" type="button" name="">Back
+                                    <i class="material-icons right">arrow_left</i>
+                                </button>
+                            </a>
+                            
+                        
+                       
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                                <i class="material-icons right">arrow_right</i>
+                            </button>
+                        
+                    </div>
+                     
          </form>       
       </div>
 </body>

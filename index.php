@@ -231,6 +231,7 @@
         </div>
       </div>
     </div>
+  
   <!-- CARD END -->
 </div>
   <div class="row">
