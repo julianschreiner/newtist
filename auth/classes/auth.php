@@ -38,6 +38,15 @@ class Auth{
 		if(!empty($result)){
         	session_start();
         	$_SESSION['id'] = $username;
+
+        	$handle = $this->link->prepare("
+				UPDATE users set last_login = :timestamp WHERE username = :usuername
+			");
+
+			$handle->bindValue(":username", $username);
+        	$handle->bindValue(":timestampp", date('Y-m-d H:i:s','1299762201428'));
+        	$handle->execute();
+
         	
         	header("Location: ../index.php?reg=success");
         	$okay = true;
@@ -91,7 +100,7 @@ class Auth{
 	public function logout(){
 		session_start();
 		session_destroy();
-		
+
     	header("Location: ../index.php?reg=logdout");
     	exit;
 	}

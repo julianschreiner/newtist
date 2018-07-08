@@ -26,26 +26,26 @@ if(isset($_POST['action']) && !empty($_POST)){
 <body class="container">
 	 <div class="row">
          <form class="col s12 m6 offset-m4" method="POST">
-                    <div class="row">
+                    <div class="row center-align">
                         <?php if(isset($_POST['action']) && $success == false) : ?>
                             <h6 style="color:red;">User already exists.</h6>
                         <?php endif;?>
                     </div>
-         			<div class="row">
+         			<div class="row center-align">
          				<div class="input-field col s6">
          					<i class="material-icons prefix">account_circle</i>
          					<input id="icon_prefix" type="text" class="validate" required data-length="15" name="username">
          					<label for="icon_prefix">Username</label>
          				</div>
          			</div>
-         			<div class="row">
+         			<div class="row center-align">
          				<div class="input-field col s6">
          					<i class="material-icons prefix">security</i>
          					<input id="icon_password" type="password" class="validate" required name="password">
          					<label for="icon_password">Password</label>
          				</div>
          			</div>
-         			<div class="row">
+         			<div class="row center-align">
          				<div class="input-field col s6">
          					<i class="material-icons prefix">email</i>
          					<input id="icon_email" type="email" class="validate" required name="email">
