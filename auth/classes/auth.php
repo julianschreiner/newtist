@@ -40,11 +40,11 @@ class Auth{
         	$_SESSION['id'] = $username;
 
         	$handle = $this->link->prepare("
-				UPDATE users set last_login = :timestamp WHERE username = :usuername
+				UPDATE users set last_login = :timestampp WHERE username = :username
 			");
 
 			$handle->bindValue(":username", $username);
-        	$handle->bindValue(":timestampp", date('Y-m-d H:i:s','1299762201428'));
+        	$handle->bindValue(":timestampp", date("Y-m-d H:i:s"));
         	$handle->execute();
 
         	
@@ -80,7 +80,7 @@ class Auth{
         	$handle->bindValue(":username", $username);
         	$handle->bindValue(":password", $password);
         	$handle->bindValue(":email", $email);
-        	$handle->bindValue(":timestampp", date('Y-m-d H:i:s','1299762201428'));
+        	$handle->bindValue(":timestampp", date("Y-m-d H:i:s"));
         	$handle->execute();
 
         	session_start();
