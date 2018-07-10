@@ -316,7 +316,7 @@
       </div>
     -->
 
-      <div class="card sticky-action" style="left:25%">
+      <div class="card sticky-action" style="left:108%">
           <div class="card-image waves-effect waves-block waves-light">
             <img class="activator" src="{{ x.images[0].url }}">
           </div>
