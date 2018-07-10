@@ -1,6 +1,7 @@
 /********* TODO **********/
 TODO show more when filtering or show more when searching for artist (searchOffset)
+TODO MAILING SYSTEM / NOTIFICATION
+TODO SHOW Genre 
+TODO SHOW WIKIPEDIA DATA ABOUT ARTIST
 
 /******* BUGS *******/
-STORE WHITEMODE / DARKMODE IN LOCALSTORAGE
-MOBILE CLICK ON FLOATING BUTTON FIX
