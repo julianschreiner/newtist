@@ -1,5 +1,8 @@
 /********* TODO **********/
 TODO show more when filtering or show more when searching for artist (searchOffset)
+
+TODO landing page onclick artist name --> open artist page
+TODO SUBSCRIBE ARTIST AND SAVING IT TO USERS
 TODO MAILING SYSTEM / NOTIFICATION
 TODO SHOW Genre 
 TODO SHOW WIKIPEDIA DATA ABOUT ARTIST

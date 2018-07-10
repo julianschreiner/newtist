@@ -264,8 +264,9 @@
    $scope.inp_search = $("input[name = 'artist-search']").val();
    $scope.filtered_search =  $scope.inp_search.replace(' ', '%20');
    $scope.userSearched = true;
-   $scope.$apply();
+   //$scope.$apply();
 
+   console.log($scope.filtered_search);
 
    /*SEARCH PROTOTYPE */
    $.ajax({
@@ -396,6 +397,12 @@
         setTimeout(autoplay, 4500);
     }
 
+    $scope.goToUser = function(artistName){
+      if(artistName.length != 0){
+         $("input[name = 'artist-search']").val(artistName);
+         $("button[name = 'artist-submit']").click();
+      }
+    };
 
 
   });    //ANG APP

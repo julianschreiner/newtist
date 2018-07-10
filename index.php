@@ -215,7 +215,7 @@
             <img class="activator" src="{{ x.images[0].url }}">
           </div>
           <div class="card-content">
-            <span class="card-title  grey-text text-darken-4">{{ x.name }} by <strong>{{ x.artists[0].name}}</strong></span>
+            <span class="card-title  grey-text text-darken-4">{{ x.name }} by <a href="" ng-click="goToUser(x.artists[0].name);"><strong>{{ x.artists[0].name }}</strong></a> </span>
 
             <p>Artists:</p>
             <ul>
@@ -238,7 +238,7 @@
           </div>
         </div>
       </div>
-    </div>
+    
 
     
 
@@ -246,6 +246,7 @@
 
     <!-- ARTIST CARD -->
     <div class="col s12 m4 l8 cards-container" ng-show="userSearched">
+      <!--
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
             <div class="card-image">
@@ -262,6 +263,28 @@
           <a href="{{ artist_link }}" target="_blank">SPOTIFY URI</a>
         </div>
       </div>
+    -->
+
+      <div class="card sticky-action" style="left:25%">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{{ artist_image  }}">
+          </div>
+          <div class="card-content">
+            <span class="card-title"><strong>{{ artist_name }}</strong></span>
+
+            <ul>
+              <li>Popularity: {{ artist_pop }}</li>
+              <li>Followers: {{ artist_followers }}</li>
+              <li ng-repeat="x in artist_genre">{{ x | capitalize  }} </li>
+          </ul>
+          </div>
+
+          <div class="card-action">
+            <a href="{{ artist_link }}" target="_blank">Visit Artist</a>
+          </div>
+        </div>
+
+
     </div>
   
   <!-- CARD END -->
@@ -275,7 +298,7 @@
     <!-- RECENT RELEASES CARD -->
     <div class="col s12 m4 13 cards-container" ng-show="userSearched"
      ng-repeat="x in new_rel_artist">
-      <div class="card blue-grey darken-1">
+     <!-- <div class="card blue-grey darken-1">
         <div class="card-content white-text">
             <div class="card-image">
             <img src="{{ x.images[0].url }}">
@@ -291,6 +314,40 @@
           <a href="{{ x.external_urls.spotify }}" target="_blank">SPOTIFY URL</a>
         </div>
       </div>
+    -->
+
+      <div class="card sticky-action" style="left:25%">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{{ x.images[0].url }}">
+          </div>
+          <div class="card-content">
+            <span class="card-title  grey-text text-darken-4">{{ x.name }} by <a href="" ng-click="goToUser(x.artists[0].name);"><strong>{{ x.artists[0].name }}</strong></a> </span>
+
+            <!-- <p>Artists:</p> -->
+            <ul>
+              <li>Release Date: {{ x.release_date }}</li>
+              <li>Type: {{ x.type | capitalize }}</li>
+              <li ng-repeat="artists in x.artists">{{ artists.name | capitalize  }} </li>
+            </ul>
+          </div>
+
+          <div class="card-action">
+            <a href="{{ x.external_urls.spotify }}" target="_blank">Listen</a>
+          </div>
+
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">{{ x.name }} by <strong>{{ x.artists[0].name}}</strong><i class="material-icons right">close</i></span>
+            <p>{{ x.artists[0].name }} released {{ x.name }} on {{ x.release_date }}</p>
+            <p>Artists:</p>
+            <ul>
+              <li ng-repeat="fa in x.artists">{{ fa.name }} </li>
+            </ul>
+            <ul>
+              <li>Release Date: {{ x.release_date }}</li>            
+              <li>Type: {{ x.type | capitalize }}</li>
+            </ul>
+          </div>
+        </div>
     </div>
   <!-- CARD END -->
   </div>
@@ -303,6 +360,7 @@
   <!-- RECENT RELEASES CARD -->
     <div class="col s12 m4 13 cards-container" ng-show="userSearched"
      ng-repeat="track in artist_top_tracks">
+<!--
       <div class="card blue-grey darken-1" style="min-height: 42em; max-height:42em;">
         <div class="card-content white-text">
             <div class="card-image">
@@ -320,6 +378,37 @@
           <a href="{{ track.external_urls.spotify }}" target="_blank">SPOTIFY URL</a>
         </div>
       </div>
+    -->
+    <div class="card sticky-action">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{{ track.album.images[0].url }}">
+          </div>
+          <div class="card-content">
+            <span class="card-title  grey-text text-darken-4">{{ track.name }} by <a href="" ng-click="goToUser(x.artists[0].name);"><strong>{{ track.artists[0].name }}</strong></a> </span>
+
+            <p>Artists:</p>
+            <ul>
+              <li ng-repeat="fa in track.artists">{{ fa.name }} </li>
+            </ul>
+          </div>
+
+          <div class="card-action">
+            <a href="{{ track.external_urls.spotify }}" target="_blank">Visit</a>
+          </div>
+
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">{{ track.name }} by <strong>{{ track.artists[0].name}}</strong><i class="material-icons right">close</i></span>
+            <p>{{ track.artists[0].name }} released {{ track.name }} on {{ track.release_date }}</p>
+            <p>Artists:</p>
+            <ul>
+              <li>Release Date: {{ track.album.release_date }}</li>
+              <li>Duration: {{ track.duration_ms | millSecondsToTimeString }}</li>
+              <li>Popularity: <b>{{ track.popularity }}</strong></li>
+              <li ng-repeat="artist in track.artists">{{ artist.name | capitalize  }} </li>
+          </ul>
+          </div>
+        </div>
+
     </div>
   <!-- CARD END -->
 
