@@ -184,12 +184,13 @@
 </section>
 </div> <!-- row -->
 
-  <div class="row">
+  <div class="row" id="mainRow">
     <h4 class='text-center grey-text lighten-3' ng-show="!userSearched" id="txtNewReleases">Newest Releases</h4>
     <h4 class='text-center grey-text lighten-3' ng-show="userSearched">Artist</h4>
 
   <div class="row" ng-show="!isLoading">
     <div class="col s12 m4 l3 myCards" ng-show="!userSearched" ng-repeat="x in new_releases track by $index">
+<!--
        <div class="card blue-grey darken-1" style="min-height: 39em; max-height: 39em;">
         <div class="card-image">
             <img src="{{ x.images[0].url }}">
@@ -207,8 +208,39 @@
            <a href="{{ x.artists[0].external_urls.spotify }}" target="_blank">Visit Artist</a><br>
            <a href="{{ x.external_urls.spotify }}" target="_blank">Visit {{ x.album_type }}</a>
          </div>
+         -->
+        
+         <div class="card sticky-action">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{{ x.images[0].url }}">
+          </div>
+          <div class="card-content">
+            <span class="card-title  grey-text text-darken-4">{{ x.name }} by <strong>{{ x.artists[0].name}}</strong></span>
+
+            <p>Artists:</p>
+            <ul>
+              <li ng-repeat="fa in x.artists">{{ fa.name }} </li>
+            </ul>
+          </div>
+
+          <div class="card-action">
+            <a href="{{ x.artists[0].external_urls.spotify }}" target="_blank">Visit Artist</a><br>
+            <a href="{{ x.external_urls.spotify }}" target="_blank">Visit {{ x.album_type }}</a>
+          </div>
+
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">{{ x.name }} by <strong>{{ x.artists[0].name}}</strong><i class="material-icons right">close</i></span>
+            <p>{{ x.artists[0].name }} released {{ x.name }} on {{ x.release_date }}</p>
+            <p>Artists:</p>
+            <ul>
+              <li ng-repeat="fa in x.artists">{{ fa.name }} </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
+
+    
 
 
 

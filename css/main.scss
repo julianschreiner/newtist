@@ -46,12 +46,7 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   }
 }
 
-@media only screen and (max-width: 600px) {
-    .myCards {
-      max-height: 100%;
-        margin-bottom: 8vh;
-    }
-}
+
 
 
 /// Styles for demo
@@ -95,13 +90,9 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   text-align: right;
 }
 
-@media only screen and (min-width: 768px) {
-{
-  .myCards{
-    height: 63% !important;
-  }
-}
+
 
 #userLogged{
   fonz-size: 14px !important;
 }
+
