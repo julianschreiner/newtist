@@ -45,9 +45,12 @@
 
    $scope.fetchedData = [];
 
-
   /* FILTER REWORK TESTING */
   $scope.categories = [];
+
+  /* SUBSCRIPTION */
+  $scope.isSubd = false;
+  $scope.subMessage = '';
 
   $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
@@ -260,7 +263,6 @@
   $("button[name = 'artist-submit']").click(function(e){
    $scope.new_rel_artist = [];
 
-
    $scope.inp_search = $("input[name = 'artist-search']").val();
    $scope.filtered_search =  $scope.inp_search.replace(' ', '%20');
    $scope.userSearched = true;
@@ -276,6 +278,7 @@
       'Authorization' : 'Bearer ' + access_token
     },
     success: function(data) {
+            $scope.isSub($scope.inp_search);
             //console.log(JSON.stringify(data));
             $scope.artist_data = JSON.stringify(data);
 
@@ -406,13 +409,10 @@
 
     $scope.subscribe = function(artistName){
       /* IN PROGRESS */
-      alert(artistName);
-      alert($scope.userID);
-
       $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
-      var json = '{"frouter": {"apikey": "1234", "method": "subscribe", "artistName": ' + artistName + ', "userID": ' + $scope.userID + '  } }';
-      obj = JSON.parse(json);
+      var json = '{"frouter": {"apikey": "1234", "method": "subscribe", "artistName": "' + artistName + '", "userID": "' + $scope.userID + '"  } }';
+      var obj = JSON.parse(json);
 
       $http({
         url: './webservice/frouter.php?f=route',
@@ -422,16 +422,89 @@
       })
       .then(function(response) {
             // success
-            $scope.categories = response.data;
-            console.log($scope.categories);
-            //console.log($scope.categories);
+            var data = response.data;
+            var subSuccess = data[0];
+            console.log(subSuccess);
+
+            if(subSuccess === true){
+                $('#alert_box').css('display', 'block');
+                $scope.isSubd = true;
+                $scope.subMessage = 'Successfully subscribed!';
+            }
+
           },
-    function(response) { // optional
+    function(response) {
             // failed
             console.log(response);
           });
 
     };  //subscribe method
+
+     $scope.unsubscribe = function (artistName) {
+          /* IN PROGRESS */
+         $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+
+         var json = '{"frouter": {"apikey": "1234", "method": "unsubscribe", "artistName": "' + artistName + '", "userID": "' + $scope.userID + '"  } }';
+         var obj = JSON.parse(json);
+
+         $http({
+             url: './webservice/frouter.php?f=route',
+             headers: {'Content-Type': 'application/json;charset=utf-8'},
+             method: "POST",
+             data: { obj }
+         })
+              .then(function (response) {
+                      // success
+                      var data = response.data;
+                      var unsubSuccess = data[0];
+                      console.log(unsubSuccess);
+
+                      if (unsubSuccess === true) {
+                          $('#alert_box').css('display', 'block');
+                          $scope.isSubd = false;
+                          $scope.subMessage = 'Successfully unsubscribed!';
+                      }
+
+                  },
+                  function (response) {
+                      // failed
+                      console.log(response);
+                  });
+
+      };  //unsubscribe method
+
+    $scope.isSub = function(artistName){
+        var json = '{"frouter": {"apikey": "1234", "method": "isSub", "artistName": "' + artistName + '", "userID": "' + $scope.userID + '"  } }';
+        var obj = JSON.parse(json);
+        console.log(obj);
+
+        $http({
+            url: './webservice/frouter.php?f=route',
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            method: "POST",
+            data: { obj }
+        })
+            .then(function(response) {
+                    // success
+                    var data = response.data;
+                    var isSub = data[0];
+                    console.log(isSub);
+
+                    if(isSub === true){
+                        $scope.isSubd = true;
+                    }
+                    else{
+                        $scope.isSubd = false;
+                    }
+
+                },
+                function(response) {
+                    // failed
+                    console.log(response);
+                }); //HTTP END
+
+
+    };  //isSsub method
 
   });    //ANG APP
 

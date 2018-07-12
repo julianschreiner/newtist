@@ -90,9 +90,37 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   text-align: right;
 }
 
-
-
 #userLogged{
   fonz-size: 14px !important;
 }
 
+.icon_style{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  color: white;
+  cursor:pointer;
+}
+
+#alert_msg{
+  text-align: center;
+  padding-left: 19%;
+}
+
+#alert_box{
+ display: none;
+}
+
+#colBox{
+  height: 9% !important;
+}
+
+#alertCard{
+  height: 65px;
+  //margin-left: 11%;
+}
+
+.carouselLink{
+  color: #263238;
+}
