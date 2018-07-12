@@ -150,28 +150,28 @@
     <div class="carousel-item red lighten-2 white-text" href="#one!">
 				<img src="{{ carouselItems[0].images[0].url }}" class="carouselImage">
 		 <div class="container" id="carouselContainer">
-        <h2>{{ carouselItems[0].name }} by <strong>{{ carouselItems[0].artists[0].name}}</strong> </h2>
+        <h2>{{ carouselItems[0].name }} by <a href="" ng-click="goToUser(carouselItems[0].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[0].artists[0].name}}</strong></a></h2>
 				<a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[0].external_urls.spotify }}" target="_blank">LISTEN</a>
       </div>
     </div>
 		<div class="carousel-item amber darken-2 white-text" href="#two!">
 				<img src="{{ carouselItems[1].images[0].url }}" class="carouselImage">
       <div class="container" id="carouselContainer">
-				<h2>{{ carouselItems[1].name }} by <strong>{{ carouselItems[1].artists[0].name}}</strong> </h2>
+          <h2>{{ carouselItems[1].name }} by <a href="" ng-click="goToUser(carouselItems[1].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[1].artists[0].name}}</strong></a></h2>
 				<a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[1].external_urls.spotify }}" target="_blank">LISTEN</a>
       </div>
     </div>
 		<div class="carousel-item green white-text" href="#three!">
 			<img src="{{ carouselItems[2].images[0].url }}" class="carouselImage">
       <div class="container" id="carouselContainer">
-				<h2>{{ carouselItems[2].name }} by <strong>{{ carouselItems[2].artists[0].name}}</strong> </h2>
+          <h2>{{ carouselItems[2].name }} by <a href="" ng-click="goToUser(carouselItems[2].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[2].artists[0].name}}</strong></a></h2>
 				<a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[2].external_urls.spotify }}" target="_blank">LISTEN</a>
       </div>
     </div>
 		<div class="carousel-item blue white-text" href="#four!">
 			<img src="{{ carouselItems[3].images[0].url }}" class="carouselImage">
       <div class="container" id="carouselContainer">
-				<h2>{{ carouselItems[3].name }} by <strong>{{ carouselItems[3].artists[0].name}}</strong> </h2>
+          <h2>{{ carouselItems[3].name }} by <a href="" ng-click="goToUser(carouselItems[3].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[3].artists[0].name}}</strong></a></h2>
 				<a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[3].external_urls.spotify }}" target="_blank">LISTEN</a>
       </div>
     </div>
@@ -240,7 +240,23 @@
       </div>
     
 
-    
+      <!-- SUB MESSAGE -->
+      <div class="row" id="alert_box" ng-show="userSearched">
+          <div class="col s12 m12" id="colBox">
+              <div class="card green darken-1" id="alertCard">
+                  <div class="row">
+                      <div class="col s12 m10">
+                          <div class="card-content white-text">
+                              <p id="alert_msg">{{ subMessage }}</p>
+                          </div>
+                      </div>
+                      <div class="col s12 m2">
+                          <i class="fa fa-times icon_style" id="alert_close" aria-hidden="true"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
 
 
 
@@ -281,14 +297,13 @@
 
           <div class="card-action" ng-init="userID='<?php echo $_SESSION['id'] ?>'">
             <?php if (isset($_SESSION['id'])): ?>
-              <a href="" ng-click="subscribe(artist_name);" target="_blank">Subscribe</a>
+              <a href="" ng-click="subscribe(artist_name);" target="_blank" ng-if="!isSubd">Subscribe</a>
+              <a href="" ng-click="unsubscribe(artist_name);" target="_blank" ng-if="isSubd">Unsubscribe</a>
             <?php endif; ?>
             <a href="{{ artist_link }}" target="_blank">Visit Artist</a>
           </div>
 
         </div>
-
-
     </div>
   
   <!-- CARD END -->
@@ -402,7 +417,7 @@
           </div>
 
           <div class="card-action">
-            <a href="{{ track.external_urls.spotify }}" target="_blank">Visit</a>
+            <a href="{{ track.external_urls.spotify }}" target="_blank">Listen</a>
           </div>
 
           <div class="card-reveal">

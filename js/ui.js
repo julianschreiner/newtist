@@ -21,6 +21,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
         $('#txtNewReleases').removeClass('grey-text');
         $('#txtNewReleases').css("color", "white");
         $('.select-dropdown').css("color", "white");
+        $('#userLogged').css("color", 'white');
 
         window.localStorage.setItem('colorMode', 'dark');
 
@@ -31,6 +32,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
 
         $('#headlineNewtist').css("color", "black");
         $('#txtSearchArtist').css("color", "black");
+          $('#userLogged').css("color", 'black');
         $('#txtNewReleases').addClass('grey-text');
         $('.select-dropdown').css("color", "black");
 
@@ -54,6 +56,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
       $('#txtSearchArtist').css("color", "white");
       $('#txtNewReleases').removeClass('grey-text');
       $('#txtNewReleases').css("color", "white");
+      $('#userLogged').css("color", 'white');
       $('.select-dropdown').css("color", "white");
     
       window.localStorage.setItem('colorMode', 'dark');
@@ -67,6 +70,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
       $('#txtSearchArtist').css("color", "black");
       $('#txtNewReleases').addClass('grey-text');
       $('.select-dropdown').css("color", "black");
+        $('#userLogged').css("color", 'black');
 
 
       window.localStorage.setItem('colorMode', 'white');
@@ -90,3 +94,9 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
   function scrollToTop(){
       $('html, body').animate({ scrollTop: ($('#txtSearchArtist').offset().top)}, 'slow');
   };
+
+  /* ALERT BOX */
+  $('#alert_close').click(function(){
+      $( "#alert_box" ).fadeOut( "slow", function() {
+    });
+   });
