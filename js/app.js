@@ -266,7 +266,7 @@
    $scope.userSearched = true;
    //$scope.$apply();
 
-   console.log($scope.filtered_search);
+
 
    /*SEARCH PROTOTYPE */
    $.ajax({
@@ -404,6 +404,34 @@
       }
     };
 
+    $scope.subscribe = function(artistName){
+      /* IN PROGRESS */
+      alert(artistName);
+      alert($scope.userID);
+
+      $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+
+      var json = '{"frouter": {"apikey": "1234", "method": "subscribe", "artistName": ' + artistName + ', "userID": ' + $scope.userID + '  } }';
+      obj = JSON.parse(json);
+
+      $http({
+        url: './webservice/frouter.php?f=route',
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+        method: "POST",
+        data: { obj }
+      })
+      .then(function(response) {
+            // success
+            $scope.categories = response.data;
+            console.log($scope.categories);
+            //console.log($scope.categories);
+          },
+    function(response) { // optional
+            // failed
+            console.log(response);
+          });
+
+    };  //subscribe method
 
   });    //ANG APP
 
@@ -443,5 +471,26 @@
     };
   });
 
+  app.filter('cut', function () {
+      return function (value, wordwise, max, tail) {
+          if (!value) return '';
 
-  //TODO FILTER GENRE
+          max = parseInt(max, 10);
+          if (!max) return value;
+          if (value.length <= max) return value;
+
+          value = value.substr(0, max);
+          if (wordwise) {
+              var lastspace = value.lastIndexOf(' ');
+              if (lastspace !== -1) {
+                  //Also remove . and , so its gives a cleaner result.
+                  if (value.charAt(lastspace-1) === '.' || value.charAt(lastspace-1) === ',') {
+                      lastspace = lastspace - 1;
+                  }
+                  value = value.substr(0, lastspace);
+              }
+          }
+
+          return value + (tail || ' …');
+      };
+  });

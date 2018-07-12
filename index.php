@@ -1,42 +1,36 @@
 <?php
     session_start();
-		$url = 'https://accounts.spotify.com/api/token';
+    $url = 'https://accounts.spotify.com/api/token';
     $method = 'POST';
     $spot_api_redirect = 'https://julianschreiner.de';
 
-		$credFile = fopen("creds.ini", "r") or die("Unable to open file!");
-		$creds = fread($credFile,filesize("creds.ini"));
+    $credFile = fopen("creds.ini", "r") or die("Unable to open file!");
+    $creds = fread($credFile,filesize("creds.ini"));
 
-		$username = strtok($creds, ':');
+    $username = strtok($creds, ':');
 
-		$password = strtok('');
-		$password = preg_replace('/\v(?:[\v\h]+)/', '', $password);
+    $password = strtok('');
+    $password = preg_replace('/\v(?:[\v\h]+)/', '', $password);
 
-		fclose($credFile);
+    fclose($credFile);
 
-		$link = new \PDO(   'mysql:host=rlated12.lima-db.de;dbname=db_363124_3;charset=utf8mb4',
-                        (string)$username,
-                        (string)$password,
-                        array(
-                            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                            \PDO::ATTR_PERSISTENT => false
-                        )
-                    );
+    $link = new \PDO('mysql:host=rlated12.lima-db.de;dbname=db_363124_3;charset=utf8mb4',
+        (string)$username,
+        (string)$password,
+        array(
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+            \PDO::ATTR_PERSISTENT => false)
+    );
 
 
-    $handle = $link->prepare('select * from spotify_cred where id = ?');
-
+    $handle = $link->prepare("select * from spotify_cred where id = ?");
     $handle->bindValue(1, 1, PDO::PARAM_INT);
-
     $handle->execute();
-
     $result = $handle->fetchAll(\PDO::FETCH_OBJ);
-
-		$client_id = $result[0]->cl_id;
-		$client_secret = $result[0]->cl_sec;
+    $client_id = $result[0]->cl_id;
+    $client_secret = $result[0]->cl_sec;
 
     $credentials = "{$client_id}:{$client_secret}";
-
 
     $headers = array(
             "Accept: */*",
@@ -47,21 +41,22 @@
     $data = 'grant_type=client_credentials';
 
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = json_decode(curl_exec($ch), true);
-        curl_close($ch);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = json_decode(curl_exec($ch), true);
+    curl_close($ch);
 
-       // print_r($response['access_token']);
-
-
+    //print_r($response['access_token']);
 ?>
+
 <script type="text/javascript">
    var access_token = "<?php echo $response['access_token']; ?>";
+
+   var session_id = "<?php echo (isset($_SESSION['id']) ? $_SESSION['id'] : '')  ?>";
 </script>
 
 <!DOCTYPE html>
@@ -77,7 +72,7 @@
   <div class="row">
     
     <div class="col s12 center">
-      <?php if (isset($_SESSION['id'])) : ?>
+      <?php if (isset($_SESSION['id']) && !empty($_SESSION['id'])) : ?>
         <h6 id="userLogged">User logged in: <?php echo $_SESSION['id']; ?></h6>
 
       <?php elseif(isset($_GET['reg']) && !isset($_SESSION['id']) && $_GET['reg'] == 'logdout'): ?>
@@ -215,7 +210,12 @@
             <img class="activator" src="{{ x.images[0].url }}">
           </div>
           <div class="card-content">
-            <span class="card-title  grey-text text-darken-4">{{ x.name }} by <a href="" ng-click="goToUser(x.artists[0].name);"><strong>{{ x.artists[0].name }}</strong></a> </span>
+            <span class="card-title  grey-text text-darken-4">
+                {{ x.name | cut:true:35:' ...' }} by
+                <a href="" ng-click="goToUser(x.artists[0].name);">
+                    <strong>{{ x.artists[0].name }}</strong>
+                </a>
+            </span>
 
             <p>Artists:</p>
             <ul>
@@ -279,9 +279,13 @@
           </ul>
           </div>
 
-          <div class="card-action">
+          <div class="card-action" ng-init="userID='<?php echo $_SESSION['id'] ?>'">
+            <?php if (isset($_SESSION['id'])): ?>
+              <a href="" ng-click="subscribe(artist_name);" target="_blank">Subscribe</a>
+            <?php endif; ?>
             <a href="{{ artist_link }}" target="_blank">Visit Artist</a>
           </div>
+
         </div>
 
 
@@ -384,7 +388,12 @@
             <img class="activator" src="{{ track.album.images[0].url }}">
           </div>
           <div class="card-content">
-            <span class="card-title  grey-text text-darken-4">{{ track.name }} by <a href="" ng-click="goToUser(x.artists[0].name);"><strong>{{ track.artists[0].name }}</strong></a> </span>
+            <span class="card-title  grey-text text-darken-4">
+                {{ track.name | cut:true:35:' ...' }} by
+                <a href="" ng-click="goToUser(x.artists[0].name);">
+                    <strong>{{ track.artists[0].name }}</strong>
+                </a>
+            </span>
 
             <p>Artists:</p>
             <ul>
