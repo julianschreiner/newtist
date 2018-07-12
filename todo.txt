@@ -1,10 +1,10 @@
 /********* TODO **********/
 TODO show more when filtering or show more when searching for artist (searchOffset)
 
-TODO landing page onclick artist name --> open artist page
-TODO SUBSCRIBE ARTIST AND SAVING IT TO USERS
 TODO MAILING SYSTEM / NOTIFICATION
-TODO SHOW Genre 
+TODO DEEPLINKS TO ARTIST OR MAYBE A SONG
+TODO SHOW Genre in ARTIST CARD
 TODO SHOW WIKIPEDIA DATA ABOUT ARTIST
+TODO MAKE A AUTH SYSTEM FOR API KEYS AND ONLY MAKE THOSE KEYS AVAIABLE TO USE MY API
 
 /******* BUGS *******/
