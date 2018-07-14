@@ -130,6 +130,7 @@ $headers = array(
 
   status_rep("Saved Artist Names.....");
   $updateCounter = 0;
+  //echo "<pre>". print_r($artistNames, true) . "</pre>";
 
   foreach($artistNames as $name){
     $requrl = "https://api.spotify.com/v1/search?q=". urlencode($name) ."&type=artist&market=DE&limit=1";
@@ -140,7 +141,6 @@ $headers = array(
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = json_decode(curl_exec($ch), true);
     curl_close($ch);
-
 
     $artistItems = $response['artists']['items'];
     $allGenres = '';
