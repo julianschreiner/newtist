@@ -297,8 +297,8 @@
 
           <div class="card-action" ng-init="userID='<?php echo $_SESSION['id'] ?>'">
             <?php if (isset($_SESSION['id'])): ?>
-              <a href="" ng-click="subscribe(artist_name);" target="_blank" ng-if="!isSubd">Subscribe</a>
-              <a href="" ng-click="unsubscribe(artist_name);" target="_blank" ng-if="isSubd">Unsubscribe</a>
+              <a href="" ng-click="subscribe(artist_name);" onclick="scrollToMessageSub();" target="_blank" ng-if="!isSubd">Subscribe</a>
+              <a href="" ng-click="unsubscribe(artist_name);" onclick="scrollToMessageSub();" target="_blank" ng-if="isSubd">Unsubscribe</a>
             <?php endif; ?>
             <a href="{{ artist_link }}" target="_blank">Visit Artist</a>
           </div>

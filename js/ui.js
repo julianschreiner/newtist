@@ -100,3 +100,12 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
       $( "#alert_box" ).fadeOut( "slow", function() {
     });
    });
+
+
+function scrollToMessageSub(){
+    console.log("scrolled");
+    setTimeout(function(){
+        $('html, body').animate({ scrollTop: ($('#alert_box').offset().top)}, 'slow');
+    }, 1000);
+
+};
