@@ -19,6 +19,8 @@ require '../email/PHPMailer/src/SMTP.php';
  * @param string songName / albumName
  */
 
+/** DEPREACTED  */
+
 if(isset($argv[1]) && !empty($argv[1])){
 	$toAdress = $argv[1];
 	$mail = new PHPMailer(true);
