@@ -1,11 +1,20 @@
 <?php
+require_once('../webservice/connection/db.php');
+$offsetnmbr = 0;
+define('MAXLIMIT', 50);
+define('OFFSET', $offsetnmbr);
+
+$link = new db;
+$link = $link->getLink();
+
+$url = 'https://accounts.spotify.com/api/token';
+
 function status_rep($status){
   echo $status . PHP_EOL;
 }
 
 status_rep("running.....");
 
-$offsetnmbr = 0;
 
 if(isset($_GET['offset'])){
   if($_GET['offset'] > 0 && $_GET['offset'] < 500) $offsetnmbr = $_GET['offset'];
@@ -15,32 +24,7 @@ if(isset($argv[1]) && !empty($argv[1])){
   if($argv[1] > 0 && $argv[1] < 500) $offsetnmbr = $argv[1];
 }
 
-define('MAXLIMIT', 50);
-define('OFFSET', $offsetnmbr);
-
 status_rep("Set offset: " . $offsetnmbr);
-
-$url = 'https://accounts.spotify.com/api/token';
-
-$credFile = fopen("../creds.ini", "r") or die("Unable to open file!");
-$creds = fread($credFile,filesize("../creds.ini"));
-
-$username = strtok($creds, ':');
-
-$password = strtok('');
-$password = preg_replace('/\v(?:[\v\h]+)/', '', $password);
-
-fclose($credFile);
-
-/*DB LINK*/
-$link = new \PDO(   'mysql:host=rlated12.lima-db.de;dbname=db_363124_3;charset=utf8mb4',
-(string)$username,
-(string)$password,
-array(
-  \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-  \PDO::ATTR_PERSISTENT => false
-)
-);
 
 if(isset($argv[1]) && $argv[1] == 'count'){
   $handle = $link->prepare('SELECT count(*) FROM artist_gd');
