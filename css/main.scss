@@ -124,3 +124,13 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 .carouselLink{
   color: #263238;
 }
+
+@media (min-width: 1281px) {
+  #artistCard{
+    left: 25%;
+  }
+  #recentReleases{
+    left:108%;
+  }
+}
+
