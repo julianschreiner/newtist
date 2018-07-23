@@ -8,6 +8,8 @@
  */
 define('MAXLIMIT', 50);
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 require_once 'SendMail.php';
 require_once '../webservice/connection/db.php';
@@ -148,8 +150,6 @@ if(isset($link) && isset($mailer)){
 				status_rep('Mail failed to send to ' . $user . ' with email ' . $email);
 			}
 		}
-		exit;
-
 
 
 

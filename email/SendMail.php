@@ -9,9 +9,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../email/PHPMailer/src/Exception.php';
-require '../email/PHPMailer/src/PHPMailer.php';
-require '../email/PHPMailer/src/SMTP.php';
+require '../email/phpMailer/src/Exception.php';
+require '../email/phpMailer/src/PHPMailer.php';
+require '../email/phpMailer/src/SMTP.php';
 
 class SendMail
 {
