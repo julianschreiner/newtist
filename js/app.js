@@ -85,7 +85,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                 'Authorization' : 'Bearer ' + access_token
             },
             success: function(data){
-                //  console.log(data);
+                 console.log(data);
                 if(artistName == null || artistName.length == 0){
                     $scope.fetchedData.push(data['albums']['items']);
                     //    angular.forEach(data['albums']['items'], function(key, value){
@@ -278,7 +278,12 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                 'Authorization' : 'Bearer ' + access_token
             },
             success: function(data) {
-                $scope.isSub($scope.inp_search);
+                if($scope.userID.length != 0){
+                    console.log($scope.userID);
+                    console.log("called isSub");
+                    $scope.isSub($scope.inp_search);    
+                }
+                
                 //console.log(JSON.stringify(data));
                 $scope.artist_data = JSON.stringify(data);
 

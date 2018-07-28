@@ -41,17 +41,17 @@ class Frouter {
 				$this->getGenreData();
 				break;
 			case 'subscribe':
-				$userID = $object['userID'];
+				$userID = (isset($object['userID']) ? $object['userID'] : '');
 				$artistName = $object['artistName'];
 				$this->subscribe($userID, $artistName);
 				break;
 			case 'isSub':
-				$userID = $object['userID'];
+				$userID = (isset($object['userID']) ? $object['userID'] : '');
 				$artistName = $object['artistName'];
 				$this->isSub($userID, $artistName);
 				break;
 			case 'unsubscribe':
-				$userID = $object['userID'];
+				$userID = (isset($object['userID']) ? $object['userID'] : '');
 				$artistName = $object['artistName'];
 				$this->unsubscribe($userID, $artistName);
 				break;

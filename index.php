@@ -209,7 +209,7 @@ curl_close($ch);
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="{{ x.images[0].url }}">
                     </div>
-                    <div class="card-content" id="newRelCardBody">
+                    <div class="card-content" class="newRelCardBody">
             <span class="card-title  grey-text text-darken-4">
                 {{ x.name | cut:true:35:' ...' }} by
                 <a href="" ng-click="goToUser(x.artists[0].name);">
@@ -294,7 +294,7 @@ curl_close($ch);
                         </ul>
                     </div>
 
-                    <div class="card-action" ng-init="userID='<?php echo $_SESSION['id'] ?>'">
+                    <div class="card-action" ng-init="userID='<?php echo (isset($_SESSION['id']) ? $_SESSION['id'] : "") ?>'">
 						<?php if (isset($_SESSION['id'])): ?>
                             <a href="" ng-click="subscribe(artist_name);" onclick="scrollToMessageSub();" target="_blank" ng-if="!isSubd">Subscribe</a>
                             <a href="" ng-click="unsubscribe(artist_name);" onclick="scrollToMessageSub();" target="_blank" ng-if="isSubd">Unsubscribe</a>
@@ -401,7 +401,7 @@ curl_close($ch);
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src="{{ track.album.images[0].url }}">
                 </div>
-                <div class="card-content">
+                <div class="card-content" class="newRelCardBody">
             <span class="card-title  grey-text text-darken-4">
                 {{ track.name | cut:true:35:' ...' }} by
                 <a href="" ng-click="goToUser(x.artists[0].name);">
@@ -409,10 +409,10 @@ curl_close($ch);
                 </a>
             </span>
 
-                    <p>Artists:</p>
+                   <!--  <p>Artists:</p>
                     <ul>
                         <li ng-repeat="fa in track.artists">{{ fa.name }} </li>
-                    </ul>
+                    </ul> -->
                 </div>
 
                 <div class="card-action">
