@@ -209,18 +209,17 @@ curl_close($ch);
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="{{ x.images[0].url }}">
                     </div>
-                    <div class="card-content">
+                    <div class="card-content" id="newRelCardBody">
             <span class="card-title  grey-text text-darken-4">
                 {{ x.name | cut:true:35:' ...' }} by
                 <a href="" ng-click="goToUser(x.artists[0].name);">
                     <strong>{{ x.artists[0].name }}</strong>
                 </a>
             </span>
-
-                        <p>Artists:</p>
+                         <!-- <p>Artists:</p>
                         <ul>
                             <li ng-repeat="fa in x.artists">{{ fa.name }} </li>
-                        </ul>
+                        </ul> -->
                     </div>
 
                     <div class="card-action">
