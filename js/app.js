@@ -66,12 +66,12 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
         .then(function(response) {
                 // success
                 $scope.categories = response.data;
-                console.log($scope.categories);
+                //console.log($scope.categories);
                 //console.log($scope.categories);
             },
             function(response) { // optional
                 // failed
-                console.log(response);
+                //console.log(response);
             });
 
 
@@ -85,7 +85,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                 'Authorization' : 'Bearer ' + access_token
             },
             success: function(data){
-                 console.log(data);
+                //  console.log(data);
                 if(artistName == null || artistName.length == 0){
                     $scope.fetchedData.push(data['albums']['items']);
                     //    angular.forEach(data['albums']['items'], function(key, value){
@@ -96,7 +96,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
             },
             error: function(err){
                 alert("cannot get newest releases in inc func");
-                console.log(err);
+                //console.log(err);
             }
         }); //AJAX
     };  //FUNC
@@ -156,10 +156,12 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                     $scope.filterArtistName.push(key.name);
                 }
             }); // FOREACH
+
             if($scope.filterArtistName.length != 0){
-                $scope.getNewReleases($scope.filterArtistName);
+                $scope.getNewReleases($scope.filterArtistName, true);
             }
             else{
+                /* TODO DISPLAY MESSAGE THAT NOTHING COULD BE FOUND */ 
                 $scope.getNewReleases();
             }
 
@@ -182,12 +184,12 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
 
     //GET USER LOCATION
     $.get("https://ipinfo.io", function(response) {
-        console.log(response.city, response.country);
+        //console.log(response.city, response.country);
         $scope.userLocation = response.country;
     }, "jsonp");
 
 
-    $scope.getNewReleases = function(artistName = null){
+    $scope.getNewReleases = function(artistName = null, endless = false){
         //GET NEW RELEASES
         $scope.isLoading = true;
         $scope.new_releases = [];
@@ -224,7 +226,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                     if(foundsmth){
                         // TODO: SHOW EVERYTHING
                         // $scope.searchReqOffset += 50;
-                        console.log($scope.new_releases);
+                        //console.log($scope.new_releases);
                         //$scope.getNewReleases(artistName);
                     }  //IF
                 } // IF / ELSE
@@ -241,7 +243,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
             },
             error: function(err){
                 alert("cannot get newest releases");
-                console.log(err);
+                //console.log(err);
             }
         }); //AJAX
     };  //FUNC
@@ -270,7 +272,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
 
 
 
-        /*SEARCH PROTOTYPE */
+        /* SEARCH PROTOTYPE */
         $.ajax({
             url: 'https://api.spotify.com/v1/search?q='+$scope.filtered_search+'&type=artist&market=' + $scope.userLocation,
             type: 'GET',
@@ -278,12 +280,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                 'Authorization' : 'Bearer ' + access_token
             },
             success: function(data) {
-                if($scope.userID.length != 0){
-                    console.log($scope.userID);
-                    console.log("called isSub");
-                    $scope.isSub($scope.inp_search);    
-                }
-                
+                $scope.isSub($scope.inp_search);
                 //console.log(JSON.stringify(data));
                 $scope.artist_data = JSON.stringify(data);
 
@@ -291,7 +288,8 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                 //  console.log(data['artists']['items'].length);
 
                 for(var i = 0; i < data['artists']['items'].length; i++){
-                    if(data['artists']['items'][i]['name'] == $scope.inp_search){
+                    let artistName = data['artists']['items'][i]['name'];
+                    if(artistName.toUpperCase().includes($scope.inp_search.toUpperCase())){
                         $scope.artist_id = data['artists']['items'][i]['id'];
                         $scope.artist_name = data['artists']['items'][i]['name'];
                         $scope.artist_pop = data['artists']['items'][i]['popularity'];
@@ -304,7 +302,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                         break;
                     }
                 }
-
+                //console.log($scope.artist_id);
                 $scope.getTopSongsData($scope.artist_id, access_token);
 
             },
@@ -345,7 +343,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                 },
                 error: function(err){
                     alert("cannot get artist data");
-                    console.log(err);
+                    //console.log(err);
                 }
             }); //AJAX
         } //IF
@@ -378,7 +376,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
             },
             error: function(err){
                 alert("cannot get newest releases");
-                console.log(err);
+                //console.log(err);
             }
         }); //AJAX
 
@@ -429,7 +427,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                     // success
                     var data = response.data;
                     var subSuccess = data[0];
-                    console.log(subSuccess);
+                    //console.log(subSuccess);
 
                     if(subSuccess === true){
                         $('#alert_box').css('display', 'block');
@@ -440,7 +438,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                 },
                 function(response) {
                     // failed
-                    console.log(response);
+                    //console.log(response);
                 });
 
     };  //subscribe method
@@ -462,7 +460,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                     // success
                     var data = response.data;
                     var unsubSuccess = data[0];
-                    console.log(unsubSuccess);
+                    //console.log(unsubSuccess);
 
                     if (unsubSuccess === true) {
                         $('#alert_box').css('display', 'block');
@@ -473,7 +471,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                 },
                 function (response) {
                     // failed
-                    console.log(response);
+                    //console.log(response);
                 });
 
     };  //unsubscribe method
@@ -481,7 +479,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
     $scope.isSub = function(artistName){
         var json = '{"frouter": {"apikey": "1234", "method": "isSub", "artistName": "' + artistName + '", "userID": "' + $scope.userID + '"  } }';
         var obj = JSON.parse(json);
-        console.log(obj);
+        //console.log(obj);
 
         $http({
             url: './webservice/frouter.php?f=route',
@@ -493,7 +491,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                     // success
                     var data = response.data;
                     var isSub = data[0];
-                    console.log(isSub);
+                    //console.log(isSub);
 
                     if(isSub === true){
                         $scope.isSubd = true;
@@ -505,7 +503,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                 },
                 function(response) {
                     // failed
-                    console.log(response);
+                    //console.log(response);
                 }); //HTTP END
 
 
