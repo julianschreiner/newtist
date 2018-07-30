@@ -55,7 +55,6 @@ curl_close($ch);
 
 <script type="text/javascript">
     var access_token = "<?php echo $response['access_token']; ?>";
-
     var session_id = "<?php echo (isset($_SESSION['id']) ? $_SESSION['id'] : '')  ?>";
 </script>
 
@@ -261,25 +260,6 @@ curl_close($ch);
 
             <!-- ARTIST CARD -->
             <div class="col s12 m4 l8 cards-container" ng-show="userSearched">
-                <!--
-				<div class="card blue-grey darken-1">
-				  <div class="card-content white-text">
-					  <div class="card-image">
-					  <img src="{{ artist_image }}">
-					<span class="card-title"><strong>{{ artist_name }}</strong></span>
-					  </div>
-					<ul>
-					  <li>Popularity: {{ artist_pop }}</li>
-					  <li>Followers: {{ artist_followers }}</li>
-					  <li ng-repeat="x in artist_genre">{{ x | capitalize  }} </li>
-					</ul>
-				  </div>
-				  <div class="card-action">
-					<a href="{{ artist_link }}" target="_blank">SPOTIFY URI</a>
-				  </div>
-				</div>
-			  -->
-
                 <div class="card sticky-action" id="artistCard">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="{{ artist_image  }}">
@@ -290,7 +270,9 @@ curl_close($ch);
                         <ul>
                             <li>Popularity: {{ artist_pop }}</li>
                             <li>Followers: {{ artist_followers }}</li>
-                            <li ng-repeat="x in artist_genre">{{ x | capitalize  }} </li>
+                            <li ng-repeat="x in artist_genres">
+                                {{ x | capitalize }}
+                            </li>
                         </ul>
                     </div>
 

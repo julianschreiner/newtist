@@ -2,6 +2,7 @@
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $timeout, $http) {
     /* API VARIABLES */
+    /* (ARTIST)     */
     $scope.artist_data = {};
     $scope.artist_id = '';
     $scope.artist_name = '';
@@ -11,6 +12,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
     $scope.artist_link = '';
     $scope.artist_genre = [];
     $scope.artist_top_tracks = [];
+    $scope.artist_genres = [];
 
     /* USER VARIABLES */
     $scope.userLocation = '';
@@ -66,15 +68,23 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
         .then(function(response) {
                 // success
                 $scope.categories = response.data;
-                //console.log($scope.categories);
-                //console.log($scope.categories);
+                console.log($scope.categories);
             },
             function(response) { // optional
                 // failed
                 //console.log(response);
             });
 
-
+    $scope.getArtistGenre = function(artist_name){
+        console.log(artist_name);
+        angular.forEach($scope.categories, function(element, index) {
+            // statements
+            if(element.name == artist_name){
+                let sepeprate = element.genre.split(',');
+                $scope.artist_genres = sepeprate;
+            }
+        });
+    };
 
     $scope.getReleasesInc = function(artistName = null, quLimit = 50, quOffset = 0){
         //GET NEW RELEASES helper function for filtering
@@ -268,6 +278,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
         $scope.inp_search = $("input[name = 'artist-search']").val();
         $scope.filtered_search =  $scope.inp_search.replace(' ', '%20');
         $scope.userSearched = true;
+
         //$scope.$apply();
 
 
@@ -303,6 +314,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                     }
                 }
                 //console.log($scope.artist_id);
+                $scope.getArtistGenre($scope.artist_name);
                 $scope.getTopSongsData($scope.artist_id, access_token);
 
             },
@@ -508,7 +520,6 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
 
 
     };  //isSsub method
-
 });    //ANG APP
 
 app.filter('capitalize', function() {
