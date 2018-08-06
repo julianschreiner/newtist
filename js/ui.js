@@ -89,6 +89,8 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
 
   $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
+    $('.collapsible').collapsible();
+    
   });
 
   function scrollToTop(){

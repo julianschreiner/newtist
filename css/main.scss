@@ -150,3 +150,7 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 .red.lighten-2 {
   background-color: #B05353 !important;
 }
+
+.collapsible-body {
+  background-color: white;
+}

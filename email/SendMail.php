@@ -39,13 +39,17 @@ class SendMail
 	 */
 	public function send($receiver, $artistData, $username){
 		/* BUILD TEMPLATE */
-		$template = file_get_contents('templates/infomail.html');
+		$template = file_get_contents('templates/newsletter.html');
+
 		$template = str_replace('##USERNAME##', $username, $template);
 		$template = str_replace('##ALBUM##', $artistData['name'], $template);
+		$date = date_create($artistData['release_date']);
+		$template = str_replace('##RELEASE_DATE##', date_format($date, "d.m.Y"), $template);
 		$template = str_replace('##ARTIST##', $artistData['allArtists'][0]['name'], $template);
 		$template = str_replace('##TRACK/ALBUM##', $artistData['type'], $template);
-		$template = str_replace('##RELEASE_DATE##', $artistData['release_date'], $template);
 		$template = str_replace('##IMAGE##', $artistData['image'], $template);
+		$template = str_replace('##WEEK##', date("W", strtotime($artistData['release_date'])), $template);
+
 
 		$t = <<< TPL
           		<li>##artist##</li>            
@@ -85,6 +89,7 @@ TPL;
 			$this->_mail->Subject = 'Artist Update ' . date('d.m.Y');
 			$this->_mail->Body    =  $template;
 			$this->_mail->AltBody = 'TEXT VERSION HERE OF HTML TEMPLATE';
+
 
 			$this->_mail->send();
 			return true;

@@ -80,7 +80,19 @@ curl_close($ch);
 			<?php endif; ?>
 
             <h2 class='text-center' id="headlineNewtist">Newtist</h2>
-			<?php if (isset($_SESSION['id']) && $_GET['reg'] == 'success') : ?>
+			
+            <?php if (isset($_SESSION['id']) && $_GET['reg'] == 'success') : ?>
+                <ul class="collapsible" data-collapsible="accordion">
+              <li>
+                <div class="collapsible-header">
+                  <i class="material-icons">notification_important</i>
+                  Notifications
+                  <span class="new badge">4</span></div>
+                  <div class="collapsible-body">
+                    <p>Lorem ipsum dolor sit amet.</p>
+                  </div>
+              </li>
+            </ul>
                 <a href="auth/logout.php">
                     <p class="text-right grey-text lighten-3" id="loginRegister">Logout</p>
                 </a>
