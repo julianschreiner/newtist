@@ -10,6 +10,8 @@ require_once '../webservice/connection/db.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// TODO MAKE IT SECURE
+
 if(isset($_GET['artist']) && isset($_GET['user'])){
 	$link = new db();
 	$link = $link->getLink();

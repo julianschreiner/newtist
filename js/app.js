@@ -54,7 +54,8 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
     $scope.isSubd = false;
     $scope.subMessage = '';
 
-    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    /* USER */
+    $scope.userID = session_id;
 
     var json = '{"frouter": {"apikey": "1234", "method": "genre"	} }';
     obj = JSON.parse(json);
@@ -245,6 +246,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                 window.setTimeout(function(){
                     $scope.isLoading = false;
                     //console.log($scope.new_releases);
+                    $scope.getNotification();
                     $scope.$apply();
                 }, 500);
 
@@ -261,10 +263,40 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
     $scope.getNewReleases();
 
 
+    $scope.getNotification = function(){
+        $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
+        /* CALL TO BACKEND FOR NOTIFICATION UPDATES */
+        var json = '{"frouter": {"apikey": "1234", "method": "notificationHandle", "userID":  "' + $scope.userID + '" } }';
+        obj = JSON.parse(json);
 
+        $http({
+            url: './webservice/frouter.php?f=route',
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            method: "POST",
+            data: { obj }
+        })
+            .then(function(response) {
+                    // success
+                    var res = response;
+                    $scope.artistPool = [];
 
-
+                        angular.forEach(res.data, function(value2, key2){
+                            angular.forEach($scope.new_releases, function(value, key){
+                                if(value.artists[0].name.indexOf(value2) > -1){
+                                    $scope.artistPool.push(value2);
+                                    // TODO SAVE ALBUM NAME
+                                    // TODO FINISH FRONTEND
+                                }
+                            });
+                        }); //inner foreach
+                    console.log($scope.artistPool);
+                },
+                function(response) { // optional
+                    // failed
+                    //console.log(response);
+                });
+    }
 
     $("button[name = 'artist-back']").click(function(e){
         $scope.getNewReleases();

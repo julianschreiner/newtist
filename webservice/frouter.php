@@ -3,7 +3,7 @@ require_once('connection/db.php');
 
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header('Content-Type: application/json');
+//header('Content-Type: application/json');
 
 switch($_GET['f']) {
 	case 'route':
@@ -54,6 +54,13 @@ class Frouter {
 				$userID = (isset($object['userID']) ? $object['userID'] : '');
 				$artistName = $object['artistName'];
 				$this->unsubscribe($userID, $artistName);
+				break;
+			case 'notificationHandle':
+				$userID = (isset($object['userID']) ? $object['userID'] : '');
+				$this->notificationHandle($userID);
+				break;
+			default:
+				echo json_encode("API ERR");
 				break;
 		}
 	}
@@ -176,6 +183,31 @@ class Frouter {
 		else{
 			$success = false;
 			$retArray[] = $success;
+		}
+
+		echo json_encode($retArray);
+
+		return $success;
+	}
+
+	/**
+	 * @param $userID        string
+	 * @return boolean
+	 */
+	private function notificationHandle($userID){
+		$success = false;
+		$retArray = [];
+
+
+		$handle = $this->link->prepare('SELECT * FROM sub_handler WHERE uid=:userID');
+		$handle->bindValue(':userID', $userID);
+		$handle->execute();
+
+		$result = $handle->fetchAll(\PDO::FETCH_ASSOC);
+		//debug($result);
+
+		foreach($result as $res){
+			$retArray[] = $res['artist'];
 		}
 
 		echo json_encode($retArray);

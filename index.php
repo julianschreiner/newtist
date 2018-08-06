@@ -89,7 +89,10 @@ curl_close($ch);
                   Notifications
                   <span class="new badge">4</span></div>
                   <div class="collapsible-body">
-                    <p>Lorem ipsum dolor sit amet.</p>
+                      <div class="collapsible" ng-repeat="x in artistPool">
+                        <p>{{x}}</p>
+                      </div>
+
                   </div>
               </li>
             </ul>
