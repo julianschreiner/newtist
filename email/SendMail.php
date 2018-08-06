@@ -90,7 +90,9 @@ TPL;
 			$this->_mail->Body    =  $template;
 			$this->_mail->AltBody = 'TEXT VERSION HERE OF HTML TEMPLATE';
 
-
+			/*var_dump($template);
+			exit;
+			*/
 			$this->_mail->send();
 			return true;
 		} catch (Exception $e) {
