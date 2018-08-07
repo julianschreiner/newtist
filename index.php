@@ -82,7 +82,7 @@ curl_close($ch);
             <h2 class='text-center' id="headlineNewtist">Newtist</h2>
 			
             <?php if (isset($_SESSION['id']) && $_GET['reg'] == 'success') : ?>
-                <ul class="collapsible" data-collapsible="accordion">
+                <ul class="collapsible" data-collapsible="accordion" ng-show="notificationBarLoaded">
               <li>
                 <div class="collapsible-header">
                   <i class="material-icons">notification_important</i>
@@ -90,7 +90,8 @@ curl_close($ch);
                   <span class="new badge">4</span></div>
                   <div class="collapsible-body">
                       <div class="collapsible" ng-repeat="x in artistPool">
-                        <p>{{x}}</p>
+                          <p>{{ x.album }} by <strong>{{ x.artist }}</strong></p>
+
                       </div>
 
                   </div>

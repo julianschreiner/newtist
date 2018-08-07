@@ -53,6 +53,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
     /* SUBSCRIPTION */
     $scope.isSubd = false;
     $scope.subMessage = '';
+    $scope.notificationBarLoaded = false;
 
     /* USER */
     $scope.userID = session_id;
@@ -234,6 +235,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
 
 
 
+
                     if(foundsmth){
                         // TODO: SHOW EVERYTHING
                         // $scope.searchReqOffset += 50;
@@ -245,13 +247,10 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
 
                 window.setTimeout(function(){
                     $scope.isLoading = false;
-                    //console.log($scope.new_releases);
                     $scope.getNotification();
+                    //console.log($scope.new_releases);
                     $scope.$apply();
                 }, 500);
-
-                $scope.$apply();
-
             },
             error: function(err){
                 alert("cannot get newest releases");
@@ -284,13 +283,18 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                         angular.forEach(res.data, function(value2, key2){
                             angular.forEach($scope.new_releases, function(value, key){
                                 if(value.artists[0].name.indexOf(value2) > -1){
-                                    $scope.artistPool.push(value2);
-                                    // TODO SAVE ALBUM NAME
+                                    var notificationInfo = {
+                                            artist: value.artists[0].name,
+                                            album: value.name
+                                    };
+                                    $scope.artistPool.push(notificationInfo);
                                     // TODO FINISH FRONTEND
+                                    // TODO FINISH NOTIFICATION COUNTER
                                 }
                             });
                         }); //inner foreach
                     console.log($scope.artistPool);
+                    $scope.notificationBarLoaded = true;
                 },
                 function(response) { // optional
                     // failed

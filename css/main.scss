@@ -151,6 +151,15 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   background-color: #B05353 !important;
 }
 
-.collapsible-body {
-  background-color: white;
+.collapsible-header {
+  background-color: #455a64;
+  border-bottom: 1px solid #455a64 !important;
 }
+
+.collapsible {
+  border-top: 1px solid #455a64 !important;
+  border-right: 1px solid #455a64 !important;
+  border-left: 1px solid #455a64 !important;
+}
+
+
