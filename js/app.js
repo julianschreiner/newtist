@@ -54,6 +54,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
     $scope.isSubd = false;
     $scope.subMessage = '';
     $scope.notificationBarLoaded = false;
+    $scope.notificationCounter = 0;
 
     /* USER */
     $scope.userID = session_id;
@@ -279,13 +280,15 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                     // success
                     var res = response;
                     $scope.artistPool = [];
+                     $scope.allItemsComb = $scope.carouselItems.concat($scope.new_releases);
 
                         angular.forEach(res.data, function(value2, key2){
-                            angular.forEach($scope.new_releases, function(value, key){
+                            angular.forEach($scope.allItemsComb, function(value, key){
                                 if(value.artists[0].name.indexOf(value2) > -1){
                                     var notificationInfo = {
                                             artist: value.artists[0].name,
-                                            album: value.name
+                                            album: value.name,
+                                            image: value.images[0].url
                                     };
                                     $scope.artistPool.push(notificationInfo);
                                     // TODO FINISH FRONTEND
@@ -295,6 +298,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                         }); //inner foreach
                     console.log($scope.artistPool);
                     $scope.notificationBarLoaded = true;
+                    $scope.notificationCounter = $scope.artistPool.length;
                 },
                 function(response) { // optional
                     // failed

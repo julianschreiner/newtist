@@ -65,7 +65,7 @@ curl_close($ch);
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <title>Newtist</title>
 </head>
-<body ng-app="myApp" ng-controller="myCtrl">
+<body ng-app="myApp" ng-controller="myCtrl" ng-cloak>
 
 <div class="container center">
     <div class="row">
@@ -81,17 +81,18 @@ curl_close($ch);
 
             <h2 class='text-center' id="headlineNewtist">Newtist</h2>
 			
-            <?php if (isset($_SESSION['id']) && $_GET['reg'] == 'success') : ?>
+            <?php if (isset($_SESSION['id']) || (isset($_GET['reg']) && $_GET['reg'] == 'success')) : ?>
                 <ul class="collapsible" data-collapsible="accordion" ng-show="notificationBarLoaded">
               <li>
                 <div class="collapsible-header">
                   <i class="material-icons">notification_important</i>
                   Notifications
-                  <span class="new badge">4</span></div>
+                  <span class="new badge">{{ notificationCounter }}</span></div>
                   <div class="collapsible-body">
                       <div class="collapsible" ng-repeat="x in artistPool">
-                          <p>{{ x.album }} by <strong>{{ x.artist }}</strong></p>
-
+                          <p class="nftext">{{ x.album }} 
+                            by <strong>{{ x.artist }}</strong>
+                          </p>
                       </div>
 
                   </div>
