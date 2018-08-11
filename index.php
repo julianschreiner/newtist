@@ -72,7 +72,12 @@ curl_close($ch);
 
         <div class="col s12 center">
 			<?php if (isset($_SESSION['id']) && !empty($_SESSION['id'])) : ?>
-                <h6 id="userLogged">User logged in: <?php echo $_SESSION['id']; ?></h6>
+                <!-- <h6 id="userLogged">User logged in:</h6> -->
+            <br>
+                <div class="chip">
+                    <img src="icon/avatar.png" alt="Contact Person">
+	                <?php echo $_SESSION['id']; ?>
+                </div>
 
 			<?php elseif(isset($_GET['reg']) && !isset($_SESSION['id']) && $_GET['reg'] == 'logdout'): ?>
                 <h6 id="userLogged">Successfully logged out!</h6>
@@ -80,7 +85,7 @@ curl_close($ch);
 			<?php endif; ?>
 
             <h2 class='text-center' id="headlineNewtist">Newtist</h2>
-			
+			<!-- NOTIFICATION --> 
             <?php if (isset($_SESSION['id']) || (isset($_GET['reg']) && $_GET['reg'] == 'success')) : ?>
                 <ul class="collapsible" data-collapsible="accordion" ng-show="notificationBarLoaded">
               <li>
@@ -89,11 +94,30 @@ curl_close($ch);
                   Notifications
                   <span class="new badge">{{ notificationCounter }}</span></div>
                   <div class="collapsible-body">
-                      <div class="collapsible" ng-repeat="x in artistPool">
+
+                      <!-- <div class="collapsible" ng-repeat="x in artistPool">
+                          <img class="notificationImage card-image waves-effect waves-light hoverable" width="650" src="{{x.image}}">
                           <p class="nftext">{{ x.album }} 
                             by <strong>{{ x.artist }}</strong>
                           </p>
+                      </div> -->
+                      <div ng-repeat="x in artistPool">
+                          <div class="chip diffChip">
+                              <img src="{{ x.image }}" alt="Contact Person">
+                              {{ x.album | cut:true:35:' ...' }} by
+                              <a href="" ng-click="goToUser(x.artist);">
+                                  <strong>{{ x.artist}}</strong>
+                              </a>
+                          </div>
                       </div>
+
+
+
+
+                      <p class="nftext" ng-if="notificationCounter == 0">
+                          Nothing here.
+                      </p>
+
 
                   </div>
               </li>

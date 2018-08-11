@@ -484,7 +484,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
                     if(subSuccess === true){
                         $('#alert_box').css('display', 'block');
                         $scope.isSubd = true;
-                        $scope.subMessage = "Successfully subscribed! You'll informed when that artist releases something new.";
+                        $scope.subMessage = "Successfully subscribed! You'll be informed when the artist releases something new.";
                     }
 
                 },

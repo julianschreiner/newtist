@@ -168,4 +168,22 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   padding-bottom: 10px;
 }
 
+.notificationImage {
+  transition: opacity .4s;
+  height: auto;
+  width: 20% !important;
+}
+
+.chip {
+  background-color: white !important;
+}
+
+.diffChip {
+  margin-bottom: 15px !important;
+  width: 50%  !important;
+}
+
+.collapsible-header {
+  border-bottom: 0px solid #ddd !important;
+}
 
