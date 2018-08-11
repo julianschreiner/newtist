@@ -33,6 +33,11 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
         $('.collapsible').css('color', 'white');
 
 
+          $( '.chip' ).each(function () {
+              this.style.setProperty( 'background-color', 'white', 'important' );
+          });
+
+
         window.localStorage.setItem('colorMode', 'dark');
 
       }
@@ -56,6 +61,12 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
         $('.collapsible').css('border-left', '1 px solid #ddd !important');
         $('.collapsible').css('color', 'black');
 
+
+
+          $( '.chip' ).each(function () {
+              this.style.setProperty( 'background-color', '#2bbbad', 'important' );
+          });
+
         window.localStorage.setItem('colorMode', 'white');
       }
   });
@@ -77,6 +88,10 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
       $('#txtNewReleases').css("color", "white");
       $('#userLogged').css("color", 'white');
       $('.select-dropdown').css("color", "white");
+
+        $( '.chip' ).each(function () {
+            this.style.setProperty( 'background-color', 'white', 'important' );
+        });
 
       setTimeout(function(){
         /* NOTIFICATION */
@@ -102,6 +117,10 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
       $('#txtNewReleases').addClass('grey-text');
       $('.select-dropdown').css("color", "black");
       $('#userLogged').css("color", 'black');
+
+        $( '.chip' ).each(function () {
+            this.style.setProperty( 'background-color', '#2bbbad', 'important' );
+        });
 
       setTimeout(function(){
         /* NOTIFICATION */
