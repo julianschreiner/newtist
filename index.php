@@ -75,7 +75,7 @@ curl_close($ch);
                 <!-- <h6 id="userLogged">User logged in:</h6> -->
             <br>
 	        <?php if ($_SESSION['id'] == 'root') : ?>
-            <a href="/admin/mngUsers.php"><div class="chip">
+            <a href="admin/mngUsers.php"><div class="chip">
                        <img src="icon/avatar.png" alt="Contact Person">
 						<?php echo $_SESSION['id']; ?>
                     </div>

@@ -47,7 +47,7 @@ if(isset($_GET['delid'])){
 </head>
 <body>
 <h3 class="flow-text">Users</h3>
-<a href="/"><i class="material-icons">backspace</i></a>
+<a href="../"><i class="material-icons">backspace</i></a>
 <table>
 	<thead>
 	<tr>
