@@ -189,6 +189,15 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   height: 38px !important;
 }
 
+@media only screen and (max-width: 600px) {
+  .diffChip {
+    width: 100% !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
 .collapsible-header {
   border-bottom: 0px solid #ddd !important;
 }

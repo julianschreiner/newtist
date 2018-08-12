@@ -103,7 +103,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
         $('.collapsible').css('border-left', '1 px solid #455a64 !important');
         $('.collapsible').css('color', 'white');
     }, 1500);
-      
+
     
       window.localStorage.setItem('colorMode', 'dark');
 
