@@ -2,7 +2,7 @@
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $timeout, $http) {
     /* API VARIABLES */
-    /* (ARTIST)     */
+    /* ARTIST     */
     $scope.artist_data = {};
     $scope.artist_id = '';
     $scope.artist_name = '';
@@ -56,8 +56,31 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
     $scope.notificationBarLoaded = false;
     $scope.notificationCounter = 0;
 
+    /* SUB BAR */
+    $scope.textLimit = 0;      // 15 mobile - 35 Desktop
+
+    if (/Mobi/.test(navigator.userAgent)) {
+        console.log("mobile!");
+        $scope.textLimit = 15;
+    }
+    else{
+        $scope.textLimit = 35;
+        console.log("desktop!");
+    }
+
+    console.log($scope.textLimit);
+
     /* USER */
     $scope.userID = session_id;
+
+    /*
+     * * * * * * * * * * * * * *
+     * * * * * * * * * * * * * *
+     * * * * * * * * * * * * * *
+     * * * * METHODS START * * *
+     * * * * * * * * * * * * * *
+     * * * * * * * * * * * * * *
+    */
 
     var json = '{"frouter": {"apikey": "1234", "method": "genre"	} }';
     obj = JSON.parse(json);

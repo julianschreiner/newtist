@@ -104,7 +104,7 @@ curl_close($ch);
                       <div ng-repeat="x in artistPool">
                           <div class="chip diffChip">
                               <img src="{{ x.image }}" alt="Contact Person">
-                              {{ x.album | cut:true:15:' ...' }} by
+                              {{ x.album | cut:true:textLimit:' ...' }} by
                               <a href="" ng-click="goToUser(x.artist);">
                                   <strong>{{ x.artist}}</strong>
                               </a>
