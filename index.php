@@ -74,14 +74,23 @@ curl_close($ch);
 			<?php if (isset($_SESSION['id']) && !empty($_SESSION['id'])) : ?>
                 <!-- <h6 id="userLogged">User logged in:</h6> -->
             <br>
-                <div class="chip">
-                    <img src="icon/avatar.png" alt="Contact Person">
-	                <?php echo $_SESSION['id']; ?>
-                </div>
+	        <?php if ($_SESSION['id'] == 'root') : ?>
+            <a href="/admin/mngUsers.php"><div class="chip">
+                       <img src="icon/avatar.png" alt="Contact Person">
+						<?php echo $_SESSION['id']; ?>
+                    </div>
+            </a>
+            <?php else: ?>
+                    <div class="chip">
+                        <img src="icon/avatar.png" alt="Contact Person">
+						<?php echo $_SESSION['id']; ?>
+                    </div>
+            <?php endif; ?>
+
+
 
 			<?php elseif(isset($_GET['reg']) && !isset($_SESSION['id']) && $_GET['reg'] == 'logdout'): ?>
                 <h6 id="userLogged">Successfully logged out!</h6>
-
 			<?php endif; ?>
 
             <h2 class='text-center' id="headlineNewtist">Newtist</h2>
