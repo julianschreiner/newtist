@@ -7,6 +7,7 @@
  * Grab emails and call sendmail script
  */
 define('MAXLIMIT', 50);
+define('OFFSET', 0);
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -80,8 +81,7 @@ function apiConnect($link){
 }
 
 function getNewReleases($header, $artistName){
-	$offset = 0;
-	$requrl = "https://api.spotify.com/v1/browse/new-releases?limit=" . MAXLIMIT . "&offset=" . $offset;
+	$requrl = "https://api.spotify.com/v1/browse/new-releases?limit=" . MAXLIMIT . "&offset=" . OFFSET;
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $requrl);
@@ -131,25 +131,35 @@ if(isset($link) && isset($mailer)){
 		$handle->execute();
 		$usernameDB = $handle->fetchAll(\PDO::FETCH_ASSOC);
 
-		$email = $usernameDB[0]['email'];
-		//debug($email);
+		if(isset($usernameDB[0])){
+			$email = $usernameDB[0]['email'];
+			//debug($email);
 
-		/* CALL SPOTIFY API TO SEE IF ARTIST HAS DROPPED SOMETHING NEW --> CALL NEW RELEASES*/
-		$header = apiConnect($link);
-		$adata = getNewReleases($header, $artist);
+			/* CALL SPOTIFY API TO SEE IF ARTIST HAS DROPPED SOMETHING NEW --> CALL NEW RELEASES*/
+			$header = apiConnect($link);
+			$adata = getNewReleases($header, $artist);
 
-		if(empty($adata)){
-			continue;
-		}else{
-			$success = $mailer->send($email, $adata, $user);
-
-			if($success){
-				status_rep('Mail successfully sent to ' . $user . ' with email ' . $email);
+			if($artist == 'Quavo'){
+				var_dump($header);
+				var_dump($adata);
+				exit;
 			}
-			else{
-				status_rep('Mail failed to send to ' . $user . ' with email ' . $email);
+
+			if(empty($adata)){
+				continue;
+			}else{
+				/*$success = $mailer->send($email, $adata, $user);
+
+				if($success){
+					status_rep('Mail successfully sent to ' . $user . ' with email ' . $email);
+				}
+				else{
+					status_rep('Mail failed to send to ' . $user . ' with email ' . $email);
+				}
+			*/
 			}
 		}
+
 
 
 

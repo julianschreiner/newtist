@@ -10,7 +10,7 @@ require_once '../webservice/connection/db.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// TODO MAKE IT SECURE
+// TODO MAKE IT SECURE with param hashing md5 + timestamp !!!
 
 if(isset($_GET['artist']) && isset($_GET['user'])){
 	$link = new db();
