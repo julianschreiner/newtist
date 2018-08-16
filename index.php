@@ -62,6 +62,7 @@ curl_close($ch);
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="icon/images/compact_disc.ico" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <title>Newtist</title>
 </head>
@@ -95,7 +96,7 @@ curl_close($ch);
 
             <h2 class='text-center' id="headlineNewtist">Newtist</h2>
 			<!-- NOTIFICATION --> 
-            <?php if (isset($_SESSION['id']) || (isset($_GET['reg']) && $_GET['reg'] == 'success')) : ?>
+            <?php if (isset($_SESSION['id']) && (isset($_GET['reg']) && $_GET['reg'] == 'success')) : ?>
                 <ul class="collapsible" data-collapsible="accordion" ng-show="notificationBarLoaded">
               <li>
                 <div class="collapsible-header">
