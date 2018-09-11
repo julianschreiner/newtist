@@ -64,7 +64,7 @@ curl_close($ch);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content=" <strong>Newtist</strong> is a plattform to explore <strong>new music releases</strong> from your favourite artists on <strong>spotify!</strong>">
-    <meta name="keywords" content="New Music, New Releases, Artist, Music, Spotify, ">
+    <meta name="keywords" content="New Music, New Releases, Artist, Music, Spotify, Newtist">
     <meta name="author" content="Julian Schreiner">
     <meta name="robots" content="noindex" />
     <base href="/">
@@ -502,6 +502,7 @@ curl_close($ch);
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 
 <script src="js/app.js"></script>
+<script src="js/route.js"></script>
 
 <link rel="stylesheet" href="css/main.scss">
 
