@@ -139,6 +139,7 @@ if(isset($link) && isset($mailer)){
 			$header = apiConnect($link);
 			$adata = getNewReleases($header, $artist);
 
+			// TODO 
 			if($artist == 'Quavo'){
 				var_dump($header);
 				var_dump($adata);

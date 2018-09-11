@@ -1,0 +1,25 @@
+TODO:
+ ☐ SHOW NOTIFICATION PAGE OF ARTIST THAT ARE SUBSCRIBED AND SHOW NEWEST RELEASE
+ ☐ show more when filtering or show more when searching for artist (searchOffset)
+ ☐ REMAKE FILTERS / BUILD OWN FILTERS
+
+ ☐ MAILING SYSTEM / NOTIFICATION
+     ☐ SCRIPT THAT RUNS EVERY FRIDAY - CHECKS ARTISTS FROM NEW RELEASES - CHECKS DB - IF THERES AN OCCURANCE THEN SEND THE USER A MAIL
+     ☐ MAIL CLASS
+     ☐ MAIL TEMPLATE
+
+ ☐ DEEPLINKS TO ARTIST OR MAYBE A SONG @high
+
+
+ ☐ FIX PROBLEM OF MAILING SYSTEM -> If one artist drops many things only last one gets shown @low
+ ☐ maybe send one email with all updates in it instead of one for each update @low
+
+ ☐ SHOW WIKIPEDIA DATA ABOUT ARTIST @low
+ ☐ MAKE A AUTH SYSTEM FOR API KEYS AND ONLY MAKE THOSE KEYS AVAIABLE TO USE MY API @high
+ ☐ MAX LENGTH SONG/ALBUM TITLE OR USE TRIM FUNCTION @high
+
+IDEAS:
+ ☐ SHOW SONGS OF ALBUMS IN CARD, maybe use spotify api for that otherwise other api for songtracks then request to spotify api for link @low
+
+BUGS:
+ ☐ SEVERAL UI BUGS @critical
