@@ -1,0 +1,12 @@
+Update Portfolio Mail Icon and replace it with Materialize Form - DONE
+
+Use Chips to display current logged in user - DONE
+Work on Notification maybe use chips there too - DONE
+
+Work on UI Mobile Notification Bar -> width should be 100% DONE
+
+Work on admin section in page where u can see all users DONE
+
+Work on Change notes Page DONE
+
+TODO BUILD TEMPLATES FOR HEAD ETC

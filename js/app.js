@@ -1,10 +1,7 @@
 var app = angular.module('myApp', []);
 
-app.config(function($locationProvider) {
-        $locationProvider.html5Mode(true);
-});
 
-app.controller('myCtrl', function($scope, $timeout, $http, $httpParamSerializer, $location) {
+app.controller('myCtrl', function($scope, $timeout, $http, $httpParamSerializer) {
     /* API VARIABLES */
     /* ARTIST     */
     $scope.artist_data = {};

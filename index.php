@@ -67,11 +67,11 @@ curl_close($ch);
     <meta name="keywords" content="New Music, New Releases, Artist, Music, Spotify, Newtist">
     <meta name="author" content="Julian Schreiner">
     <meta name="robots" content="noindex" />
-    <base href="/">
+   
 
     <link rel="shortcut icon" href="icon/images/compact_disc.ico" type="image/x-icon">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script>
+    
 
     <title>Newtist</title>
 </head>
