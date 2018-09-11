@@ -1,4 +1,6 @@
 <?php
+require_once('routing/route.php');
+
 session_start();
 $url = 'https://accounts.spotify.com/api/token';
 $method = 'POST';
@@ -51,6 +53,24 @@ $response = json_decode(curl_exec($ch), true);
 curl_close($ch);
 
 //print_r($response['access_token']);
+/*
+$route = new Route();
+
+$route::parse('/(.*)', function($state, $matches){
+    if($state){
+        var_dump($matches[0][0]);
+        // AJAX call gotoUser Function
+
+    }
+});
+
+$route::parse('/changes', function($state){
+    if($state){
+        header('Location: /changes.php');
+    }
+});
+*/
+
 ?>
 
 <script type="text/javascript">

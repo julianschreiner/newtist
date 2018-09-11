@@ -83,7 +83,7 @@ app.controller('myCtrl', function($scope, $timeout, $http, $httpParamSerializer)
      console.log("mobile!");
     $scope.textLimit = 15;
 } else {
-    $scope.textLimit = 35;
+    $scope.textLimit = 30;
     console.log("desktop!");
 }
 
