@@ -205,3 +205,40 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 input[name="artist-search"] {
   width: 98% !important;
 }
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1025px) {
+  
+  //CSS
+  #artistCard_INC{
+     left: 29%;
+    top: 50%;
+    position: relative;
+  }
+  #recentReleases {
+      top: 50%;
+      left: 100%; 
+  }
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  
+  //CSS
+  .row #artistCard_INC{
+      top: 50% !important;
+      left: 100% !important;
+  }
+  #recentReleases {
+      top: 50%;
+      left: 100%; 
+  }
+}

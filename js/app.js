@@ -1,6 +1,10 @@
-
 var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope, $timeout, $http) {
+
+app.config(function($locationProvider) {
+        $locationProvider.html5Mode(true);
+});
+
+app.controller('myCtrl', function($scope, $timeout, $http, $httpParamSerializer, $location) {
     /* API VARIABLES */
     /* ARTIST     */
     $scope.artist_data = {};
@@ -59,19 +63,45 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
     /* SUB BAR */
     $scope.textLimit = 0;      // 15 mobile - 35 Desktop
 
+    //TODO ADD TABLET
+/*
     if (/Mobi/.test(navigator.userAgent)) {
         console.log("mobile!");
         $scope.textLimit = 15;
+    }
+    else if(/Mobi/.test(navigator.userAgent)){
+        console.log("Tablet");
     }
     else{
         $scope.textLimit = 35;
         console.log("desktop!");
     }
+*/
+    if (navigator.userAgent.match(/Tablet|iPad/i))
+{
+    console.log("tablet");
+     $scope.textLimit = 25;
+} else if(navigator.userAgent.match(/Mobile|Windows Phone|Lumia|Android|webOS|iPhone|iPod|Blackberry|PlayBook|BB10|Opera Mini|\bCrMo\/|Opera Mobi/i) )
+{
+     console.log("mobile!");
+    $scope.textLimit = 15;
+} else {
+    $scope.textLimit = 35;
+    console.log("desktop!");
+}
 
     console.log($scope.textLimit);
 
     /* USER */
     $scope.userID = session_id;
+
+    /* URL PARSING 
+    //$locationProvider.html5Mode(true);
+    $scope.paramValue = $location.search().artist; 
+   if(typeof($scope.paramValue) != null){
+        console.log($scope.buildURL());
+   }
+   */
 
     /*
      * * * * * * * * * * * * * *
@@ -102,7 +132,6 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
             });
 
     $scope.getArtistGenre = function(artist_name){
-        console.log(artist_name);
         angular.forEach($scope.categories, function(element, index) {
             // statements
             if(element.name == artist_name){
@@ -340,6 +369,12 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
 
         $scope.inp_search = $("input[name = 'artist-search']").val();
         $scope.filtered_search =  $scope.inp_search.replace(' ', '%20');
+
+
+        $scope.buildURL($scope.inp_search);
+
+
+
         $scope.userSearched = true;
 
         //$scope.$apply();
@@ -481,6 +516,7 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
     $scope.goToUser = function(artistName){
         if(artistName.length != 0){
             $("input[name = 'artist-search']").val(artistName);
+            $scope.buildURL(artistName);
             $("button[name = 'artist-submit']").click();
         }
     };
@@ -583,6 +619,11 @@ app.controller('myCtrl', function($scope, $timeout, $http) {
 
 
     };  //isSsub method
+
+    $scope.buildURL = function(input) {
+        history.pushState(null, '', '?at=' + input);
+    };
+
 });    //ANG APP
 
 app.filter('capitalize', function() {
@@ -644,3 +685,5 @@ app.filter('cut', function () {
         return value + (tail || ' …');
     };
 });
+
+

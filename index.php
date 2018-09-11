@@ -61,17 +61,26 @@ curl_close($ch);
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=" <strong>Newtist</strong> is a plattform to explore <strong>new music releases</strong> from your favourite artists on <strong>spotify!</strong>">
+    <meta name="keywords" content="New Music, New Releases, Artist, Music, Spotify, ">
+    <meta name="author" content="Julian Schreiner">
+    <meta name="robots" content="noindex" />
+    <base href="/">
+
     <link rel="shortcut icon" href="icon/images/compact_disc.ico" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
     <title>Newtist</title>
 </head>
-<body ng-app="myApp" ng-controller="myCtrl" ng-cloak>
+<body ng-app="myApp" ng-controller="myCtrl" ng-cloak >
 
 <div class="container center">
     <div class="row">
-
         <div class="col s12 center">
+            <div ng-view></div>
 			<?php if (isset($_SESSION['id']) && !empty($_SESSION['id'])) : ?>
                 <!-- <h6 id="userLogged">User logged in:</h6> -->
             <br>
@@ -127,8 +136,6 @@ curl_close($ch);
                       <p class="nftext" ng-if="notificationCounter == 0">
                           Nothing here.
                       </p>
-
-
                   </div>
               </li>
             </ul>
@@ -261,7 +268,7 @@ curl_close($ch);
                     </div>
                     <div class="card-content" class="newRelCardBody">
             <span class="card-title  grey-text text-darken-4">
-                {{ x.name | cut:true:35:' ...' }} by
+                {{ x.name | cut:true:textLimit:' ...' }} by
                 <a href="" ng-click="goToUser(x.artists[0].name);">
                     <strong>{{ x.artists[0].name }}</strong>
                 </a>
@@ -274,7 +281,7 @@ curl_close($ch);
 
                     <div class="card-action">
                         <a href="{{ x.artists[0].external_urls.spotify }}" target="_blank">Visit Artist</a><br>
-                        <a href="{{ x.external_urls.spotify }}" target="_blank">Visit {{ x.album_type }}</a>
+                        <a href="{{ x.external_urls.spotify }}" target="_blank">Visit {{ x.album_type | cut:true:7}}</a>
                     </div>
 
                     <div class="card-reveal">
@@ -311,7 +318,7 @@ curl_close($ch);
 
             <!-- ARTIST CARD -->
             <div class="col s12 m4 l8 cards-container" ng-show="userSearched">
-                <div class="card sticky-action" id="artistCard">
+                <div class="card sticky-action" id="artistCard_INC">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="{{ artist_image  }}">
                     </div>
