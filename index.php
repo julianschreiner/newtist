@@ -75,7 +75,7 @@ $route::parse('/change', function($ret, $matches){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content=" <strong>Newtist</strong> is a plattform to explore <strong>new music releases</strong> from your favourite artists on <strong>spotify!</strong>">
-    <meta name="keywords" content="New Music, New Releases, Artist, Music, Spotify, Newtist">
+    <meta name="keywords" content="New Music, New Releases, Artist, Music, Spotify, Newtist, Discover new Music, ">
     <meta name="author" content="Julian Schreiner">
     <meta name="robots" content="INDEX, FOLLOW" />
    
@@ -516,7 +516,7 @@ $route::parse('/change', function($ret, $matches){
 <script src="js/app.js"></script>
 <script src="js/route.js"></script>
 
-<link rel="stylesheet" href="css/main.scss">
+<link rel="stylesheet" href="css/main.css">
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
