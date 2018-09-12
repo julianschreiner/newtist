@@ -48,7 +48,6 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 
 
 
-
 /// Styles for demo
 .text-center {
   text-align: center;
@@ -211,7 +210,7 @@ input[name="artist-search"] {
   ##Screen = B/w 768px to 1024px
 */
 
-.cards-container{
+#artistCard_INC{
       left: 29% !important;
       top: 50% !important;
       position: relative !important;
