@@ -1,0 +1,9 @@
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^www.julianschreiner\.de$ [NC]
+RewriteRule ^(.*)$ http://julianschreiner.de/$1 [R=301,L]
+
+#AuthType Basic
+#AuthName "Please login"
+#AuthUserFile /julianschreiner.de/.htpasswd
+#require valid-user 
