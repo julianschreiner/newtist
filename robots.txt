@@ -121,7 +121,7 @@ User-agent: Oracle Ultra Search
 User-agent: MSIECrawler
 User-agent: PerMan
 User-agent: searchpreview
-Disallow: /
+
 
 User-agent: *
 Disallow: /newtist/creds.ini

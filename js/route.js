@@ -1,2 +1,3 @@
 var rootURL = window.location.pathname;
-console.error(rootURL);
+
+//console.error(rootURL);
