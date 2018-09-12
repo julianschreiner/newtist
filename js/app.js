@@ -353,6 +353,7 @@
         $("button[name = 'artist-back']").click(function(e){
             $scope.getNewReleases();
             $scope.userSearched = false;
+            $scope.resetURL();
         });
 
 
@@ -628,17 +629,28 @@
 
         /* URL PARSING */
         $scope.buildURL = function(input) {
+            console.log("called!!");
             history.pushState(null, '', '?at=' + input);
         };
 
         var rootURL = window.location.search;
-        rootURL = rootURL.slice(4, rootURL.length);
-        rootURL = rootURL.replace('%20', ' ');
+        console.log(rootURL);
+        if(!rootURL.includes('reg')){
+            // IDEA IS TO NOT DO ANYTHING IF REG IS IN LOCATION.SEARCH
+            rootURL = rootURL.slice(4, rootURL.length);
+            rootURL = rootURL.replace('%20', ' ');
 
-        if(typeof(rootURL) != null || typeof(rootURL) != undefined){
-            console.log(rootURL);
-            $scope.goToUser(rootURL);
+            if(typeof(rootURL) != null || typeof(rootURL) != undefined){
+                console.log(rootURL);
+                $scope.goToUser(rootURL);
+            }
         }
+        
+
+        $scope.resetURL = function(){
+            console.log("reset url");
+            history.replaceState(null, '', 'start');
+        };
 
     });    //ANG APP
 

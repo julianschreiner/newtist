@@ -211,8 +211,8 @@ input[name="artist-search"] {
 */
 
 #artistCard_INC{
-      left: 29% !important;
-      top: 50% !important;
+      left: 25% !important;
+      
       position: relative !important;
   }
 
@@ -232,13 +232,12 @@ input[name="artist-search"] {
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   
-  //CSS
-  .row #artistCard_INC{
-      top: 50% !important;
-      left: 100% !important;
-  }
   #recentReleases {
       top: 50%;
       left: 100%; 
+  }
+  #artistCard_INC{
+      left: 100% !important;
+      position: relative !important;
   }
 }

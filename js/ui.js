@@ -171,3 +171,9 @@ function scrollToMessageSub(){
     }, 1000);
 
 };
+
+$("button[name = 'artist-submit']").click(function(e){
+  setTimeout(function(){
+        $('html, body').animate({ scrollTop: ($('#artistCard_INC').offset().top)}, 'slow');
+    }, 1000);
+}); //BUTTON
