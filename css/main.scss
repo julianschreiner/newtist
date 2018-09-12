@@ -211,14 +211,15 @@ input[name="artist-search"] {
   ##Screen = B/w 768px to 1024px
 */
 
+.cards-container{
+      left: 29% !important;
+      top: 50% !important;
+      position: relative !important;
+  }
+
 @media (min-width: 768px) and (max-width: 1025px) {
   
   //CSS
-  #artistCard_INC{
-     left: 29%;
-    top: 50%;
-    position: relative;
-  }
   #recentReleases {
       top: 50%;
       left: 100%; 
