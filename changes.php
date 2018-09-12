@@ -62,7 +62,7 @@ foreach($response as $key => $item){
 </head>
 <body>
 <h3 class="flow-text">Last Commits</h3>
-<a href="../"><i class="material-icons">backspace</i></a>
+<a href="./"><i class="material-icons">backspace</i></a>
 <table>
     <thead>
     <tr>
