@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 //require_once('routing/route.php');
+=======
+require_once('routing/route.php');
+>>>>>>> 3515627176645c07daa57df46088c8fb745ad324
 
 session_start();
 $url = 'https://accounts.spotify.com/api/token';
@@ -55,11 +59,30 @@ curl_close($ch);
 //print_r($response['access_token']);
 /*
 $route = new Route();
+<<<<<<< HEAD
 $route::parse('/change', function($ret, $matches){
     var_dump($ret);
     var_dump($matches);
 });
 */
+=======
+
+$route::parse('/(.*)', function($state, $matches){
+    if($state){
+        var_dump($matches[0][0]);
+        // AJAX call gotoUser Function
+
+    }
+});
+
+$route::parse('/changes', function($state){
+    if($state){
+        header('Location: /changes.php');
+    }
+});
+*/
+
+>>>>>>> 3515627176645c07daa57df46088c8fb745ad324
 ?>
 
 <script type="text/javascript">
