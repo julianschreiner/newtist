@@ -1,9 +1,6 @@
 <?php
-<<<<<<< HEAD
+
 //require_once('routing/route.php');
-=======
-require_once('routing/route.php');
->>>>>>> 3515627176645c07daa57df46088c8fb745ad324
 
 session_start();
 $url = 'https://accounts.spotify.com/api/token';
@@ -59,30 +56,13 @@ curl_close($ch);
 //print_r($response['access_token']);
 /*
 $route = new Route();
-<<<<<<< HEAD
 $route::parse('/change', function($ret, $matches){
     var_dump($ret);
     var_dump($matches);
 });
 */
-=======
 
-$route::parse('/(.*)', function($state, $matches){
-    if($state){
-        var_dump($matches[0][0]);
-        // AJAX call gotoUser Function
 
-    }
-});
-
-$route::parse('/changes', function($state){
-    if($state){
-        header('Location: /changes.php');
-    }
-});
-*/
-
->>>>>>> 3515627176645c07daa57df46088c8fb745ad324
 ?>
 
 <script type="text/javascript">
@@ -112,7 +92,7 @@ $route::parse('/changes', function($state){
     <div class="row">
         <div class="col s12 center">
             <div ng-view></div>
-			<?php if (isset($_SESSION['id']) && !empty($_SESSION['id'])) : ?>
+			<?php if (isset($_SESSION['id']) && (isset($_GET['reg']) && $_GET['reg'] == 'success')) : ?>
                 <!-- <h6 id="userLogged">User logged in:</h6> -->
             <br>
 	        <?php if ($_SESSION['id'] == 'root') : ?>
