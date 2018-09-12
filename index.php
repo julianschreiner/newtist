@@ -1,5 +1,4 @@
 <?php
-
 //require_once('routing/route.php');
 
 session_start();
@@ -93,7 +92,9 @@ $route::parse('/change', function($ret, $matches){
         <div class="col s12 center">
             <div ng-view></div>
 			<?php if (isset($_SESSION['id']) && (isset($_GET['reg']) && $_GET['reg'] == 'success')) : ?>
+
                 <!-- <h6 id="userLogged">User logged in:</h6> -->
+                
             <br>
 	        <?php if ($_SESSION['id'] == 'root') : ?>
             <a href="admin/mngUsers.php"><div class="chip">

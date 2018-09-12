@@ -1,7 +1,7 @@
 var app = angular.module('myApp', []);
 
 
-app.controller('myCtrl', function($scope, $timeout, $http, $httpParamSerializer) {
+app.controller('myCtrl', function($scope, $timeout, $http, $httpParamSerializer, $window) {
     /* API VARIABLES */
     /* ARTIST     */
     $scope.artist_data = {};
@@ -74,6 +74,10 @@ app.controller('myCtrl', function($scope, $timeout, $http, $httpParamSerializer)
         console.log("desktop!");
     }
 */
+angular.element($window).on('resize', function () {
+    console.log($window.innerWidth);
+});
+
     if (navigator.userAgent.match(/Tablet|iPad/i))
 {
     console.log("tablet");
