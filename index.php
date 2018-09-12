@@ -1,4 +1,6 @@
 <?php
+//require_once('routing/route.php');
+
 session_start();
 $url = 'https://accounts.spotify.com/api/token';
 $method = 'POST';
@@ -51,6 +53,13 @@ $response = json_decode(curl_exec($ch), true);
 curl_close($ch);
 
 //print_r($response['access_token']);
+/*
+$route = new Route();
+$route::parse('/change', function($ret, $matches){
+    var_dump($ret);
+    var_dump($matches);
+});
+*/
 ?>
 
 <script type="text/javascript">
@@ -66,14 +75,13 @@ curl_close($ch);
     <meta name="description" content=" <strong>Newtist</strong> is a plattform to explore <strong>new music releases</strong> from your favourite artists on <strong>spotify!</strong>">
     <meta name="keywords" content="New Music, New Releases, Artist, Music, Spotify, Newtist">
     <meta name="author" content="Julian Schreiner">
-    <meta name="robots" content="noindex" />
+    <meta name="robots" content="INDEX, FOLLOW" />
    
-
     <link rel="shortcut icon" href="icon/images/compact_disc.ico" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script>
     
 
-    <title>Newtist</title>
+    <title>Newtist - Explore new Spotify Releases!</title>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl" ng-cloak >
 
