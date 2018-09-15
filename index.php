@@ -296,12 +296,19 @@ $route::parse('/change', function($ret, $matches){
                         <a href="{{ x.external_urls.spotify }}" target="_blank">Visit {{ x.album_type | cut:true:7}}</a>
                     </div>
 
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{ x.name }} by <strong>{{ x.artists[0].name}}</strong><i class="material-icons right">close</i></span>
+                    <div class="card-reveal" style="min-height: 50%;">
+                        <span class="card-title grey-text text-darken-4">{{ x.name }} by 
+                            <strong>{{ x.artists[0].name}}</strong>
+                            <i class="material-icons right">close</i>
+                        </span>
                         <p>{{ x.artists[0].name }} released {{ x.name }} on {{ x.release_date }}</p>
                         <p>Artists:</p>
                         <ul>
                             <li ng-repeat="fa in x.artists">{{ fa.name }} </li>
+                        </ul>
+                        <p>Tracklist:</p>
+                        <ul class="tracklist_reveal">
+                            <li ng-repeat="tl in x.tracklist">{{ tl.name }}</li>
                         </ul>
                     </div>
                 </div>

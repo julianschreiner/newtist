@@ -78,7 +78,7 @@
 
         if (navigator.userAgent.match(/Tablet|iPad/i))
         {
-            console.log("tablet");
+            console.log("tablet!");
             $scope.textLimit = 25;
         } else if(navigator.userAgent.match(/Mobile|Windows Phone|Lumia|Android|webOS|iPhone|iPod|Blackberry|PlayBook|BB10|Opera Mini|\bCrMo\/|Opera Mobi/i) )
         {
@@ -278,9 +278,6 @@
                             });  //FOREACH
                         });  //FOREACH
 
-
-
-
                         if(foundsmth){
                             // TODO: SHOW EVERYTHING
                             // $scope.searchReqOffset += 50;
@@ -293,7 +290,7 @@
                     window.setTimeout(function(){
                         $scope.isLoading = false;
                         $scope.getNotification();
-                        //console.log($scope.new_releases);
+                        $scope.getTracklist();
                         $scope.$apply();
                     }, 500);
                 },
@@ -306,6 +303,30 @@
 
         $scope.getNewReleases();
 
+        $scope.getTracklist = function(){
+            $scope.isLoading = true;
+            angular.forEach($scope.new_releases, function(key, value){
+                let albumID = key.id;
+                $.ajax({
+                    url: 'https://api.spotify.com/v1/albums/'+albumID+'/tracks',
+                    type: 'GET',
+                    headers: {
+                        'Authorization' : 'Bearer ' + access_token
+                    },
+                    success: function(data){
+                        console.log(data);
+                        key.tracklist = data.items;
+                    }
+                });  //AJAX
+                console.log(key.id);
+            }); // FOREACH
+
+            window.setTimeout(function(){
+                    $scope.isLoading = false;
+                    console.log($scope.new_releases);
+                    $scope.$apply();
+                    }, 500);
+        };
 
         $scope.getNotification = function(){
             $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
@@ -348,7 +369,7 @@
                         // failed
                         //console.log(response);
                     });
-        }
+        };
 
         $("button[name = 'artist-back']").click(function(e){
             $scope.getNewReleases();
@@ -649,7 +670,7 @@
 
         $scope.resetURL = function(){
             console.log("reset url");
-            history.replaceState(null, '', 'start');
+            history.replaceState(null, '', 'index.php');
         };
 
     });    //ANG APP
