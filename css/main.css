@@ -18,6 +18,17 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   column-count: $ct;
 }
 
+.collapsible {
+  border-top: 0px !important;
+  border-right: 0px !important;
+  border-left: 0px !important;
+}
+
+.collapsible-body {
+  border-bottom: 0px !important;
+}
+
+
 .cards-container {
   column-break-inside: avoid;
   .card {
