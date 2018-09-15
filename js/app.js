@@ -30,6 +30,7 @@
 
         /*FILTER ARTIST */
         $scope.filterArtistName = [];
+        $scope.filterUsed = false;
 
         /* STATE VARIABLES */
         $scope.userSearched = false;
@@ -196,7 +197,7 @@
         };  // FUNC
 
         $scope.filterApplied = function(selectedFilter){
-
+            $scope.filterUsed = true;
             $scope.filterArtistName = [];
 
             if(selectedFilter != null){

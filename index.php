@@ -496,7 +496,7 @@ $route::parse('/change', function($ret, $matches){
 
         <!-- FOOTER -->
         <footer class="page-footer" id="footer">
-            <button type="button" name="load-more" class="waves-effect waves-light btn" ng-show="!userSearched">
+            <button type="button" name="load-more" class="waves-effect waves-light btn" ng-show="!userSearched && !filterUsed">
                 Load more
             </button>
 
