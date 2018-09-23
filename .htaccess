@@ -1,9 +1,20 @@
-RewriteEngine On
+#RewriteEngine On
 
-RewriteCond %{HTTP_HOST} ^www.julianschreiner\.de$ [NC]
-RewriteRule ^(.*)$ http://julianschreiner.de/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST} ^www.julianschreiner\.de$ [NC]
+#RewriteRule ^(.*)$ http://julianschreiner.de/$1 [R=301,L]
 
-#AuthType Basic
-#AuthName "Please login"
-#AuthUserFile /julianschreiner.de/.htpasswd
-#require valid-user 
+  
+<FilesMatch "creds.ini">
+AuthName "Member Only"
+AuthType Basic
+AuthUserFile "/julianschreiner.de/newtist/inc/.htpasswd"
+require user root
+</FilesMatch> 
+
+<FilesMatch "smtp.ini">
+AuthName "Member Only"
+AuthType Basic
+AuthUserFile "/julianschreiner.de/newtist/inc/.htpasswd"
+require user root
+</FilesMatch> 
+

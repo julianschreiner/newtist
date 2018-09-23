@@ -150,7 +150,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
   $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
     $('.collapsible').collapsible();
-    
+    $('.dropdown-trigger').dropdown();
   });
 
   function scrollToTop(){
@@ -177,3 +177,11 @@ $("button[name = 'artist-submit']").click(function(e){
         $('html, body').animate({ scrollTop: ($('#artistCard_INC').offset().top)}, 'slow');
     }, 1000);
 }); //BUTTON
+
+
+// DROPDOWN
+document.addEventListener('DOMContentLoaded', function() {
+ 
+});
+
+

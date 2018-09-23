@@ -61,6 +61,9 @@
         /* SUB BAR */
         $scope.textLimit = 0;      // 15 mobile - 35 Desktop
 
+        /* SUGGESTIONS */
+        $scope.hintUsed = false;
+
         /* ONLOAD FUNCTION TO FIX CSS ERROR BECAUSE TEXT LENGTHS */
         angular.element($window).on('load', function () {
             if(parseInt($window.innerWidth) < 1300 && parseInt($window.innerWidth) > 996){
@@ -70,7 +73,7 @@
         });
 
         angular.element($window).on('resize', function () {
-            console.log(parseInt($window.innerWidth));
+            //console.log(parseInt($window.innerWidth));
             if(parseInt($window.innerWidth) < 1300 && parseInt($window.innerWidth) > 996){
                 $scope.textLimit = 20;
                 $scope.$apply();
@@ -315,16 +318,16 @@
                         'Authorization' : 'Bearer ' + access_token
                     },
                     success: function(data){
-                        console.log(data);
+                        //console.log(data);
                         key.tracklist = data.items;
                     }
                 });  //AJAX
-                console.log(key.id);
+                //console.log(key.id);
             }); // FOREACH
 
             window.setTimeout(function(){
                     $scope.isLoading = false;
-                    console.log($scope.new_releases);
+                    //console.log($scope.new_releases);
                     $scope.$apply();
                     }, 500);
         };
@@ -451,6 +454,60 @@
                 }); //INNER FOREACH
             }); //OUTTER FOREACH
         });    //BTN
+
+        $scope.getHint = function(){
+            var inp = $("input[name = 'artist-search']").val();
+            if(inp.length > 0){
+                $scope.hintUsed = true;
+            }
+            else{
+                $scope.hintUsed = false;
+            }
+          
+            console.log($scope.inp_search);
+            var artistNames = [];
+
+            if($scope.inp_search.includes('%20')){
+                $scope.filtered_search =  $scope.inp_search.replace(' ', '%20');
+            }
+            else{
+                $scope.filtered_search = $scope.inp_search;
+            }
+
+            if($scope.inp_search.length > 0){
+             /* SEARCH PROTOTYPE */
+             $.ajax({
+                url: 'https://api.spotify.com/v1/search?q='+$scope.filtered_search+'&type=artist&market=' + $scope.userLocation,
+                type: 'GET',
+                headers: {
+                    'Authorization' : 'Bearer ' + access_token
+                },
+                success: function(data) {
+                    $scope.isSub($scope.inp_search);
+                    //console.log(JSON.stringify(data));
+                    $scope.artist_data = JSON.stringify(data);
+
+                    //   console.log(data);
+                    //  console.log(data['artists']['items'].length);
+
+                    for(var i = 0; i < data['artists']['items'].length; i++){
+                        artistNames.push(data['artists']['items'][i]['name']);
+                    }
+                
+                   // console.log(artistNames);
+                    autocomplete(document.getElementById('artist-search'), artistNames);
+                    $scope.$apply();
+
+                },
+                error: function(err){
+                    console.log(err);
+                }
+            });  //AJAX
+        }
+
+
+
+        }; // getHint
 
         $scope.getTopSongsData = function(artist_id, token){
             if($scope.userLocation.length > 0){
@@ -651,28 +708,68 @@
 
         /* URL PARSING */
         $scope.buildURL = function(input) {
-            console.log("called!!");
+            //console.log("called!!");
             history.pushState(null, '', '?at=' + input);
         };
 
         var rootURL = window.location.search;
-        console.log(rootURL);
+        //console.log(rootURL);
         if(!rootURL.includes('reg')){
             // IDEA IS TO NOT DO ANYTHING IF REG IS IN LOCATION.SEARCH
             rootURL = rootURL.slice(4, rootURL.length);
             rootURL = rootURL.replace('%20', ' ');
 
             if(typeof(rootURL) != null || typeof(rootURL) != undefined){
-                console.log(rootURL);
+                //console.log(rootURL);
                 $scope.goToUser(rootURL);
             }
         }
         
 
         $scope.resetURL = function(){
-            console.log("reset url");
+            //console.log("reset url");
             history.replaceState(null, '', 'index.php');
         };
+
+        $scope.favor = function(e, track, artist){
+            let buttonID = e.target.id;
+            let betweenTag =  $("i[id='"+buttonID+"']").text().trim(); 
+    
+            if(betweenTag === 'favorite_border'){
+                 $("i[id='"+buttonID+"']").text('favorite');
+            }
+            else{
+                $("i[id='"+buttonID+"']").text('favorite_border');
+            }
+            //console.log(track, artist);
+
+            /* CURRENT FAVORED */
+            var obj = new Object();
+            obj.track = track;
+            obj.artist = artist;
+
+           // var json = JSON.stringify(obj);
+            
+            var arr = [];
+            arr.push(obj);
+            // GET EXISTING ENTRIES IN LOCALSTORAGE
+
+            if(window.localStorage.getItem('favor') != null){
+                // THERES SOMETHING IN THERE ALREADY
+                let currentStorage = window.localStorage.getItem('favor');
+                let storageOBJ = JSON.parse(currentStorage);
+                
+                var arr = Object.keys(storageOBJ).map(function(k) { return storageOBJ[k] })  
+                arr.push(obj);
+                window.localStorage.setItem('favor', JSON.stringify(arr));
+            }
+            else{
+                window.localStorage.setItem('favor', JSON.stringify(arr));
+            }
+
+        };
+
+    
 
     });    //ANG APP
 
@@ -736,4 +833,99 @@
         };
     });
 
-
+    function autocomplete(inp, arr) {
+        /*the autocomplete function takes two arguments,
+        the text field element and an array of possible autocompleted values:*/
+        var currentFocus;
+        /*execute a function when someone writes in the text field:*/
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            /*close any already open lists of autocompleted values*/
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            /*create a DIV element that will contain the items (values):*/
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            /*append the DIV element as a child of the autocomplete container:*/
+            this.parentNode.appendChild(a);
+            /*for each item in the array...*/
+            for (i = 0; i < arr.length; i++) {
+              /*check if the item starts with the same letters as the text field value:*/
+              if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                /*create a DIV element for each matching element:*/
+                b = document.createElement("DIV");
+                /*make the matching letters bold:*/
+                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
+                /*insert a input field that will hold the current array item's value:*/
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                /*execute a function when someone clicks on the item value (DIV element):*/
+                    b.addEventListener("click", function(e) {
+                    /*insert the value for the autocomplete text field:*/
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    /*close the list of autocompleted values,
+                    (or any other open lists of autocompleted values:*/
+                    closeAllLists();
+                });
+                a.appendChild(b);
+              }
+            }
+        });
+        /*execute a function presses a key on the keyboard:*/
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+              /*If the arrow DOWN key is pressed,
+              increase the currentFocus variable:*/
+              currentFocus++;
+              /*and and make the current item more visible:*/
+              addActive(x);
+            } else if (e.keyCode == 38) { //up
+              /*If the arrow UP key is pressed,
+              decrease the currentFocus variable:*/
+              currentFocus--;
+              /*and and make the current item more visible:*/
+              addActive(x);
+            } else if (e.keyCode == 13) {
+              /*If the ENTER key is pressed, prevent the form from being submitted,*/
+              e.preventDefault();
+              if (currentFocus > -1) {
+                /*and simulate a click on the "active" item:*/
+                if (x) x[currentFocus].click();
+              }
+            }
+        });
+        function addActive(x) {
+          /*a function to classify an item as "active":*/
+          if (!x) return false;
+          /*start by removing the "active" class on all items:*/
+          removeActive(x);
+          if (currentFocus >= x.length) currentFocus = 0;
+          if (currentFocus < 0) currentFocus = (x.length - 1);
+          /*add class "autocomplete-active":*/
+          x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+          /*a function to remove the "active" class from all autocomplete items:*/
+          for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+          }
+        }
+        function closeAllLists(elmnt) {
+          /*close all autocomplete lists in the document,
+          except the one passed as an argument:*/
+          var x = document.getElementsByClassName("autocomplete-items");
+          for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+            x[i].parentNode.removeChild(x[i]);
+          }
+        }
+      }
+      /*execute a function when someone clicks in the document:*/
+      document.addEventListener("click", function (e) {
+          closeAllLists(e.target);
+      });
+    } 

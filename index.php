@@ -1,6 +1,5 @@
 <?php
 //require_once('routing/route.php');
-
 session_start();
 $url = 'https://accounts.spotify.com/api/token';
 $method = 'POST';
@@ -82,7 +81,6 @@ $route::parse('/change', function($ret, $matches){
     <link rel="shortcut icon" href="icon/images/compact_disc.ico" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script>
     
-
     <title>Newtist - Explore new Spotify Releases!</title>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl" ng-cloak >
@@ -142,9 +140,6 @@ $route::parse('/change', function($ret, $matches){
                           </div>
                       </div>
 
-
-
-
                       <p class="nftext" ng-if="notificationCounter == 0">
                           Nothing here.
                       </p>
@@ -179,8 +174,14 @@ $route::parse('/change', function($ret, $matches){
             <form class="col s12">
                 <div class="row input-field">
                     <p class="flow-text" id="txtSearchArtist">Search for an artist</p>
-                    <input type="text" name="artist-search"
-                           placeholder="Search Artist e.g Gucci Mane">
+                    <div class="autocomplete">
+                        <input type="text" name="artist-search" id="artist-search"
+                           placeholder="Search Artist e.g Gucci Mane"
+                           ng-keypress="getHint();" ng-model="inp_search">
+
+                    </div>
+                   
+                
                     <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
                     <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
                     <div class="row">
@@ -294,6 +295,15 @@ $route::parse('/change', function($ret, $matches){
                     <div class="card-action">
                         <a href="{{ x.artists[0].external_urls.spotify }}" target="_blank">Visit Artist</a><br>
                         <a href="{{ x.external_urls.spotify }}" target="_blank">Visit {{ x.album_type | cut:true:7}}</a>
+
+                         <a ng-click="favor($event, x.name, x.artists[0].name);">
+                            <i class="material-icons favor" id="favor_{{ x.name }}">
+                                favorite_border
+                            </i>
+                        </a>
+
+                        
+                    
                     </div>
 
                     <div class="card-reveal" style="min-height: 50%;">
