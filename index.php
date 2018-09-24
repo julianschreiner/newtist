@@ -116,7 +116,7 @@ $route::parse('/change', function($ret, $matches){
             <h2 class='text-center' id="headlineNewtist">Newtist</h2>
 			<!-- NOTIFICATION --> 
             <?php if (isset($_SESSION['id']) && (isset($_GET['reg']) && $_GET['reg'] == 'success')) : ?>
-                <ul class="collapsible" data-collapsible="accordion" ng-show="notificationBarLoaded">
+            <ul class="collapsible" data-collapsible="accordion" ng-show="notificationBarLoaded">
               <li>
                 <div class="collapsible-header">
                   <i class="material-icons">notification_important</i>
@@ -149,6 +149,9 @@ $route::parse('/change', function($ret, $matches){
                 <a href="auth/logout.php">
                     <p class="text-right grey-text lighten-3" id="loginRegister">Logout</p>
                 </a>
+                <a class="btn-floating btn-large cyan pulse right-align">
+                    <i class="material-icons">edit</i>
+                </a>
 			<?php else : ?>
                 <a href="auth/login.php">
                     <p class="text-right grey-text lighten-3" id="loginRegister">Login</p>
@@ -178,10 +181,7 @@ $route::parse('/change', function($ret, $matches){
                         <input type="text" name="artist-search" id="artist-search"
                            placeholder="Search Artist e.g Gucci Mane"
                            ng-keypress="getHint();" ng-model="inp_search">
-
                     </div>
-                   
-                
                     <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
                     <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
                     <div class="row">
@@ -275,7 +275,7 @@ $route::parse('/change', function($ret, $matches){
 						 </div>
 						 -->
 
-                <div class="card sticky-action">
+                <div class="card sticky-action" id="artistCard">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="{{ x.images[0].url }}">
                     </div>
@@ -306,7 +306,7 @@ $route::parse('/change', function($ret, $matches){
                     
                     </div>
 
-                    <div class="card-reveal" style="min-height: 50%;">
+                    <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">{{ x.name }} by 
                             <strong>{{ x.artists[0].name}}</strong>
                             <i class="material-icons right">close</i>

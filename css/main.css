@@ -339,3 +339,11 @@ input[name="artist-search"] {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+.card-reveal {
+  min-height: 105% !important;
+}
+
+#artistCard {
+  height: 49%;
+}
