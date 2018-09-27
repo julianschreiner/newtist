@@ -384,7 +384,7 @@
 
         $("button[name = 'artist-submit']").click(function(e){
             $scope.new_rel_artist = [];
-
+            
             $scope.inp_search = $("input[name = 'artist-search']").val();
 
             if($scope.inp_search.includes('%20')){
@@ -393,14 +393,14 @@
             else{
                 $scope.filtered_search = $scope.inp_search;
             }
+            
 
             $scope.buildURL($scope.filtered_search);
 
             $scope.userSearched = true;
 
             //$scope.$apply();
-
-
+        
             /* SEARCH PROTOTYPE */
             $.ajax({
                 url: 'https://api.spotify.com/v1/search?q='+$scope.filtered_search+'&type=artist&market=' + $scope.userLocation,
@@ -589,21 +589,24 @@
 
         $scope.goToUser = function(artistName){
             if(artistName.length != 0){
-                $("input[name = 'artist-search']").val(artistName);
-                $scope.buildURL(artistName);
+                setTimeout(function(){
+                    $("input[name = 'artist-search']").val(artistName);
+                    
+                    $scope.buildURL(artistName);
 
-                if($scope.userLocation.length <= 0){
-                //GET USER LOCATION
-                $.get("https://ipinfo.io", function(response) {
-                    //console.log(response.city, response.country);
-                    $scope.userLocation = response.country;
-                    $("button[name = 'artist-submit']").click();
-                }, "jsonp");   
-                }
-                else{
-                     $("button[name = 'artist-submit']").click();
-                }
-                
+                    if($scope.userLocation.length <= 0){
+                        //GET USER LOCATION
+                        $.get("https://ipinfo.io", function(response) {
+                            //console.log(response.city, response.country);
+                            $scope.userLocation = response.country;
+                            $("button[name = 'artist-submit']").click();
+                        }, "jsonp");   
+                        }
+                        else{
+                             $("button[name = 'artist-submit']").click();
+                        }
+
+                },1000);
             }
         };
 
@@ -696,7 +699,6 @@
                         else{
                             $scope.isSubd = false;
                         }
-
                     },
                     function(response) {
                         // failed
@@ -708,26 +710,24 @@
 
         /* URL PARSING */
         $scope.buildURL = function(input) {
-            //console.log("called!!");
-            history.pushState(null, '', '?at=' + input);
+            history.pushState(null, '', '?at=' + encodeURI(input));
         };
 
         var rootURL = window.location.search;
-        //console.log(rootURL);
+    
         if(!rootURL.includes('reg')){
             // IDEA IS TO NOT DO ANYTHING IF REG IS IN LOCATION.SEARCH
             rootURL = rootURL.slice(4, rootURL.length);
-            rootURL = rootURL.replace('%20', ' ');
-
+           
+            rootURL = decodeURI(rootURL); 
+            
             if(typeof(rootURL) != null || typeof(rootURL) != undefined){
-                //console.log(rootURL);
                 $scope.goToUser(rootURL);
             }
         }
         
 
         $scope.resetURL = function(){
-            //console.log("reset url");
             history.replaceState(null, '', 'index.php');
         };
 
