@@ -206,7 +206,7 @@
             if(selectedFilter != null){
                 selectedFilter = selectedFilter.replace('-', ' ');
 
-                //console.log("Selected Filter: ", selectedFilter);
+                console.log("Selected Filter: ", selectedFilter);
 
                 //push name where name == filter to $scope.filterArtistName
                 //maybe change .includes method and explode key.genre in array and then look into that array
@@ -218,6 +218,7 @@
                 }); // FOREACH
 
                 if($scope.filterArtistName.length != 0){
+                    console.log($scope.filterArtistName);
                     $scope.getNewReleases($scope.filterArtistName, true);
                 }
                 else{
@@ -256,8 +257,9 @@
             $scope.new_releases = [];
             var foundsmth = false;
 
-            // TODO: WHEN FILTERING FOR USERS MAKE IT SHOW ALL ENTRIES AND NOT ONLY 20 (SERACHREQLIMIT)
 
+            // TODO: WHEN FILTERING FOR USERS MAKE IT SHOW ALL ENTRIES AND NOT ONLY 20 (SERACHREQLIMIT)
+            console.log(artistName);
             $.ajax({
                 url: 'https://api.spotify.com/v1/browse/new-releases?limit=' + $scope.searchReqLimit + '&offset=' + $scope.searchReqOffset,
                 type: 'GET',
@@ -265,28 +267,32 @@
                     'Authorization' : 'Bearer ' + access_token
                 },
                 success: function(data){
-                    //  console.log(data);
+                      
 
                     if(artistName == null || artistName.length == 0){
                         $scope.new_releases = data['albums']['items'];
                         $scope.getCarouselItems($scope.new_releases);
                     }
                     else{
+                        console.log(data);
+                        //FIXME: dont look only in 50 entries - LOOK IN all new releases
+
                         //ONLY SAVE ALBUMS WHERE GIVEN ARTIST NAME IS IN THERE
                         angular.forEach(data['albums']['items'], function(key, value){
                             angular.forEach(key.artists, function(key2, value){
                                 if(artistName.indexOf(key2.name) > -1){
+                                    console.log(key);
                                     $scope.new_releases.push(key);
                                     foundsmth = true;
                                 }
                             });  //FOREACH
                         });  //FOREACH
 
-                        if(foundsmth){
-                            // TODO: SHOW EVERYTHING
-                            // $scope.searchReqOffset += 50;
-                            //console.log($scope.new_releases);
-                            //$scope.getNewReleases(artistName);
+                        if(!foundsmth){
+                            // TODO: LOOK AGAIN WITH OTHER OFFSET
+                            $scope.searchReqOffset += 50;
+                            $scope.getNewReleases(artistName, true);
+                            
                         }  //IF
                     } // IF / ELSE
 
@@ -718,7 +724,6 @@
         if(!rootURL.includes('reg')){
             // IDEA IS TO NOT DO ANYTHING IF REG IS IN LOCATION.SEARCH
             rootURL = rootURL.slice(4, rootURL.length);
-           
             rootURL = decodeURI(rootURL); 
             
             if(typeof(rootURL) != null || typeof(rootURL) != undefined){

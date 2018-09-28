@@ -166,7 +166,6 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   background-color: #455a64;
   border-bottom: 1px solid #455a64 !important;
 }
-
 .collapsible {
   border-top: 1px solid #455a64 !important;
   border-right: 1px solid #455a64 !important;
@@ -344,6 +343,3 @@ input[name="artist-search"] {
   min-height: 105% !important;
 }
 
-#artistCard {
-  height: 49%;
-}

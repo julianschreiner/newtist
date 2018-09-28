@@ -116,7 +116,7 @@ $route::parse('/change', function($ret, $matches){
             <h2 class='text-center' id="headlineNewtist">Newtist</h2>
 			<!-- NOTIFICATION --> 
             <?php if (isset($_SESSION['id']) && (isset($_GET['reg']) && $_GET['reg'] == 'success')) : ?>
-            <ul class="collapsible" data-collapsible="accordion" ng-show="notificationBarLoaded">
+            <ul class="collapsible" data-collapsible="accordion" ng-if="notificationBarLoaded">
               <li>
                 <div class="collapsible-header">
                   <i class="material-icons">notification_important</i>
@@ -190,11 +190,11 @@ $route::parse('/change', function($ret, $matches){
                         <select id="filter" class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
                             <option value="" disabled selected>Choose a filter</option>
                             <option
-                                    ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
+                                    ng-repeat="y in filter" value="{{$index}}">{{ y }}</option>
                         </select>
                         <label>Filter Genres</label>
                         <!-- <label>{{filter.selected}}</label> -->
-                        <button type="button" name="filter-applied" class="waves-effect waves-light btn" width="5" ng-show="filter.selected != null" ng-click="getNewReleases();resFilter();">Reset Filter</button>
+                        <button type="button" name="filter-applied" class="waves-effect waves-light btn" width="5" ng-if="filter.selected != null" ng-click="getNewReleases();resFilter();">Reset Filter</button>
                     </div>
                     <div class="progress" ng-show="filterLoaded == false" id="loadingBar">
                         <div class="indeterminate"></div>
@@ -220,28 +220,28 @@ $route::parse('/change', function($ret, $matches){
                 <div class="carousel-item red lighten-2 white-text" href="#one!">
                     <img src="{{ carouselItems[0].images[0].url }}" class="carouselImage">
                     <div class="container" id="carouselContainer">
-                        <h2>{{ carouselItems[0].name }} by <a href="" ng-click="goToUser(carouselItems[0].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[0].artists[0].name}}</strong></a></h2>
+                        <h2>{{ ::carouselItems[0].name }} by <a href="" ng-click="goToUser(carouselItems[0].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[0].artists[0].name}}</strong></a></h2>
                         <a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[0].external_urls.spotify }}" target="_blank">LISTEN</a>
                     </div>
                 </div>
                 <div class="carousel-item amber darken-2 white-text" href="#two!">
                     <img src="{{ carouselItems[1].images[0].url }}" class="carouselImage">
                     <div class="container" id="carouselContainer">
-                        <h2>{{ carouselItems[1].name }} by <a href="" ng-click="goToUser(carouselItems[1].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[1].artists[0].name}}</strong></a></h2>
+                        <h2>{{ ::carouselItems[1].name }} by <a href="" ng-click="goToUser(carouselItems[1].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[1].artists[0].name}}</strong></a></h2>
                         <a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[1].external_urls.spotify }}" target="_blank">LISTEN</a>
                     </div>
                 </div>
                 <div class="carousel-item green white-text" href="#three!">
                     <img src="{{ carouselItems[2].images[0].url }}" class="carouselImage">
                     <div class="container" id="carouselContainer">
-                        <h2>{{ carouselItems[2].name }} by <a href="" ng-click="goToUser(carouselItems[2].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[2].artists[0].name}}</strong></a></h2>
+                        <h2>{{ ::carouselItems[2].name }} by <a href="" ng-click="goToUser(carouselItems[2].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[2].artists[0].name}}</strong></a></h2>
                         <a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[2].external_urls.spotify }}" target="_blank">LISTEN</a>
                     </div>
                 </div>
                 <div class="carousel-item blue white-text" href="#four!">
                     <img src="{{ carouselItems[3].images[0].url }}" class="carouselImage">
                     <div class="container" id="carouselContainer">
-                        <h2>{{ carouselItems[3].name }} by <a href="" ng-click="goToUser(carouselItems[3].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[3].artists[0].name}}</strong></a></h2>
+                        <h2>{{ ::carouselItems[3].name }} by <a href="" ng-click="goToUser(carouselItems[3].artists[0].name);" class="carouselLink"><strong>{{ carouselItems[3].artists[0].name}}</strong></a></h2>
                         <a class="btn waves-effect white grey-text darken-text-2" href="{{ carouselItems[3].external_urls.spotify }}" target="_blank">LISTEN</a>
                     </div>
                 </div>
@@ -250,11 +250,11 @@ $route::parse('/change', function($ret, $matches){
     </div> <!-- row -->
 
     <div class="row" id="mainRow">
-        <h4 class='text-center grey-text lighten-3' ng-show="!userSearched" id="txtNewReleases">Newest Releases</h4>
-        <h4 class='text-center grey-text lighten-3' ng-show="userSearched">Artist</h4>
+        <h4 class='text-center grey-text lighten-3' ng-if="!userSearched" id="txtNewReleases">Newest Releases</h4>
+        <h4 class='text-center grey-text lighten-3' ng-if="userSearched">Artist</h4>
 
-        <div class="row" ng-show="!isLoading">
-            <div class="col s12 m4 l3 myCards" ng-show="!userSearched" ng-repeat="x in new_releases track by $index">
+        <div class="row" ng-if="!isLoading">
+            <div class="col s12 m4 l3 myCards" ng-if="!userSearched" ng-repeat="x in new_releases track by $index">
                 <!--
 					   <div class="card blue-grey darken-1" style="min-height: 39em; max-height: 39em;">
 						<div class="card-image">
@@ -281,9 +281,9 @@ $route::parse('/change', function($ret, $matches){
                     </div>
                     <div class="card-content" class="newRelCardBody">
             <span class="card-title  grey-text text-darken-4">
-                {{ x.name | cut:true:textLimit:' ...' }} by
+                {{ ::x.name | cut:true:textLimit:' ...' }} by
                 <a href="" ng-click="goToUser(x.artists[0].name);">
-                    <strong>{{ x.artists[0].name }}</strong>
+                    <strong>{{ ::x.artists[0].name }}</strong>
                 </a>
             </span>
                          <!-- <p>Artists:</p>
@@ -326,7 +326,7 @@ $route::parse('/change', function($ret, $matches){
 
 
             <!-- SUB MESSAGE -->
-            <div class="row" id="alert_box" ng-show="userSearched">
+            <div class="row" id="alert_box" ng-if="userSearched">
                 <div class="col s12 m12" id="colBox">
                     <div class="card green darken-1" id="alertCard">
                         <div class="row">
@@ -346,7 +346,7 @@ $route::parse('/change', function($ret, $matches){
 
 
             <!-- ARTIST CARD -->
-            <div class="col s12 m4 l8 cards-container" ng-show="userSearched">
+            <div class="col s12 m4 l8 cards-container" ng-if="userSearched">
                 <div class="card sticky-action" id="artistCard_INC">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="{{ artist_image  }}">
@@ -377,13 +377,13 @@ $route::parse('/change', function($ret, $matches){
             <!-- CARD END -->
         </div>
         <div class="row">
-            <h4 class='text-center grey-text lighten-3' ng-show="userSearched && new_rel_artist.length > 0">
+            <h4 class='text-center grey-text lighten-3' ng-if="userSearched && new_rel_artist.length > 0">
                 Recent Releases
             </h4>
         </div>
 
         <!-- RECENT RELEASES CARD -->
-        <div class="col s12 m4 13 cards-container" ng-show="userSearched"
+        <div class="col s12 m4 13 cards-container" ng-if="userSearched"
              ng-repeat="x in new_rel_artist">
             <!-- <div class="card blue-grey darken-1">
 			   <div class="card-content white-text">
@@ -439,13 +439,13 @@ $route::parse('/change', function($ret, $matches){
         <!-- CARD END -->
     </div>
     <div class="row">
-        <h4 class='text-center grey-text lighten-3' ng-show="userSearched">
+        <h4 class='text-center grey-text lighten-3' ng-if="userSearched">
             Top Tracks
         </h4>
     </div>
     <div class="row">
         <!-- RECENT RELEASES CARD -->
-        <div class="col s12 m4 13 cards-container" ng-show="userSearched"
+        <div class="col s12 m4 13 cards-container" ng-if="userSearched"
              ng-repeat="track in artist_top_tracks">
             <!--
 				  <div class="card blue-grey darken-1" style="min-height: 42em; max-height:42em;">
@@ -506,7 +506,7 @@ $route::parse('/change', function($ret, $matches){
 
         <!-- FOOTER -->
         <footer class="page-footer" id="footer">
-            <button type="button" name="load-more" class="waves-effect waves-light btn" ng-show="!userSearched && !filterUsed">
+            <button type="button" name="load-more" class="waves-effect waves-light btn" ng-if="!userSearched && !filterUsed">
                 Load more
             </button>
 
