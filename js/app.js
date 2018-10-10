@@ -210,15 +210,15 @@
 
                 //push name where name == filter to $scope.filterArtistName
                 //maybe change .includes method and explode key.genre in array and then look into that array
-
+            
                 angular.forEach($scope.categories, function(key, value){
                     if(key.genre.includes(selectedFilter)){
                         $scope.filterArtistName.push(key.name);
                     }
                 }); // FOREACH
+               
 
                 if($scope.filterArtistName.length != 0){
-                    console.log($scope.filterArtistName);
                     $scope.getNewReleases($scope.filterArtistName, true);
                 }
                 else{

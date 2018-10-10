@@ -190,7 +190,7 @@ $route::parse('/change', function($ret, $matches){
                         <select id="filter" class="ng-cloak" ng-if="init" ng-model="filter.selected" ng-change="filterApplied(filter.selected);">
                             <option value="" disabled selected>Choose a filter</option>
                             <option
-                                    ng-repeat="y in filter" value="{{$index}}">{{ y }}</option>
+                                    ng-repeat="y in filter" value="{{y}}">{{ y }}</option>
                         </select>
                         <label>Filter Genres</label>
                         <!-- <label>{{filter.selected}}</label> -->
