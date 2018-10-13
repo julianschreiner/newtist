@@ -171,7 +171,8 @@
 
         setTimeout(function(){
             //console.log($scope.fetchedData);
-        }, 3000);
+            $('.collapsible').collapsible();
+        }, 2000);
 
 
         $scope.getFilter = function(){

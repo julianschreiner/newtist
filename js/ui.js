@@ -102,7 +102,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
         $('.collapsible').css('border-right', '1 px solid #455a64 !important');
         $('.collapsible').css('border-left', '1 px solid #455a64 !important');
         $('.collapsible').css('color', 'white');
-    }, 1500);
+    }, 2000);
 
     
       window.localStorage.setItem('colorMode', 'dark');
@@ -136,7 +136,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
       window.localStorage.setItem('colorMode', 'white');
     }
   };
-
+  /*
   // FLOATING button
   document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.fixed-action-btn');
@@ -144,9 +144,8 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
       hoverEnabled: false
     });
   });
-
+  */
   // Or with jQuery
-
   $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
     $('.collapsible').collapsible();
@@ -179,9 +178,5 @@ $("button[name = 'artist-submit']").click(function(e){
 }); //BUTTON
 
 
-// DROPDOWN
-document.addEventListener('DOMContentLoaded', function() {
- 
-});
 
 

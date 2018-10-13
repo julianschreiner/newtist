@@ -149,9 +149,7 @@ $route::parse('/change', function($ret, $matches){
                 <a href="auth/logout.php">
                     <p class="text-right grey-text lighten-3" id="loginRegister">Logout</p>
                 </a>
-                <a class="btn-floating btn-large cyan pulse right-align">
-                    <i class="material-icons">edit</i>
-                </a>
+                
 			<?php else : ?>
                 <a href="auth/login.php">
                     <p class="text-right grey-text lighten-3" id="loginRegister">Login</p>
