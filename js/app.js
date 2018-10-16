@@ -1,7 +1,6 @@
     var app = angular.module('myApp', []);
-
-
-    app.controller('myCtrl', function($scope, $timeout, $http, $httpParamSerializer, $window) {
+    
+    app.controller('myCtrl', function($scope, $timeout, $http, $httpParamSerializer, $window, $q) {
         /* API VARIABLES */
         /* ARTIST     */
         $scope.artist_data = {};
@@ -220,12 +219,24 @@
                
 
                 if($scope.filterArtistName.length != 0){
-                    $scope.getNewReleases($scope.filterArtistName, true);
+                    var promise = $scope.getNewReleases($scope.filterArtistName, true);
                 }
                 else{
                     /* TODO DISPLAY MESSAGE THAT NOTHING COULD BE FOUND */ 
-                    $scope.getNewReleases();
+                    var promise = $scope.getNewReleases();
                 }
+
+                promise.then(function (res) {
+                    //SUCCESS
+                    console.log(res);
+                    $('html, body').animate({ scrollTop: ($('#mainRow').offset().top)}, 'slow');
+                }, function (res) {
+                    //ERROR
+                    console.error(res);
+                }, function (res) {
+                   //NOTIFY
+                   console.log(res);
+                });
 
             } //FILTER != NULL
         }; // FUNC
@@ -257,6 +268,7 @@
             $scope.isLoading = true;
             $scope.new_releases = [];
             var foundsmth = false;
+            var deferred = $q.defer();
 
 
             // TODO: WHEN FILTERING FOR USERS MAKE IT SHOW ALL ENTRIES AND NOT ONLY 20 (SERACHREQLIMIT)
@@ -275,14 +287,12 @@
                         $scope.getCarouselItems($scope.new_releases);
                     }
                     else{
-                        console.log(data);
                         //FIXME: dont look only in 50 entries - LOOK IN all new releases
 
                         //ONLY SAVE ALBUMS WHERE GIVEN ARTIST NAME IS IN THERE
                         angular.forEach(data['albums']['items'], function(key, value){
                             angular.forEach(key.artists, function(key2, value){
                                 if(artistName.indexOf(key2.name) > -1){
-                                    console.log(key);
                                     $scope.new_releases.push(key);
                                     foundsmth = true;
                                 }
@@ -303,13 +313,18 @@
                         $scope.getNotification();
                         $scope.getTracklist();
                         $scope.$apply();
+                        deferred.resolve('success!');
                     }, 500);
+                    
                 },
                 error: function(err){
                     alert("cannot get newest releases");
+                    deferred.reject('failed.');
                     //console.log(err);
                 }
             }); //AJAX
+
+            return deferred.promise;
         };  //FUNC
 
         $scope.getNewReleases();
@@ -576,6 +591,11 @@
 
         $scope.resFilter = function(){
             $('#filter :nth-child(0 )').prop('selected', true); // To select via index
+
+            window.setTimeout(function(){
+                $('html, body').animate({ scrollTop: ($('#mainRow').offset().top)}, 'slow');     
+            }, 500);
+           
         };
 
         /* CAROUSEL */

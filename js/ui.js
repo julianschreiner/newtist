@@ -102,7 +102,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
         $('.collapsible').css('border-right', '1 px solid #455a64 !important');
         $('.collapsible').css('border-left', '1 px solid #455a64 !important');
         $('.collapsible').css('color', 'white');
-    }, 2000);
+    }, 1700);
 
     
       window.localStorage.setItem('colorMode', 'dark');
@@ -131,7 +131,7 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
         $('.collapsible').css('border-right', '1 px solid #ddd !important');
         $('.collapsible').css('border-left', '1 px solid #ddd !important');
         $('.collapsible').css('color', 'black');
-    }, 1500);
+    }, 1700);
       
       window.localStorage.setItem('colorMode', 'white');
     }
