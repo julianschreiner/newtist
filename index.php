@@ -281,7 +281,7 @@ $route::parse('/change', function($ret, $matches){
             <span class="card-title  grey-text text-darken-4">
                 {{ ::x.name | cut:true:textLimit:' ...' }} by
                 <a href="" ng-click="goToUser(x.artists[0].name);">
-                    <strong>{{ ::x.artists[0].name }}</strong>
+                    <strong>{{ ::x.artists[0].name | cut:true:artistTextLimit:' ...' }}</strong>
                 </a>
             </span>
                          <!-- <p>Artists:</p>
@@ -503,8 +503,9 @@ $route::parse('/change', function($ret, $matches){
         <!-- CARD END -->
 
         <!-- FOOTER -->
+   
         <footer class="page-footer" id="footer">
-            <button type="button" name="load-more" class="waves-effect waves-light btn" ng-if="!userSearched && !filterUsed">
+            <button type="button" name="load-more" ng-click="loadMore();" class="waves-effect waves-light btn" ng-if="!userSearched && !filterUsed">
                 Load more
             </button>
 
