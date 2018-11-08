@@ -1,6 +1,7 @@
 <?php
 require_once('connection/db.php');
 
+
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 //header('Content-Type: application/json');
@@ -58,6 +59,10 @@ class Frouter {
 			case 'notificationHandle':
 				$userID = (isset($object['userID']) ? $object['userID'] : '');
 				$this->notificationHandle($userID);
+				break;
+			case 'serviceWorker':
+				$userID = (isset($object['userID']) ? $object['userID'] : '');
+				$this->callServiceWorker();
 				break;
 			default:
 				echo json_encode("API ERR");
@@ -213,6 +218,13 @@ class Frouter {
 		echo json_encode($retArray);
 
 		return $success;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	private function callServiceWorker(){
+		include('../email/notifications.php');
 	}
 
 

@@ -39,7 +39,7 @@ class SendMail
 	 */
 	public function send($receiver, $artistData, $username){
 		/* BUILD TEMPLATE */
-		$template = file_get_contents('templates/newsletter.html');
+		$template = file_get_contents('../email/templates/newsletter.html');
 
 		$template = str_replace('##USERNAME##', $username, $template);
 		$template = str_replace('##ALBUM##', $artistData['name'], $template);
@@ -89,10 +89,7 @@ TPL;
 			$this->_mail->Subject = 'Artist Update ' . date('d.m.Y');
 			$this->_mail->Body    =  $template;
 			$this->_mail->AltBody = 'TEXT VERSION HERE OF HTML TEMPLATE';
-
-			/*var_dump($template);
-			exit;
-			*/
+			
 			$this->_mail->send();
 			return true;
 		} catch (Exception $e) {

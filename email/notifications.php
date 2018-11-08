@@ -104,9 +104,7 @@ function getNewReleases($header, $artistName){
 			$artistData['allArtists'] = $value['artists'];
 			$artistData['type'] = $value['album_type'];
 			$artistData['uri'] = $value['external_urls']['spotify'];
-
 		}
-
 	}
 
 	return $artistData;
@@ -141,23 +139,23 @@ if(isset($link) && isset($mailer)){
 
 			// TODO 
 			if($artist == 'Quavo'){
-				var_dump($header);
-				var_dump($adata);
-				exit;
+				//var_dump($header);
+				//var_dump($adata);
+				//exit;
 			}
 
 			if(empty($adata)){
 				continue;
 			}else{
-				/*$success = $mailer->send($email, $adata, $user);
+				$success = $mailer->send($email, $adata, $user);
 
 				if($success){
-					status_rep('Mail successfully sent to ' . $user . ' with email ' . $email);
+					status_rep('Mail successfully sent to ' . $user . ' with email ' . $email . '<br>');
 				}
 				else{
-					status_rep('Mail failed to send to ' . $user . ' with email ' . $email);
+					status_rep('Mail failed to send to ' . $user . ' with email ' . $email . '<br>');
 				}
-			*/
+			
 			}
 		}
 

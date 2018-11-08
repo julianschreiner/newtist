@@ -83,6 +83,33 @@ app.controller("myCtrl", function(
     } else {
       $scope.artistTextLimit = 30;
     }
+
+    // CHECK FOR WEEKDAY AND CALL API FOR SERVICE WORKERS
+    var now = new Date().getDay();
+  
+    if(now === 5){    //later change it to 5 
+      var json = '{"frouter": {"apikey": "1234", "method": "serviceWorker"	} }';
+      obj = JSON.parse(json);
+     
+      $http({
+        url: "./webservice/frouter.php?f=route",
+        headers: { "Content-Type": "application/json;charset=utf-8" },
+        method: "POST",
+        data: { obj }
+      }).then(
+        function(response) {
+          // success
+          let ret = response;
+
+        },
+        function(response) {
+          // optional
+          // failed
+          
+        }
+      );
+    }
+
   });
 
   angular.element($window).on("resize", function() {
@@ -190,7 +217,7 @@ app.controller("myCtrl", function(
         }
       },
       error: function(err) {
-        alert("cannot get newest releases in inc func");
+      //  alert("cannot get newest releases in inc func");
         //console.log(err);
       }
     }); //AJAX
@@ -355,7 +382,7 @@ app.controller("myCtrl", function(
         }, 500);
       },
       error: function(err) {
-        alert("cannot get newest releases");
+        //alert("cannot get newest releases");
         deferred.reject("failed.");
         //console.log(err);
       }
@@ -508,7 +535,7 @@ app.controller("myCtrl", function(
       },
       error: function(err) {
         console.log(err);
-        alert("cannot get artist id");
+        //alert("cannot get artist id");
       }
     }); //AJAX
 
@@ -597,7 +624,7 @@ app.controller("myCtrl", function(
           $scope.$apply();
         },
         error: function(err) {
-          alert("cannot get artist data");
+       //   alert("cannot get artist data");
           //console.log(err);
         }
       }); //AJAX
@@ -635,7 +662,7 @@ app.controller("myCtrl", function(
         $scope.$apply();
       },
       error: function(err) {
-        alert("cannot get newest releases");
+     //   alert("cannot get newest releases");
         //console.log(err);
       }
     }); //AJAX
