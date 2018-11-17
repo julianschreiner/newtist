@@ -86,7 +86,7 @@ app.controller("myCtrl", function(
 
     // CHECK FOR WEEKDAY AND CALL API FOR SERVICE WORKERS
     var now = new Date().getDay();
-  
+
     if(now === 5){    //later change it to 5 
       var json = '{"frouter": {"apikey": "1234", "method": "serviceWorker"	} }';
       obj = JSON.parse(json);
@@ -100,11 +100,12 @@ app.controller("myCtrl", function(
         function(response) {
           // success
           let ret = response;
-
+          console.log(ret);
         },
         function(response) {
           // optional
           // failed
+          console.log(response);
           
         }
       );
@@ -275,6 +276,12 @@ app.controller("myCtrl", function(
       angular.forEach($scope.categories, function(key, value) {
         if (key.genre.includes(selectedFilter)) {
           $scope.filterArtistName.push(key.name);
+        }
+        else if(selectedFilter == "hip hop"){
+          if(key.genre.includes("rap")){
+            $scope.filterArtistName.push(key.name);
+          }
+          
         }
       }); // FOREACH
 

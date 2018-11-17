@@ -224,8 +224,27 @@ class Frouter {
 	 * @return boolean
 	 */
 	private function callServiceWorker(){
-		include('../email/notifications.php');
-	}
+		// JUST CALL IT ONCE A WEEK
+		$date = date("m.d.y");
+		
 
+		$handle = $this->link->prepare('SELECT done FROM mail_log WHERE job_date =:myDate');
+		$handle->bindValue(':myDate', $date);
+		$handle->execute();
+
+		$result = $handle->fetchAll(\PDO::FETCH_COLUMN);
+
+		if(empty($result) || $result == 0){
+			$handle = $this->link->prepare('INSERT INTO mail_log (job_date, done)  VALUES (:myDate, :done)');
+			$handle->bindValue(':myDate', $date);
+			$handle->bindValue(':done', 0);
+			$handle->execute();
+
+			include('../email/notifications.php');
+		}
+		else{
+			echo "script ran already";
+		}
+	}
 
 }

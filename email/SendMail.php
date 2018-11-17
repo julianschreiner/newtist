@@ -69,8 +69,8 @@ TPL;
 			$this->_mail->isSMTP();                                      // Set mailer to use SMTP
 			$this->_mail->Host = 'mail.lima-city.de';                    // Specify main and backup SMTP servers
 			$this->_mail->SMTPAuth = true;                               // Enable SMTP authentication
-			$this->_mail->Username = 'business@julianschreiner.de';                 // SMTP username
-			$this->_mail->Password = 'phpfye1337';                           // SMTP password
+			$this->_mail->Username = $this->_mailAdress;                 // SMTP username
+			$this->_mail->Password = $this->_password;                           // SMTP password
 			$this->_mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 			$this->_mail->Port = 587;                                    // TCP port to connect to
 			$this->_mail->CharSet = "UTF-8";

@@ -117,6 +117,7 @@ if(isset($link) && isset($mailer)){
 
 	$result = $handle->fetchAll(\PDO::FETCH_ASSOC);
 	//debug($result);
+	$counter = 0;
 
 	foreach($result as $r){
 		$success = false;
@@ -151,6 +152,7 @@ if(isset($link) && isset($mailer)){
 
 				if($success){
 					status_rep('Mail successfully sent to ' . $user . ' with email ' . $email . '<br>');
+					$counter++;
 				}
 				else{
 					status_rep('Mail failed to send to ' . $user . ' with email ' . $email . '<br>');
@@ -158,9 +160,15 @@ if(isset($link) && isset($mailer)){
 			
 			}
 		}
+	}	// FOREACH
+
+	$date = date("m.d.y");
+
+	$handle = $link->prepare('UPDATE mail_log SET done = 1, sent =:delivered WHERE job_date =:myDate');
+	$handle->bindValue(':myDate', $date);
+	$handle->bindValue(':delivered', $counter);
+	$handle->execute();
 
 
 
-
-	}
 }
