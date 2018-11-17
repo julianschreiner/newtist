@@ -86,7 +86,7 @@ app.controller("myCtrl", function(
 
     // CHECK FOR WEEKDAY AND CALL API FOR SERVICE WORKERS
     var now = new Date().getDay();
-
+    
     if(now === 5){    //later change it to 5 
       var json = '{"frouter": {"apikey": "1234", "method": "serviceWorker"	} }';
       obj = JSON.parse(json);
