@@ -6,8 +6,8 @@ class db{
   	protected $link;
 
 	public function __construct(){
-		$credFile = fopen("../creds.ini", "r") or die("Unable to open file!");
-		$creds = fread($credFile,filesize("../creds.ini"));
+		$credFile = fopen($_SERVER['DOCUMENT_ROOT'] . "/creds.ini", "r") or die("Unable to open file!");
+		$creds = fread($credFile,filesize($_SERVER['DOCUMENT_ROOT'] . "/creds.ini"));
 
 
 		$this->username = strtok($creds, ':');

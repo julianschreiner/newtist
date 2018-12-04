@@ -1,71 +1,28 @@
 <?php
-//require_once('routing/route.php');
 session_start();
-$url = 'https://accounts.spotify.com/api/token';
-$method = 'POST';
-$spot_api_redirect = 'https://julianschreiner.de';
 
-$credFile = fopen("creds.ini", "r") or die("Unable to open file!");
-$creds = fread($credFile,filesize("creds.ini"));
-
-$username = strtok($creds, ':');
-
-$password = strtok('');
-$password = preg_replace('/\v(?:[\v\h]+)/', '', $password);
-
-fclose($credFile);
-
-$link = new \PDO('mysql:host=rlated12.lima-db.de;dbname=db_363124_3;charset=utf8mb4',
-	(string)$username,
-	(string)$password,
-	array(
-		\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-		\PDO::ATTR_PERSISTENT => false)
-);
+require_once('./init/ConnWorker.php');
 
 
-$handle = $link->prepare("select * from spotify_cred where id = ?");
-$handle->bindValue(1, 1, PDO::PARAM_INT);
-$handle->execute();
-$result = $handle->fetchAll(\PDO::FETCH_OBJ);
-$client_id = $result[0]->cl_id;
-$client_secret = $result[0]->cl_sec;
+$connWorker = new ConnWorker();
+$connWorker->initializeApp();
 
-$credentials = "{$client_id}:{$client_secret}";
+$response = $connWorker->getResponse();
 
-$headers = array(
-	"Accept: */*",
-	"Content-Type: application/x-www-form-urlencoded",
-	"User-Agent: runscope/0.1",
-	"Authorization: Basic " . base64_encode($credentials));
 
-$data = 'grant_type=client_credentials';
-
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = json_decode(curl_exec($ch), true);
-
-curl_close($ch);
-
-//print_r($response['access_token']);
 /*
 $route = new Route();
 $route::parse('/change', function($ret, $matches){
     var_dump($ret);
     var_dump($matches);
 });
-*/
-
+ */
 
 ?>
 
 <script type="text/javascript">
     var access_token = "<?php echo $response['access_token']; ?>";
-    var session_id = "<?php echo (isset($_SESSION['id']) ? $_SESSION['id'] : '')  ?>";
+    var session_id = "<?php echo (isset($_SESSION['id']) ? $_SESSION['id'] : '') ?>";
 </script>
 
 <!DOCTYPE html>
@@ -81,7 +38,7 @@ $route::parse('/change', function($ret, $matches){
     <link rel="shortcut icon" href="icon/images/compact_disc.ico" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script>
     
-    <title>Newtist - Explore new Spotify Releases!</title>
+    <title>Newtist - Explore new Music on Spotify every friday for free!</title>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl" ng-cloak >
 
@@ -100,7 +57,7 @@ $route::parse('/change', function($ret, $matches){
 						<?php echo $_SESSION['id']; ?>
                     </div>
             </a>
-            <?php else: ?>
+            <?php else : ?>
                     <div class="chip">
                         <img src="icon/avatar.png" alt="Contact Person">
 						<?php echo $_SESSION['id']; ?>
@@ -109,11 +66,12 @@ $route::parse('/change', function($ret, $matches){
 
 
 
-			<?php elseif(isset($_GET['reg']) && !isset($_SESSION['id']) && $_GET['reg'] == 'logdout'): ?>
+			<?php elseif (isset($_GET['reg']) && !isset($_SESSION['id']) && $_GET['reg'] == 'logdout') : ?>
                 <h6 id="userLogged">Successfully logged out!</h6>
 			<?php endif; ?>
 
             <h2 class='text-center' id="headlineNewtist">Newtist</h2>
+            
 			<!-- NOTIFICATION --> 
             <?php if (isset($_SESSION['id']) && (isset($_GET['reg']) && $_GET['reg'] == 'success')) : ?>
             <ul class="collapsible" data-collapsible="accordion" ng-if="notificationBarLoaded">
@@ -146,15 +104,28 @@ $route::parse('/change', function($ret, $matches){
                   </div>
               </li>
             </ul>
-                <a href="auth/logout.php">
+            <div class="headerMenu">
+                <a href="#"><p class="left-align grey-text lighten-3">News</p></a>
+                <a href="#" class="nthItemMenu"><p class="left-align grey-text lighten-3">Collections</p></a>
+              
+                <a href="auth/logout.php" class="rightMenu">
                     <p class="text-right grey-text lighten-3" id="loginRegister">Logout</p>
                 </a>
-                
-			<?php else : ?>
-                <a href="auth/login.php">
+               
+            
+            <?php else : ?>
+            <div class="headerMenu">
+                <a href="#" ng-click="enableNews();"><p class="left-align grey-text lighten-3">News</p></a>
+                <a href="#" ng-click="enableCollections();" class="nthItemMenu"><p class="left-align grey-text lighten-3">Collections</p></a>
+
+                <a href="auth/login.php" class="rightMenu">
                     <p class="text-right grey-text lighten-3" id="loginRegister">Login</p>
                 </a>
 			<?php endif; ?>
+           
+            
+            
+            </div>
 
             <!-- <p class="text-right grey-text lighten-3" id="loginRegister">Register</p> -->
 
@@ -181,7 +152,7 @@ $route::parse('/change', function($ret, $matches){
                            ng-keypress="getHint();" ng-model="inp_search">
                     </div>
                     <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
-                    <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched" width="5">Back</button>
+                    <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched || showNews" width="5">Back</button>
                     <div class="row">
                     </div>
                     <div class="input-field col s12" ng-show="!userSearched && filterLoaded">
@@ -248,11 +219,11 @@ $route::parse('/change', function($ret, $matches){
     </div> <!-- row -->
 
     <div class="row" id="mainRow">
-        <h4 class='text-center grey-text lighten-3' ng-if="!userSearched" id="txtNewReleases">Newest Releases</h4>
+        <h4 class='text-center grey-text lighten-3' ng-if="!userSearched && !showNews" id="txtNewReleases">Newest Releases</h4>
         <h4 class='text-center grey-text lighten-3' ng-if="userSearched">Artist</h4>
 
         <div class="row" ng-if="!isLoading">
-            <div class="col s12 m4 l3 myCards" ng-if="!userSearched" ng-repeat="x in new_releases track by $index">
+            <div class="col s12 m4 l3 myCards" ng-if="!userSearched && !showNews" ng-repeat="x in new_releases track by $index">
                 <!--
 					   <div class="card blue-grey darken-1" style="min-height: 39em; max-height: 39em;">
 						<div class="card-image">
@@ -362,7 +333,7 @@ $route::parse('/change', function($ret, $matches){
                     </div>
 
                     <div class="card-action" ng-init="userID='<?php echo (isset($_SESSION['id']) ? $_SESSION['id'] : "") ?>'">
-						<?php if (isset($_SESSION['id'])): ?>
+						<?php if (isset($_SESSION['id'])) : ?>
                             <a href="" ng-click="subscribe(artist_name);" onclick="scrollToMessageSub();" target="_blank" ng-if="!isSubd">Subscribe</a>
                             <a href="" ng-click="unsubscribe(artist_name);" onclick="scrollToMessageSub();" target="_blank" ng-if="isSubd">Unsubscribe</a>
 						<?php endif; ?>
@@ -502,12 +473,43 @@ $route::parse('/change', function($ret, $matches){
         </div>
         <!-- CARD END -->
 
+        <div class="row" id="mainRow" ng-if="showNews">
+            <h4 class='text-center grey-text lighten-3'  id="txtNewReleases">News</h4>
+            <div class="row" ng-if="!isLoading">
+                
+            </div>
+        </div>
+
         <!-- FOOTER -->
    
         <footer class="page-footer" id="footer">
-            <button type="button" name="load-more" ng-click="loadMore();" class="waves-effect waves-light btn" ng-if="!userSearched && !filterUsed">
+            <button type="button" name="load-more" ng-click="loadMore();" class="waves-effect waves-light btn" ng-if="!userSearched && !filterUsed && !showNews">
                 Load more
             </button>
+            <br><br>
+
+           <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">New music every friday!</h5>
+                <p class="grey-text text-lighten-4">Make sure to sign up to get weekly emails about newest releases!</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                <li><a class="grey-text text-lighten-3" href="https://julianschreiner.de" target="_blank">Home</a></li>
+                  <li><a class="grey-text text-lighten-3" href="/auth/register.php">Sign Up</a></li>
+                  <li><a class="grey-text text-lighten-3" target="_blank" href="https://github.com/rlated1337/newtist">Github</a></li>
+                  <li><a class="grey-text text-lighten-3" href="/static/about.html">About</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2018 Julian Schreiner
+            </div>
+          </div>
 
         </footer>
 

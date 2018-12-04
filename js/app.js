@@ -44,6 +44,8 @@ app.controller("myCtrl", function(
   $scope.searchReqLimit = 50;
   $scope.searchReqOffset = 0;
   $scope.init = false;
+  $scope.showNews = false;
+  $scope.showCollections = false;
 
   /* FILTER */
   $scope.filter = [];
@@ -477,6 +479,7 @@ app.controller("myCtrl", function(
   $("button[name = 'artist-back']").click(function(e) {
     $scope.getNewReleases();
     $scope.userSearched = false;
+    $scope.showNews = false;
     $scope.resetURL();
   });
 
@@ -897,6 +900,13 @@ app.controller("myCtrl", function(
       window.localStorage.setItem("favor", JSON.stringify(arr));
     }
   };
+
+
+  $scope.enableNews = function(){
+    $scope.showNews = true;
+    // TODO
+  };
+
 }); //ANG APP
 
 app.filter("capitalize", function() {

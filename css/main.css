@@ -343,3 +343,16 @@ input[name="artist-search"] {
   min-height: 105% !important;
 }
 
+.headerMenu {
+  display: flex;
+}
+
+.nthItemMenu{
+  margin-left: 10%;
+}
+
+.rightMenu {
+  margin-left: auto;
+}
+
+
