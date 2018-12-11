@@ -2,7 +2,7 @@ TODO:
  ☐ UI (Whitemode Footer in News Site)
  ☐ UI NEWS SITE
  ☐ Allow User to only search, when Dropdown was being used
-
+ ☐ Run getNews.php every day 
  
  ☐ show more when filtering or show more when searching for artist (searchOffset)
 
