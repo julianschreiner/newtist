@@ -144,13 +144,21 @@ $route::parse('/change', function($ret, $matches){
 					By <a href="https://twitter.com/rlated1337" target="_blank">@Rlated</a>
 				  </h4> -->
             <form class="col s12">
-                <div class="row input-field">
+                <div class="row">
                     <p class="flow-text" id="txtSearchArtist">Search for an artist</p>
-                    <div class="autocomplete">
+                    <!-- OLD AUTOCOMPLETE --> 
+                   <!-- <div class="autocomplete">
                         <input type="text" name="artist-search" id="artist-search"
                            placeholder="Search Artist e.g Gucci Mane"
                            ng-keypress="getHint();" ng-model="inp_search">
+                    </div> --> 
+
+                     <div class="input-field col s12" id="searchBar">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="autocomplete-input"  name="artist-search" class="autocomplete" ng-keypress="getHint();" ng-model="inp_search">
+                        <label for="autocomplete-input">Autocomplete</label>
                     </div>
+
                     <button type="button" name="artist-submit" class="waves-effect waves-light btn" width="5">Search</button>
                     <button type="button" name="artist-back" class="waves-effect waves-light btn" ng-show="userSearched || showNews" width="5">Back</button>
                     <div class="row">

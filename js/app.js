@@ -73,6 +73,9 @@ app.controller("myCtrl", function(
   /* SUGGESTIONS */
   $scope.hintUsed = false;
 
+  /* SEARCH */
+  $scope.artistNames = [];
+
   /* ONLOAD FUNCTION TO FIX CSS ERROR BECAUSE TEXT LENGTHS */
   angular.element($window).on("load", function() {
     if (
@@ -113,7 +116,18 @@ app.controller("myCtrl", function(
       );
     }
 
+
+
+
+    /*AUTO COMPLETE FILLING*/
+    $('input.autocomplete').autocomplete({
+      data: {},
+    });
+
   });
+
+
+ 
 
   angular.element($window).on("resize", function() {
     //console.log(parseInt($window.innerWidth));
@@ -570,8 +584,8 @@ app.controller("myCtrl", function(
       $scope.hintUsed = false;
     }
 
-    console.log($scope.inp_search);
-    var artistNames = [];
+ //   console.log($scope.inp_search);
+    //var artistNames = [];
 
     if ($scope.inp_search.includes("%20")) {
       $scope.filtered_search = $scope.inp_search.replace(" ", "%20");
@@ -600,11 +614,21 @@ app.controller("myCtrl", function(
           //  console.log(data['artists']['items'].length);
 
           for (var i = 0; i < data["artists"]["items"].length; i++) {
-            artistNames.push(data["artists"]["items"][i]["name"]);
+            $scope.artistNames.push(data["artists"]["items"][i]["name"]);
           }
 
-          // console.log(artistNames);
-          autocomplete(document.getElementById("artist-search"), artistNames);
+        //   console.log($scope.artistNames);
+        //  autocomplete(document.getElementById("artist-search"), artistNames);
+        if($scope.artistNames.length > 0 ){
+          let result = $scope.reformatArtistNames($scope.artistNames);
+            
+          $('input.autocomplete').autocomplete({
+            data: result,
+          });
+
+          $scope.$apply();
+        }
+       
           $scope.$apply();
         },
         error: function(err) {
@@ -613,6 +637,35 @@ app.controller("myCtrl", function(
       }); //AJAX
     }
   }; // getHint
+
+  $scope.reformatArtistNames = function(artistNames){
+    /*
+    *    "Apple": null,
+    *    "Microsoft": null,
+    *   "Google": 'https://placehold.it/250x250'
+    */
+
+    /*
+     * 0: "T-Pain"
+     * 1: "Capital T"
+     * 2: "Pusha T"
+     * 3: "T-Zon"
+     * 4: "Capital T."
+     * 5: "T-Fest"
+     */
+    
+   var outputArray = {};
+
+   angular.forEach(artistNames, function(key, value) {
+    // statements
+    outputArray[key] = null;
+  });
+
+
+  return outputArray;
+
+
+  };
 
   $scope.getTopSongsData = function(artist_id, token) {
     if ($scope.userLocation.length > 0) {
