@@ -2,7 +2,7 @@ TODO:
  ☐ UI (Whitemode Footer in News Site)
  ☐ UI NEWS SITE
  ☐ Allow User to only search, when Dropdown was being used
- ☐ Run getNews.php every day 
+ ☐ Run getNews.php every day @critical 
  
  ☐ show more when filtering or show more when searching for artist (searchOffset)
 
@@ -12,7 +12,7 @@ TODO:
 
 
  ☐ FIX PROBLEM OF MAILING SYSTEM -> If one artist drops many things only last one gets shown @low
- ☐ ACTUALLY SEND EMAILS AUTOMATICALLY
+ ✔ ACTUALLY SEND EMAILS AUTOMATICALLY @done(18-12-11 16:07)
  ☐ maybe send one email with all updates in it instead of one for each update @low
 
  ☐ SHOW WIKIPEDIA DATA ABOUT ARTIST @low
