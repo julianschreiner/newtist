@@ -25,7 +25,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = json_decode(curl_exec($ch), true);
 curl_close($ch);
 
-$sha = $response[0]['commit']['sha'];
+$sha = $response[1]['commit']['sha'];
 $url = 'https://api.github.com/repos/rlated1337/newtist/commits?per_page=100&sha=##PLACEHOLDER##';
 $url = str_replace('##PLACEHOLDER##', $sha, $url);
 
