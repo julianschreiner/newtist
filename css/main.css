@@ -356,3 +356,11 @@ input[name="artist-search"] {
 }
 
 
+#newsBlock{
+  min-height: 38%;
+  margin: 0 !important;
+}
+
+#newsTitle{
+  font-size: 115% !important;
+}

@@ -904,6 +904,31 @@ app.controller("myCtrl", function(
 
   $scope.enableNews = function(){
     $scope.showNews = true;
+
+    var json = '{"frouter": {"apikey": "1234", "method": "getNews"	} }';
+      obj = JSON.parse(json);
+     
+      $http({
+        url: "./webservice/frouter.php?f=route",
+        headers: { "Content-Type": "application/json;charset=utf-8" },
+        method: "POST",
+        data: { obj }
+      }).then(
+        function(response) {
+          // success
+          $scope.news = response.data;
+          console.log($scope.news);
+        },
+        function(response) {
+          // optional
+          // failed
+          console.log(response);
+          
+        }
+      );
+
+
+
     // TODO
   };
 
@@ -916,6 +941,7 @@ app.filter("capitalize", function() {
       : "";
   };
 });
+
 
 app.filter("millSecondsToTimeString", function() {
   return function(millseconds) {

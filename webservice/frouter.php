@@ -64,6 +64,9 @@ class Frouter {
 				$userID = (isset($object['userID']) ? $object['userID'] : '');
 				$this->callServiceWorker();
 				break;
+			case 'getNews':
+				$this->getNews();
+				break;
 			default:
 				echo json_encode("API ERR");
 				break;
@@ -245,6 +248,21 @@ class Frouter {
 		else{
 			echo "script ran already";
 		}
+	}
+
+	private function getNews(){
+		$handle = $this->link->prepare('SELECT * FROM news WHERE DATE(`timestamp`) = CURDATE()');
+		$handle->execute();
+
+		$result = $handle->fetchAll(\PDO::FETCH_ASSOC);
+		//debug($result);
+
+		foreach($result as &$res){
+			$res['description'] = html_entity_decode($res['description'], ENT_QUOTES, 'UTF-8');
+
+		}
+
+		echo json_encode($result);
 	}
 
 }

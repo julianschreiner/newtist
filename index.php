@@ -476,7 +476,23 @@ $route::parse('/change', function($ret, $matches){
         <div class="row" id="mainRow" ng-if="showNews">
             <h4 class='text-center grey-text lighten-3'  id="txtNewReleases">News</h4>
             <div class="row" ng-if="!isLoading">
-                
+            
+    <div class="col s12 m4 l3" ng-repeat="item in news">
+    <div class="card">
+    <div class="card-content teal">
+            <span class="card-title" id="newsTitle"><strong>{{ item.title }}</strong></span>
+    </div>
+      <div class="card-panel teal" id="newsBlock">
+        <span class="white-text">
+            {{ item.description}}
+        </span>
+      </div>
+      <div class="card-action teal">
+            <a href="{{ item.link }}" target="_blank">Visit</a><br>
+    </div>
+    </div>
+  </div>
+  
             </div>
         </div>
 

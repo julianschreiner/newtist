@@ -118,6 +118,10 @@ $(".switch").find("input[type=checkbox]").on("change",function() {
       $('.select-dropdown').css("color", "black");
       $('#userLogged').css("color", 'black');
 
+      $('.page-footer').css("background-color", 'white');
+      
+
+      
         $( '.chip' ).each(function () {
             this.style.setProperty( 'background-color', '#2bbbad', 'important' );
         });
